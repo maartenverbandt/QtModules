@@ -4,8 +4,8 @@
 QGPIOWidget::QGPIOWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::QGPIOWidget),
-    double_list({0,0,0,0,0,0,0,0}),
-    integer_list({0,0,0,0}),
+    double_list(QGPIOWIDGET_FLOAT_COUNT,0.0),
+    integer_list(QGPIOWIDGET_INT_COUNT,0),
     _time(0),
     _paused(false)
 {
@@ -173,10 +173,8 @@ void QGPIOWidget::setLabels()
         checkboxlabels[QGPIOWIDGET_FLOAT_COUNT + k].setText("IntChannel" + QString::number(k));
     }
     for(k = 0;k < QGPIOWIDGET_IOCOUNT;k++){
-        QObject::connect(&checkboxlabels[k],SIGNAL(editingFinished()),this,SLOT(inputLabelsChanged()));
+        QObject::connect(&checkboxlabels[k],SIGNAL(editingFinished()),this,SLOT(inputLabelsSend()));
     }
-
-    inputLabelsChanged(); //send new labels to listeners
 }
 
 bool QGPIOWidget::running()
@@ -199,21 +197,6 @@ void QGPIOWidget::mavlinkMsgReceived(mavlink_message_t msg)
             _time = gpio.time*0.001;
             for(unsigned int k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++){ double_list[k] = gpio.gpio_float[k]; }
             for(unsigned int k=0;k<QGPIOWIDGET_INT_COUNT;k++){ integer_list[k] = gpio.gpio_int[k]; }
-        break; }
-
-        case MAVLINK_MSG_ID_PRINT:{
-            mavlink_print_t print;
-            mavlink_msg_print_decode(&msg, &print);
-
-            qDebug() << QString(print.text);
-
-            QString string = ui->receive_label->text() + QString(print.text).left(32).remove("\n"); //append new string without line feeds
-            QStringList substrings = string.split("\r",QString::SkipEmptyParts); //split the string at CRs
-            QString label = substrings.last();
-            if(string.at(string.length()-1) == '\r'){
-                label += "\r";
-            }
-            ui->receive_label->setText(label); //print string with CR so that
         break; }
     }
 }
@@ -262,7 +245,7 @@ void QGPIOWidget::checkCheckboxs(int i)
     }
 }
 
-void QGPIOWidget::inputLabelsChanged()
+void QGPIOWidget::inputLabelsSend()
 {
     QStringList labels;
     labels.reserve(QGPIOWIDGET_IOCOUNT);
@@ -271,7 +254,6 @@ void QGPIOWidget::inputLabelsChanged()
         labels.append(checkboxlabels[k].text());
     }
 
-    qDebug() << labels;
     emit inputLabelsSet(labels);
 }
 

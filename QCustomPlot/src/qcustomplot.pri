@@ -2,16 +2,18 @@
     included_modules += $$PWD
     message( "Including $$PWD" )
 
-    QT += printsupport
+    QT +=
 
     INCLUDEPATH += $$PWD
 
     SOURCES +=  $$PWD/qcustomplot.cpp \
-                $$PWD/qrunningplot.cpp
+                $$PWD/qrunningplot.cpp \
+                $$PWD/qaxisdialog.cpp
     HEADERS +=  $$PWD/qcustomplot.h \
-                $$PWD/qrunningplot.h
+                $$PWD/qrunningplot.h \
+                $$PWD/qaxisdialog.h
 
-    FORMS +=
+    FORMS += $$PWD/qaxisdialog.ui
 } else {
     message( "Skipping $$PWD: already included" )
 }

@@ -81,10 +81,10 @@ public slots:
     void keyPressEvent(QKeyEvent *event);
     void setGPIO(QVector<float> d, QVector<int> i);
     void setPrint(QString text);
+    void inputLabelsSend();
 
 private slots:
     void checkCheckboxs(int i = 0);
-    void inputLabelsChanged();
     void sendGPIO();
     void sendEvent(uint16_t event);
     void sendButtonEvent(int id);
