@@ -160,6 +160,7 @@ void QMavlinkConnection::checkHeartbeat(mavlink_message_t msg)
 void QMavlinkConnection::timeout()
 {
     static_cast<QConnectionCoordinator*>(parent())->timedout(this);
+    qDebug() << this->name() << "timed out.";
 }
 
 void QMavlinkConnection::mavlinkParseData()
