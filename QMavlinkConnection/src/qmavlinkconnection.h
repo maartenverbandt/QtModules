@@ -8,23 +8,26 @@
 #include <QFileDialog>
 #include <QMenu>
 #include <QAction>
+#include <qconnectioncoordinator.h>
 #include <mavlink.h>
 #include <qmavlinkconnectioninfodialog.h>
 #include <qmavlinkconnectionlogger.h>
 
 #include <QDebug>
 
-typedef enum serial_t{
-    SERIAL_USB,
-    SERIAL_UDP,
-    SERIAL_BT
-} serial_t;
+class QConnectionCoorindator;
 
 class QMavlinkConnection : public QObject
 {
     Q_OBJECT
 public:
-    explicit QMavlinkConnection(QObject *parent = 0, QIODevice *io = 0, QString name = 0, serial_t serial_type = SERIAL_USB);
+    typedef enum serial_t{
+        SERIAL_USB,
+        SERIAL_UDP,
+        SERIAL_BT
+    } serial_t;
+
+    explicit QMavlinkConnection(QObject *parent, QIODevice *io = 0, QString name = 0, serial_t serial_type = SERIAL_USB);
     ~QMavlinkConnection();
 
     QString name();
@@ -33,7 +36,12 @@ public:
     unsigned long packetCount();
     unsigned long packetDrops();
 
-    void mavlinkParseData(QByteArray* data);
+    unsigned int getRobotID();
+    unsigned int getRobotType();
+    QString getMenuName();
+
+    void setPending();
+    void setConnected();
 
     QAction *getDisconnectAction();
     QAction *getReconnectAction();
@@ -41,7 +49,8 @@ public:
     QAction *getQuicklogAction();
     QAction *getLogAction();
 
-    QMenu *constructMenu(const QString menu_title, QWidget *parent=0);
+    QMenu *constructMenu(const QString menu_title, QWidget *parent = 0);
+    QMenu *constructMenu(QWidget *parent = 0);
 
 private:
     QIODevice*          _io;
@@ -49,6 +58,9 @@ private:
     const QString       _name;
     mavlink_message_t   _msg;
     mavlink_status_t    _status;
+
+    unsigned int        _robot_id;
+    unsigned int        _robot_type;
 
     unsigned long       _packet_count;
     unsigned long       _packet_drops;
@@ -67,15 +79,17 @@ private:
     void logCallback(bool checked, bool autoname=false);
 
 signals:
-    void mavlinkConnected(bool c);
     void mavlinkMsgReceived(mavlink_message_t msg);
     void closeLog();
 
 public slots:
-    void mavlinkMsgSend(mavlink_message_t msg);
+    // message handling
+    void checkHeartbeat(mavlink_message_t msg);
+    void timeout();
     void mavlinkParseData();
-    void checkTimeout();
-    void checkConnection();
+    void mavlinkMsgSend(mavlink_message_t msg);
+
+    // action callbacks
     void connectionInfoDialog();
     void logActionCallback(bool checked);
     void quicklogActionCallback(bool checked);

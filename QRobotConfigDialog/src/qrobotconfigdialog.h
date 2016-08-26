@@ -16,11 +16,14 @@ class QRobotConfigDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit QRobotConfigDialog(QWidget *parent = 0);
+    explicit QRobotConfigDialog(QString name, QWidget *parent = 0);
     ~QRobotConfigDialog();
 
     virtual QByteArray getByteArray() = 0;
     virtual void fromByteArray(const QByteArray &data) = 0;
+
+    void setExpanded(bool expand = true);
+    QAction *getPopupAction();
 
 protected:
     Ui::QRobotConfigDialog *ui;
@@ -34,11 +37,19 @@ protected:
 
     QList<QTreeWidgetParameterInterface*> _parameters;
 
+private:
+    QAction *_popup;
+
+protected slots:
+    void closeEvent(QCloseEvent *);
+
 private slots:
     void on_save_pushButton_clicked();
     void on_open_pushButton_clicked();
     void on_load_pushButton_clicked();
     void on_send_pushButton_clicked();
+
+    void popup();
 
 signals:
     void readRobotSettings();

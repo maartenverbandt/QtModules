@@ -1,16 +1,34 @@
 #include "qrobotconfigdialog.h"
 #include "ui_qrobotconfigdialog.h"
 
-QRobotConfigDialog::QRobotConfigDialog(QWidget *parent) :
+QRobotConfigDialog::QRobotConfigDialog(QString name, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::QRobotConfigDialog)
+    ui(new Ui::QRobotConfigDialog),
+    _popup(new QAction(name, this))
 {
     ui->setupUi(this);
+    setWindowTitle(name + " settings");
+    QObject::connect(_popup,SIGNAL(triggered()),this,SLOT(popup()));
 }
 
 QRobotConfigDialog::~QRobotConfigDialog()
 {
     delete ui;
+}
+
+void QRobotConfigDialog::setExpanded(bool expand)
+{
+    int k;
+    for(k=0;k<_parameters.length();k++){
+        if(((void*)_parameters[k]->parent()) == ((void*)ui->treeWidget)){
+            _parameters[k]->setExpanded(expand);
+        }
+    }
+}
+
+QAction *QRobotConfigDialog::getPopupAction()
+{
+    return _popup;
 }
 
 void QRobotConfigDialog::addGroup(QString group)
@@ -69,6 +87,12 @@ void QRobotConfigDialog::on_send_pushButton_clicked()
     emit writeRobotSettings(getByteArray());
 }
 
+void QRobotConfigDialog::popup()
+{
+    setVisible(true);
+    raise();
+}
+
 void QRobotConfigDialog::updateWidgets()
 {
     for(int k = 0;k<_parameters.length();k++){
@@ -81,4 +105,9 @@ void QRobotConfigDialog::updateParameters()
     for(int k = 0;k<_parameters.length();k++){
         _parameters[k]->updateParameter();
     }
+}
+
+void QRobotConfigDialog::closeEvent(QCloseEvent *)
+{
+    setVisible(false);
 }

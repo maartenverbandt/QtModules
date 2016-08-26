@@ -28,8 +28,6 @@
     message( "Skipping $$PWD: already included" )
 }
 
-HEADERS += \
-    $$PWD/qudpdevicediscoveryagent.h
+HEADERS +=
 
-SOURCES += \
-    $$PWD/qudpdevicediscoveryagent.cpp
+SOURCES +=

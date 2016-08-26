@@ -13,9 +13,11 @@
 #include <QBluetoothServiceInfo>
 #include <QBluetoothSocket>
 
-#include <qudpdevicediscoveryagent.h>
+//#include <qudpdevicediscoveryagent.h>
 
-#include "qmavlinkconnection.h"
+#include <qmavlinkconnection.h>
+
+class QMavlinkConnection;
 
 class QConnectionCoordinator : public QObject
 {
@@ -24,9 +26,12 @@ public:
     explicit QConnectionCoordinator(QObject *parent = 0);
     ~QConnectionCoordinator();
 
-    bool addMavlinkConnection();
+    //bool addMavlinkConnection();
     //bool removeMavlinkConnection();
     QMavlinkConnection* findMavlinkConnection(QString name);
+
+    void connected(QMavlinkConnection* connection);
+    void timedout(QMavlinkConnection* connection);
 
     //QList<QSerialPortInfo>          scanUSB();
     //QList<QBluetoothServiceInfo>    scanBT();
@@ -46,14 +51,13 @@ private:
 
     QList<QMavlinkConnection*>      _connections;
 
-    void handleMavlinkConnection(QIODevice* connection, QString port_name, serial_t type);
+//    void handleMavlinkConnection(QIODevice* connection, QString port_name, serial_t type);
 
 signals:
     void mavlinkConnectionFound(QMavlinkConnection *mavlink_connection);
 
 public slots:
     void query();
-    void mavlinkConnected(bool c);
 
     void mavlinkConnectionUSB(QSerialPortInfo info);
     void mavlinkConnectionBT(QBluetoothDeviceInfo info);
