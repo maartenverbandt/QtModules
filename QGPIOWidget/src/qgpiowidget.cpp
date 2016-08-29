@@ -109,7 +109,7 @@ void QGPIOWidget::setInInts(QVector<int> ints)
 
 void QGPIOWidget::loadSettings()
 {
-    QSettings settings("VerbaSoft", "QMicroOSAnalyzer");
+    QSettings settings("RobSoft", "QRoboticsCenter");
 
     // set window group
     settings.beginGroup("QGPIOWidget");
@@ -139,7 +139,7 @@ void QGPIOWidget::loadSettings()
 
 void QGPIOWidget::saveSettings()
 {
-    QSettings settings("VerbaSoft", "QMicroOSAnalyzer");
+    QSettings settings("RobSoft", "QRoboticsCenter");
 
     // set window group
     settings.beginGroup("QGPIOWidget");
