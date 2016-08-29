@@ -36,6 +36,9 @@ public:
     void setInDoubles(QVector<float> doubles);
     void setInInts(QVector<int> ints);
 
+    void loadSettings();
+    void saveSettings();
+
 private:
     Ui::QGPIOWidget *ui;
 
@@ -68,8 +71,6 @@ private:
     double _time;
     bool _paused;
 
-    void loadSettings();
-    void saveSettings();
     void setLabels();
 
     bool running();
