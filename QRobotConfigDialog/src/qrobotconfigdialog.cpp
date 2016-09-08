@@ -31,7 +31,7 @@ QAction *QRobotConfigDialog::getPopupAction()
     return _popup;
 }
 
-void QRobotConfigDialog::addGroup(QString group)
+QTreeWidgetItem *QRobotConfigDialog::addGroup(QString group)
 {
     QStringList list;
     list.append(group);
@@ -39,6 +39,8 @@ void QRobotConfigDialog::addGroup(QString group)
     QTreeWidgetItem *item = new QTreeWidgetItem(list,100);
 
     ui->treeWidget->addTopLevelItem(item);
+
+    return item;
 }
 
 void QRobotConfigDialog::addParameter(QTreeWidgetItem *item, QString group)

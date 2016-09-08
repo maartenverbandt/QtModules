@@ -28,9 +28,9 @@ public:
 protected:
     Ui::QRobotConfigDialog *ui;
 
-    void addGroup(QString group);
+    QTreeWidgetItem* addGroup(QString group);
     void addParameter(QTreeWidgetItem *item, QString group = QString());
-    template <typename T> void addParameter(QString name, T *value, QString group = QString());
+    template <typename T> QTreeWidgetItem* addParameter(QString name, T *value, QString group = QString());
 
     void updateWidgets();
     void updateParameters();
@@ -59,12 +59,14 @@ signals:
 
 };
 
-template <typename T> void QRobotConfigDialog::addParameter(QString name, T *value, QString group)
+template <typename T> QTreeWidgetItem* QRobotConfigDialog::addParameter(QString name, T *value, QString group)
 {
     QTreeWidgetParameter<T>* item = new QTreeWidgetParameter<T>(name,value);
     _parameters.append(item);
     addParameter(item,group);
     item->setup();
+
+    return item;
 }
 
 
