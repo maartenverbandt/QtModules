@@ -118,3 +118,4 @@ void QRobotConfigDialog::closeEvent(QCloseEvent *)
 {
     setVisible(false);
 }
+

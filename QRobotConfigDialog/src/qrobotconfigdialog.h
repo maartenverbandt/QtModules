@@ -20,7 +20,7 @@ public:
     ~QRobotConfigDialog();
 
     virtual QByteArray getByteArray() = 0;
-    virtual void fromByteArray(const QByteArray &data) = 0;
+    virtual void fromByteArray(const QByteArray &data, const int index = 0) = 0;
 
     void setExpanded(bool expand = true);
     QAction *getPopupAction();
