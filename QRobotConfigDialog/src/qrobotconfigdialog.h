@@ -48,12 +48,14 @@ private slots:
     void on_open_pushButton_clicked();
     void on_load_pushButton_clicked();
     void on_send_pushButton_clicked();
+    void on_store_pushButton_clicked();
 
     void popup();
 
 signals:
     void readRobotSettings();
     void writeRobotSettings(QByteArray data);
+    void storeRobotSettings();
 
 };
 

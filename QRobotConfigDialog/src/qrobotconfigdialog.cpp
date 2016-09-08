@@ -87,6 +87,11 @@ void QRobotConfigDialog::on_send_pushButton_clicked()
     emit writeRobotSettings(getByteArray());
 }
 
+void QRobotConfigDialog::on_store_pushButton_clicked()
+{
+    emit storeRobotSettings();
+}
+
 void QRobotConfigDialog::popup()
 {
     setVisible(true);
