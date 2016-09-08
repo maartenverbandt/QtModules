@@ -13,6 +13,8 @@ public:
         QTreeWidgetItem(100)
     {
         _label.setText(parameter);
+        _spinbox.setRange(-1e100,1e100);
+        _spinbox.setDecimals(5);
     }
 
     ~QTreeWidgetParameterInterface()
