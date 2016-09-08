@@ -25,6 +25,9 @@
      <property name="columnCount">
       <number>2</number>
      </property>
+     <attribute name="headerVisible">
+      <bool>false</bool>
+     </attribute>
      <attribute name="headerDefaultSectionSize">
       <number>200</number>
      </attribute>
@@ -61,6 +64,9 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::MinimumExpanding</enum>
+       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
@@ -83,10 +89,25 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="store_pushButton">
+       <property name="text">
+        <string>store</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>load_pushButton</tabstop>
+  <tabstop>send_pushButton</tabstop>
+  <tabstop>store_pushButton</tabstop>
+  <tabstop>open_pushButton</tabstop>
+  <tabstop>save_pushButton</tabstop>
+  <tabstop>treeWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
