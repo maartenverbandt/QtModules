@@ -4,8 +4,8 @@
 
     QT += serialport bluetooth network
 
-    INCLUDEPATH += $$PWD \
-                   /home/maarten/projects/mavlink/build/include/v1.0/microos_messages/mavlink.h
+    INCLUDEPATH += $$PWD# \
+                   #/home/maarten/projects/mavlink/build/include/v1.0/microos_messages/mavlink.h
 
     SOURCES +=  $$PWD/qconnectioncoordinator.cpp \
                 $$PWD/qmavlinkconnection.cpp \
