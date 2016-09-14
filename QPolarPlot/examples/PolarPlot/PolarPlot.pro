@@ -9,6 +9,4 @@ TEMPLATE = app
 
 SOURCES += main.cpp
 
-DEFINES += QT_NO_PRINTER
-
-include(../../src/qimuwidget.pri)
+include(../../src/qpolarplot.pri)

@@ -30,4 +30,5 @@ HEADERS += \
     $$PWD/qrunningpolarplot.h
 
 SOURCES += \
-    $$PWD/qpolarplot.cpp
+    $$PWD/qpolarplot.cpp \
+    $$PWD/qrunningpolarplot.cpp
