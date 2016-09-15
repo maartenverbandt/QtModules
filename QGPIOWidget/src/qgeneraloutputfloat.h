@@ -1,11 +1,27 @@
-#ifndef QGPIOOUTPUTFLOAT_H
-#define QGPIOOUTPUTFLOAT_H
+#ifndef QGENERALOUTPUTFLOAT_H
+#define QGENERALOUTPUTFLOAT_H
 
+#include <qgeneraloutput.h>
+#include <QAbstractSpinBox>
+#include <QDoubleSpinBox>
 
-class QGPIOOutputFloat : public QGPIOOutput
+class QGeneralOutputFloat : public QGeneralOutput
 {
+    Q_OBJECT
+
 public:
-    QGPIOOutputFloat();
+    QGeneralOutputFloat(QString label = "", QWidget *parent = 0);
+
+    double value();
+    void setValue(double value);
+
+private:
+    QAbstractSpinBox* getSpinBox();
+    QDoubleSpinBox* _spinbox;
+
+public slots:
+    void handleReadyRead();
+
 };
 
-#endif // QGPIOOUTPUTFLOAT_H
+#endif // QGENERALOUTPUTFLOAT_H

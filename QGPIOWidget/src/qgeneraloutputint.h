@@ -1,12 +1,26 @@
-#ifndef QGPIOOUTPUTINT_H
-#define QGPIOOUTPUTINT_H
+#ifndef QGENERALOUTPUTINT_H
+#define QGENERALOUTPUTINT_H
 
-#include <QObject>
+#include <qgeneraloutput.h>
+#include <QSpinBox>
 
-class QGPIOOutputInt : public QGPIOOutput
+class QGeneralOutputInt : public QGeneralOutput
 {
+    Q_OBJECT
+
 public:
-    QGPIOOutputInt();
+    QGeneralOutputInt(QString label = "", QWidget *parent = 0);
+
+    double value();
+    void setValue(double value);
+
+private:
+    QAbstractSpinBox* getSpinBox();
+    QSpinBox* _spinbox;
+
+public slots:
+    void handleReadyRead();
+
 };
 
-#endif // QGPIOOUTPUTINT_H
+#endif // QGENERALOUTPUTINT_H
