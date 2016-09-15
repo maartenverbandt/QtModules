@@ -3,8 +3,13 @@
 
 #include <QWidget>
 #include <QBoxLayout>
+#include <QLayout>
 #include <qrunningplot.h>
-#include <mavlink.h>
+#include <mavlink/ballbot_messagesavr/mavlink.h>
+
+#include <qgeneraloutput.h>
+#include <qgeneraloutputint.h>
+#include <qgeneraloutputfloat.h>
 
 #define QGPIOWIDGET_FLOAT_COUNT 8
 #define QGPIOWIDGET_INT_COUNT   4
@@ -52,14 +57,8 @@ private:
 
     QRunningPlot* plot;
 
-    QGridLayout* grid_layout_spinbox;
-    QDoubleSpinBox spinboxs[QGPIOWIDGET_IOCOUNT];
-
-#ifndef QGPIOWIDGET_LABELLOCK
-    QLineEdit spinboxlabels[QGPIOWIDGET_IOCOUNT];
-#else
-    QLabel spinboxlabels[QGPIOWIDGET_IOCOUNT];
-#endif
+    QBoxLayout* _output_layout;
+    QGeneralOutput* _outputs[12];
     QPushButton* set_button;
 
     QGridLayout* grid_layout_buttons;

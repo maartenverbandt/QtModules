@@ -12,7 +12,7 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
     ui->setupUi(this);
     ui->plot->init(40,QGPIOWIDGET_IOCOUNT); //make graph with 12 functions
 
-    grid_layout_spinbox = new QGridLayout(0);
+    _output_layout = new QBoxLayout(QBoxLayout::TopToBottom,0);
     grid_layout_checkbox = new QGridLayout(0);
     grid_layout_buttons = new QGridLayout(0);
     QObject::connect(&buttons,SIGNAL(buttonClicked(int)),this,SLOT(sendButtonEvent(int)));
@@ -21,10 +21,9 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
 
     for(k = 0;k < 8;k++){
         // Outputs floats
-        grid_layout_spinbox->addWidget(&spinboxlabels[k],k,0);
-        grid_layout_spinbox->addWidget(&spinboxs[k],k,1);
-        spinboxs[k].setRange(-1000000,1000000);
-        spinboxs[k].setDecimals(4);
+        _outputs[k] = new QGeneralOutputFloat();
+        _outputs[k]->setMountPoint("robot");
+        _output_layout->addWidget(_outputs[k]);
 
         // Label buttons
         buttons.addButton(new QPushButton("Button " + QString::number(k),this),k);
@@ -32,10 +31,9 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
 
     for(k = 0;k < 4;k++){
         // Outputs ints
-        grid_layout_spinbox->addWidget(&spinboxlabels[k+QGPIOWIDGET_FLOAT_COUNT],k+QGPIOWIDGET_FLOAT_COUNT,0);
-        grid_layout_spinbox->addWidget(&spinboxs[k+QGPIOWIDGET_FLOAT_COUNT],k+QGPIOWIDGET_FLOAT_COUNT,1);
-        spinboxs[QGPIOWIDGET_FLOAT_COUNT+k].setRange(-1000000,1000000);
-        spinboxs[QGPIOWIDGET_FLOAT_COUNT+k].setDecimals(0);
+        _outputs[k+QGPIOWIDGET_FLOAT_COUNT] = new QGeneralOutputInt();
+        _outputs[k+QGPIOWIDGET_FLOAT_COUNT]->setMountPoint("robot");
+        _output_layout->addWidget(_outputs[k+QGPIOWIDGET_FLOAT_COUNT]);
 
         // Layout buttons
         grid_layout_buttons->addWidget(buttons.button(2*k),k,0);
@@ -67,11 +65,11 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
 
     checkCheckboxs();
     set_button = new QPushButton("Set");
-    grid_layout_spinbox->addWidget(set_button,QGPIOWIDGET_IOCOUNT,1);
+    _output_layout->addWidget(set_button,QGPIOWIDGET_IOCOUNT);
     QObject::connect(set_button,SIGNAL(released()),this,SLOT(sendGPIO()));
 
     ui->channels_frame->setLayout(grid_layout_checkbox);
-    ui->frame_send->setLayout(grid_layout_spinbox);
+    ui->frame_send->setLayout(_output_layout);
     ui->frame_buttons->setLayout(grid_layout_buttons);
 
     //start timer
@@ -128,10 +126,10 @@ void QGPIOWidget::loadSettings()
         }
         if(settings.contains("output")){
             if(!settings.value("output").toString().isEmpty())
-                spinboxlabels[k].setText(settings.value("output").toString());
+                _outputs[k]->setText(settings.value("output").toString());
         }
         checkboxs[k].setChecked(settings.value("checked").toBool());
-        spinboxs[k].setValue(settings.value("value").toDouble());
+        _outputs[k]->setValue(settings.value("value").toDouble());
     }
     settings.endArray();
     settings.endGroup();
@@ -154,8 +152,8 @@ void QGPIOWidget::saveSettings()
         settings.setArrayIndex(k);
         settings.setValue("input",checkboxlabels[k].text());
         settings.setValue("checked",checkboxs[k].isChecked());
-        settings.setValue("output",spinboxlabels[k].text());
-        settings.setValue("value",spinboxs[k].value());
+        settings.setValue("output",_outputs[k]->text());
+        settings.setValue("value",_outputs[k]->value());
     }
     settings.endArray();
     settings.endGroup();
@@ -165,15 +163,15 @@ void QGPIOWidget::setLabels()
 {
     int k;
     for(k = 0;k < QGPIOWIDGET_FLOAT_COUNT;k++){
-        spinboxlabels[k].setText("FloatChannel" + QString::number(k));
+        _outputs[k]->setText("FloatChannel" + QString::number(k));
         checkboxlabels[k].setText("FloatChannel" + QString::number(k));
     }
     for(k = 0;k < QGPIOWIDGET_INT_COUNT;k++){
-        spinboxlabels[QGPIOWIDGET_FLOAT_COUNT + k].setText("IntChannel" + QString::number(k));
+        _outputs[QGPIOWIDGET_FLOAT_COUNT + k]->setText("IntChannel" + QString::number(k));
         checkboxlabels[QGPIOWIDGET_FLOAT_COUNT + k].setText("IntChannel" + QString::number(k));
     }
     for(k = 0;k < QGPIOWIDGET_IOCOUNT;k++){
-        QObject::connect(&checkboxlabels[k],SIGNAL(editingFinished()),this,SLOT(inputLabelsSend()));
+        QObject::connect(_outputs[k]->getLabel(),SIGNAL(textChanged(QString)),this,SLOT(inputLabelsSend()));
     }
 }
 
@@ -264,10 +262,10 @@ void QGPIOWidget::sendGPIO()
     float floats[8];
 
     for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++){
-        floats[k] = spinboxs[k].value();
+        floats[k] = _outputs[k]->value();
     }
     for(k=0;k<QGPIOWIDGET_INT_COUNT;k++){
-        ints[k] = spinboxs[QGPIOWIDGET_FLOAT_COUNT+k].value();
+        ints[k] = _outputs[QGPIOWIDGET_FLOAT_COUNT+k]->value();
     }
 
     mavlink_message_t msg;
