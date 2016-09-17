@@ -9,12 +9,22 @@ QGeneralOutputFloat::QGeneralOutputFloat(QString label, QWidget *parent) :
     _spinbox->setDecimals(4);
 }
 
-double QGeneralOutputFloat::value()
+double QGeneralOutputFloat::valueDouble()
+{
+    return value();
+}
+
+void QGeneralOutputFloat::setValueDouble(double value)
+{
+    setValue(value);
+}
+
+float QGeneralOutputFloat::value()
 {
     return _spinbox->value();
 }
 
-void QGeneralOutputFloat::setValue(double value)
+void QGeneralOutputFloat::setValue(float value)
 {
     _spinbox->setValue(value);
 }
@@ -26,9 +36,8 @@ QAbstractSpinBox *QGeneralOutputFloat::getSpinBox()
 
 void QGeneralOutputFloat::handleReadyRead()
 {
-    while(_sockets[0]->bytesAvailable() >= 4){
-        QByteArray data = _sockets[0]->read(4);
-        qDebug() << data;
+    while(_socket->bytesAvailable() >= 4){
+        QByteArray data = _socket->read(4);
         float value = *(float*)data.data();
         _spinbox->setValue(value);
     }

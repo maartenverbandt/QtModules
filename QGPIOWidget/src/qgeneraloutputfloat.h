@@ -12,8 +12,10 @@ class QGeneralOutputFloat : public QGeneralOutput
 public:
     QGeneralOutputFloat(QString label = "", QWidget *parent = 0);
 
-    double value();
-    void setValue(double value);
+    double valueDouble();
+    void setValueDouble(double value);
+    float value();
+    void setValue(float value);
 
 private:
     QAbstractSpinBox* getSpinBox();

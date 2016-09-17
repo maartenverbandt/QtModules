@@ -11,8 +11,10 @@ class QGeneralOutputInt : public QGeneralOutput
 public:
     QGeneralOutputInt(QString label = "", QWidget *parent = 0);
 
-    double value();
-    void setValue(double value);
+    double valueDouble();
+    void setValueDouble(double value);
+    int value();
+    void setValue(int value);
 
 private:
     QAbstractSpinBox* getSpinBox();
