@@ -3,8 +3,16 @@
 
 #include <QWidget>
 #include <QBoxLayout>
+#include <QLayout>
 #include <qrunningplot.h>
-#include <mavlink.h>
+#include <mavlink/ballbot_messagesavr/mavlink.h>
+
+#include <qgeneraloutput.h>
+#include <qgeneraloutputint.h>
+#include <qgeneraloutputfloat.h>
+#include <qgeneralinput.h>
+#include <qgeneralinputint.h>
+#include <qgeneralinputfloat.h>
 
 #define QGPIOWIDGET_FLOAT_COUNT 8
 #define QGPIOWIDGET_INT_COUNT   4
@@ -42,24 +50,15 @@ public:
 private:
     Ui::QGPIOWidget *ui;
 
-    QGridLayout* grid_layout_checkbox;
-    QCheckBox checkboxs[QGPIOWIDGET_IOCOUNT];
-#ifndef QGPIOWIDGET_LABELLOCK
-    QLineEdit checkboxlabels[QGPIOWIDGET_IOCOUNT];
-#else
-    QLabel checkboxlabels[QGPIOWIDGET_IOCOUNT];
-#endif
+    QGridLayout* _input_layout;
+    QGeneralInputFloat* _float_inputs[8];
+    QGeneralInputInt* _int_inputs[4];
 
     QRunningPlot* plot;
 
-    QGridLayout* grid_layout_spinbox;
-    QDoubleSpinBox spinboxs[QGPIOWIDGET_IOCOUNT];
-
-#ifndef QGPIOWIDGET_LABELLOCK
-    QLineEdit spinboxlabels[QGPIOWIDGET_IOCOUNT];
-#else
-    QLabel spinboxlabels[QGPIOWIDGET_IOCOUNT];
-#endif
+    QBoxLayout* _output_layout;
+    QGeneralOutputFloat* _float_outputs[8];
+    QGeneralOutputInt* _int_outputs[4];
     QPushButton* set_button;
 
     QGridLayout* grid_layout_buttons;
@@ -70,6 +69,9 @@ private:
 
     double _time;
     bool _paused;
+
+    int _plot_timer;
+    int _gpio_timer;
 
     void setLabels();
 
@@ -85,7 +87,7 @@ public slots:
     void inputLabelsSend();
 
 private slots:
-    void checkCheckboxs(int i = 0);
+    void checkCheckboxs();
     void sendGPIO();
     void sendEvent(uint16_t event);
     void sendButtonEvent(int id);
