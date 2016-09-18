@@ -79,11 +79,12 @@ void QMapWidget::paintEvent(QPaintEvent *e)
 
     painter.translate(_center);
     painter.scale(1.0,-1.0);
-    painter.setPen(_robot_pen);
-    painter.setBrush(_robot_brush);
-    QTransform transform = QTransform::fromScale(_scale,_scale).rotateRadians(_pose.z());
-    painter.drawPolygon(transform.map(_robot));
+    QTransform transform = QTransform::fromScale(_scale,_scale);
 
     painter.setPen(_point_pen);
-    painter.drawPolyline(transform.map(_points));
+    painter.drawPoints(transform.map(_points));
+
+    painter.setPen(_robot_pen);
+    painter.setBrush(_robot_brush);
+    painter.drawPolygon(transform.rotateRadians(_pose.z()).map(_robot));
 }
