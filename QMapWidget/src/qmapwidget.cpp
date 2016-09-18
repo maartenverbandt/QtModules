@@ -11,10 +11,12 @@ QMapWidget::QMapWidget(QWidget *parent) :
     setCenter();
 
     // set pen styles
-    _robot_pen.setColor(Qt::darkGreen);
+    _robot_pen.setColor(Qt::black);
+    _robot_pen.setWidth(2);
     _robot_brush.setColor(Qt::green);
     _robot_brush.setStyle(Qt::SolidPattern);
     _point_pen.setColor(Qt::black);
+    _point_pen.setWidth(2);
 
     // set black background
     QPalette Pal(palette());
