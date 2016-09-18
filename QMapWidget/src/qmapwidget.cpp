@@ -43,19 +43,19 @@ QVector3D QMapWidget::getPose()
 void QMapWidget::setPose(const QVector3D &pose)
 {
     _pose = pose;
-    repaint();
+    update();
 }
 
 void QMapWidget::setOrientation(double orientation)
 {
     _pose.setZ(orientation);
-    repaint();
+    update();
 }
 
 void QMapWidget::addPoint(const QPointF &point)
 {
     _points.append(point);
-    repaint();
+    update();
 }
 
 void QMapWidget::setRange(double radius)
