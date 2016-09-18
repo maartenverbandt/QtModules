@@ -46,6 +46,12 @@ void QMapWidget::setPose(QVector3D pose)
     update();
 }
 
+void QMapWidget::setPosition(QVector2D position)
+{
+    _pose = QVector3D(position,_pose.z());
+    update();
+}
+
 void QMapWidget::setOrientation(double orientation)
 {
     _pose.setZ(orientation);

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPolygon>
+#include <QVector2D>
 #include <QVector3D>
 #include <QPointF>
 #include <QPainter>
@@ -10,6 +11,7 @@
 class QMapWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit QMapWidget(QWidget *parent = 0);
 
@@ -43,6 +45,7 @@ signals:
 
 public slots:
     void setPose(QVector3D pose);
+    void setPosition(QVector2D position);
     void setOrientation(double orientation);
 
 };
