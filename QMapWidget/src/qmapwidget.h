@@ -17,7 +17,7 @@ public:
 
     void setSize(size_t size);
     QVector3D getPose();
-    void addPoint(const QPointF &point);
+    void addPoint(QPointF point);
 
 protected:
     virtual void paintEvent(QPaintEvent *e);
@@ -42,7 +42,7 @@ private:
 signals:
 
 public slots:
-    void setPose(const QVector3D &pose);
+    void setPose(QVector3D pose);
     void setOrientation(double orientation);
 
 };

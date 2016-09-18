@@ -40,7 +40,7 @@ QVector3D QMapWidget::getPose()
     return _pose;
 }
 
-void QMapWidget::setPose(const QVector3D &pose)
+void QMapWidget::setPose(QVector3D pose)
 {
     _pose = pose;
     update();
@@ -52,7 +52,7 @@ void QMapWidget::setOrientation(double orientation)
     update();
 }
 
-void QMapWidget::addPoint(const QPointF &point)
+void QMapWidget::addPoint(QPointF point)
 {
     _points.append(point);
     update();
