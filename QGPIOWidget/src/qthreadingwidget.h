@@ -8,6 +8,8 @@ typedef struct thread_t{
     quint8 id;
     quint8 priority;
     quint32 time;
+    quint32 average_duration;
+    quint32 average_latency;
     quint32 duration;
     quint32 latency;
     quint32 executions;

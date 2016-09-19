@@ -61,8 +61,8 @@ void QThreadingWidget::updateThreadInfo(thread_t thread)
 
     item(index,0)->setText(QString::number(thread.id));
     item(index,1)->setText(QString::number(thread.priority));
-    item(index,2)->setText(QString::number(thread.duration/thread.executions));
-    item(index,3)->setText(QString::number(thread.latency/thread.executions));
+    item(index,2)->setText(QString::number(thread.average_duration));
+    item(index,3)->setText(QString::number(thread.average_latency));
     item(index,4)->setText(QString::number(thread.duration));
     item(index,5)->setText(QString::number(thread.latency));
     item(index,6)->setText(QString::number(thread.executions));
