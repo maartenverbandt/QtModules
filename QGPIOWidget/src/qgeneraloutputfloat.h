@@ -21,9 +21,6 @@ private:
     QAbstractSpinBox* getSpinBox();
     QDoubleSpinBox* _spinbox;
 
-public slots:
-    void handleReadyRead();
-
 };
 
 #endif // QGENERALOUTPUTFLOAT_H

@@ -32,12 +32,3 @@ QAbstractSpinBox *QGeneralOutputInt::getSpinBox()
 {
     return _spinbox;
 }
-
-void QGeneralOutputInt::handleReadyRead()
-{
-    while(_socket->bytesAvailable() >= 4){
-        QByteArray data = _socket->read(4);
-        int value = *(int*)data.data();
-        _spinbox->setValue(value);
-    }
-}

@@ -21,12 +21,3 @@ QCheckBox *QGeneralInput::getCheckBox()
 {
     return _checkbox;
 }
-
-void QGeneralInput::writeByteArray(QByteArray data)
-{
-    if(_socket == NULL){
-        _socket->write(data);
-    } else {
-        qDebug() << "No socket connected.";
-    }
-}

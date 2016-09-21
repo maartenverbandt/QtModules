@@ -20,9 +20,6 @@ private:
     QAbstractSpinBox* getSpinBox();
     QSpinBox* _spinbox;
 
-public slots:
-    void handleReadyRead();
-
 };
 
 #endif // QGENERALOUTPUTINT_H

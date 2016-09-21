@@ -20,11 +20,6 @@ public:
 private:
     QCheckBox* _checkbox;
 
-signals:
-
-public slots:
-    void writeByteArray(QByteArray data);
-
 };
 
 #endif // QGENERALINPUT_H

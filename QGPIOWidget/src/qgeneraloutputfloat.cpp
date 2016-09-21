@@ -33,12 +33,3 @@ QAbstractSpinBox *QGeneralOutputFloat::getSpinBox()
 {
     return _spinbox;
 }
-
-void QGeneralOutputFloat::handleReadyRead()
-{
-    while(_socket->bytesAvailable() >= 4){
-        QByteArray data = _socket->read(4);
-        float value = *(float*)data.data();
-        _spinbox->setValue(value);
-    }
-}

@@ -21,9 +21,6 @@ protected:
     virtual QAbstractSpinBox* getSpinBox() = 0;
     void setup();
 
-public slots:
-    virtual void handleReadyRead() = 0;
-
 };
 
 #endif // QGENERALOUTPUT_H
