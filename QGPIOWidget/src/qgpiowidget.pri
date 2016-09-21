@@ -14,7 +14,8 @@
                 $$PWD/qgeneralinput.cpp \
                 $$PWD/qgeneralio.cpp \
                 $$PWD/qgeneralinputint.cpp \
-                $$PWD/qgeneralinputfloat.cpp
+                $$PWD/qgeneralinputfloat.cpp \
+                $$PWD/qgpioinputdialog.cpp
 
     HEADERS +=  $$PWD/qgpiowidget.h \
                 $$PWD/qthreadingwidget.h\
@@ -24,9 +25,11 @@
                 $$PWD/qgeneralinput.h \
                 $$PWD/qgeneralio.h \
                 $$PWD/qgeneralinputint.h \
-                $$PWD/qgeneralinputfloat.h
+                $$PWD/qgeneralinputfloat.h \
+                $$PWD/qgpioinputdialog.h
 
-    FORMS += $$PWD/qgpiowidget.ui
+    FORMS += $$PWD/qgpiowidget.ui\
+    $$PWD/qgpioinputdialog.ui
 
     DEFINES += QT_NO_PRINTER
     include(../../QCustomPlot/src/qcustomplot.pri)
