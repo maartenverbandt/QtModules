@@ -5,7 +5,6 @@
 #include <QBoxLayout>
 #include <QLayout>
 #include <qrunningplot.h>
-#include <mavlink/ballbot_messagesavr/mavlink.h>
 
 #include <qgeneraloutput.h>
 #include <qgeneraloutputint.h>
@@ -18,8 +17,6 @@
 #define QGPIOWIDGET_INT_COUNT   4
 #define QGPIOWIDGET_IOCOUNT     12
 #define QGPIOWIDGET_BUTTONCOUNT 8
-
-//#define QGPIOWIDGET_LABELLOCK
 
 namespace Ui {
 class QGPIOWidget;
