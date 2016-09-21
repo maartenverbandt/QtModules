@@ -47,6 +47,12 @@ public:
     void loadSettings();
     void saveSettings();
 
+    typedef struct gpio_t{
+        float floats[8];
+        int ints[4];
+        unsigned int time;
+    } gpio_t;
+
 private:
     Ui::QGPIOWidget *ui;
 
@@ -80,9 +86,9 @@ private:
 
 public slots:
     void mavlinkMsgReceived(mavlink_message_t msg);
+    void setInput(QGPIOWidget::gpio_t gpio);
     void timerEvent(QTimerEvent *event);
     void keyPressEvent(QKeyEvent *event);
-    void setGPIO(QVector<float> d, QVector<int> i);
     void setPrint(QString text);
     void inputLabelsSend();
 
@@ -96,8 +102,10 @@ signals:
     void mavlinkMsgSend(mavlink_message_t msg);
 
     void eventButtonPressed(int b);
-    void gpioSet(QVector<float> d, QVector<int> i);
+    void setOutput(QGPIOWidget::gpio_t gpio);
     void inputLabelsSet(QStringList labels);
 };
+
+Q_DECLARE_METATYPE(QGPIOWidget::gpio_t)
 
 #endif // QGPIOWIDGET_H

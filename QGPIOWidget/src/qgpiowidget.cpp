@@ -270,15 +270,13 @@ void QGPIOWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void QGPIOWidget::setGPIO(QVector<float> d, QVector<int> i)
+void QGPIOWidget::setInput(QGPIOWidget::gpio_t gpio)
 {
-    setInDoubles(d);
-    setInInts(i);
-}
-
-void QGPIOWidget::setPrint(QString text)
-{
-
+    int k;
+    for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++)
+        _float_inputs[k]->setValue(gpio.floats[k]);
+    for(k=0;k<QGPIOWIDGET_INT_COUNT;k++)
+        _int_inputs[k]->setValue(gpio.ints[k]);
 }
 
 void QGPIOWidget::checkCheckboxs()
@@ -309,18 +307,14 @@ void QGPIOWidget::inputLabelsSend()
 void QGPIOWidget::sendGPIO()
 {
     int k;
-    int ints[4];
-    float floats[8];
+    gpio_t gpio;
 
-    for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++){
-        floats[k] = _float_outputs[k]->value();
-    }
-    for(k=0;k<QGPIOWIDGET_INT_COUNT;k++){
-        ints[k] = _int_outputs[k]->value();
-    }
+    gpio.time = 0;
+    for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++)
+        gpio.floats[k] = _float_outputs[k]->value();
 
-    mavlink_message_t msg;
-    mavlink_msg_gpio_pack(0,0,&msg,0,0,floats,ints);
+    for(k=0;k<QGPIOWIDGET_INT_COUNT;k++)
+        gpio.ints[k] = _int_outputs[k]->value();
 
     emit mavlinkMsgSend(msg);
     emit gpioSet(double_list, integer_list);
