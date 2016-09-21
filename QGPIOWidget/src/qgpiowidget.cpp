@@ -155,7 +155,7 @@ void QGPIOWidget::saveSettings()
 
     // save channel states
     settings.beginWriteArray("FloatChannels");
-    for(int k = 0;k < QGPIOWIDGET_IOCOUNT;k++){
+    for(int k = 0;k < QGPIOWIDGET_FLOAT_COUNT;k++){
         settings.setArrayIndex(k);
         settings.setValue("input",_float_inputs[k]->text());
         settings.setValue("checked",_float_inputs[k]->isChecked());
@@ -165,7 +165,7 @@ void QGPIOWidget::saveSettings()
     settings.endArray();
 
     settings.beginWriteArray("IntChannels");
-    for(int k = 0;k < QGPIOWIDGET_IOCOUNT;k++){
+    for(int k = 0;k < QGPIOWIDGET_INT_COUNT;k++){
         settings.setArrayIndex(k);
         settings.setValue("input",_int_inputs[k]->text());
         settings.setValue("checked",_int_inputs[k]->isChecked());
