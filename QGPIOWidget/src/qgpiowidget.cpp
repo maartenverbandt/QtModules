@@ -27,14 +27,12 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
     for(k = 0;k < QGPIOWIDGET_FLOAT_COUNT;k++){
         // Outputs floats
         _float_outputs[k] = new QGeneralOutputFloat();
-        _float_outputs[k]->setMountPoint("robot");
         _output_layout->addWidget(_float_outputs[k]);
     }
 
     for(k = 0;k < QGPIOWIDGET_INT_COUNT;k++){
         // Outputs ints
         _int_outputs[k] = new QGeneralOutputInt();
-        _int_outputs[k]->setMountPoint("robot");
         _output_layout->addWidget(_int_outputs[k]);
     }
 
@@ -45,17 +43,14 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
 
         // Channels row 1 (floats)
         _float_inputs[k] = new QGeneralInputFloat();
-        _float_inputs[k]->setMountPoint("robot");
         _input_layout->addWidget(_float_inputs[k],0,k);
 
         // Channels row 2 (floats)
         _float_inputs[k+4] = new QGeneralInputFloat();
-        _float_inputs[k+4]->setMountPoint("robot");
         _input_layout->addWidget(_float_inputs[k+4],1,k);
 
         // Channels row 3 (ints)
         _int_inputs[k] = new QGeneralInputInt();
-        _int_inputs[k]->setMountPoint("robot");
         _input_layout->addWidget(_int_inputs[k],2,k);
     }
 
