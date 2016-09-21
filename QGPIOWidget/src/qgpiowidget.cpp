@@ -201,20 +201,6 @@ bool QGPIOWidget::paused()
     return _paused;
 }
 
-void QGPIOWidget::mavlinkMsgReceived(mavlink_message_t msg)
-{
-    switch(msg.msgid){
-        case MAVLINK_MSG_ID_GPIO:{
-            mavlink_gpio_t gpio;
-            mavlink_msg_gpio_decode(&msg, &gpio);
-
-            _time = gpio.time*0.001;
-            for(unsigned int k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++){ double_list[k] = gpio.gpio_float[k]; }
-            for(unsigned int k=0;k<QGPIOWIDGET_INT_COUNT;k++){ integer_list[k] = gpio.gpio_int[k]; }
-        break; }
-    }
-}
-
 void QGPIOWidget::timerEvent(QTimerEvent *event)
 {
     if(event->timerId() == _gpio_timer){
@@ -291,20 +277,11 @@ void QGPIOWidget::sendGPIO()
     for(k=0;k<QGPIOWIDGET_INT_COUNT;k++)
         gpio.ints[k] = _int_outputs[k]->value();
 
-    emit mavlinkMsgSend(msg);
-    emit gpioSet(double_list, integer_list);
-}
 
-void QGPIOWidget::sendEvent(uint16_t event)
-{
-    mavlink_message_t msg;
-    mavlink_msg_event_pack(0,0,&msg,event);
-
-    emit mavlinkMsgSend(msg);
+    emit setOutput(gpio);
 }
 
 void QGPIOWidget::sendButtonEvent(int id)
 {
     emit eventButtonPressed(id);
-    sendEvent(QGPIOWidget::BUTTONX_PRESSED + id);
 }

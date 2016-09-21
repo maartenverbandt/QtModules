@@ -29,10 +29,6 @@ class QGPIOWidget : public QWidget
 {
     Q_OBJECT
 
-    enum qgpiowidget_event_t {
-        BUTTONX_PRESSED = 1000
-    };
-
 public:
     explicit QGPIOWidget(QWidget *parent = 0);
     ~QGPIOWidget();
@@ -78,22 +74,18 @@ private:
     bool paused();
 
 public slots:
-    void mavlinkMsgReceived(mavlink_message_t msg);
     void setInput(QGPIOWidget::gpio_t gpio);
+    void sendButtonEvent(int id);
+    void inputLabelsSend();
+
     void timerEvent(QTimerEvent *event);
     void keyPressEvent(QKeyEvent *event);
-    void setPrint(QString text);
-    void inputLabelsSend();
 
 private slots:
     void checkCheckboxs();
     void sendGPIO();
-    void sendEvent(uint16_t event);
-    void sendButtonEvent(int id);
 
 signals:
-    void mavlinkMsgSend(mavlink_message_t msg);
-
     void eventButtonPressed(int b);
     void setOutput(QGPIOWidget::gpio_t gpio);
     void inputLabelsSet(QStringList labels);
