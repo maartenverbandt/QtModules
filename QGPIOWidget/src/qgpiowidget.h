@@ -37,13 +37,6 @@ public:
     explicit QGPIOWidget(QWidget *parent = 0);
     ~QGPIOWidget();
 
-    QVector<float> getOutDoubles();
-    QVector<int> getOutInts();
-    QVector<float> getInDoubles();
-    QVector<int> getInInts();
-    void setInDoubles(QVector<float> doubles);
-    void setInInts(QVector<int> ints);
-
     void loadSettings();
     void saveSettings();
 

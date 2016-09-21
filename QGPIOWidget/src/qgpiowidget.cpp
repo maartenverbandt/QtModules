@@ -95,26 +95,6 @@ QGPIOWidget::~QGPIOWidget()
     delete ui;
 }
 
-QVector<float> QGPIOWidget::getOutDoubles()
-{
-    return double_list;
-}
-
-QVector<int> QGPIOWidget::getOutInts()
-{
-    return integer_list;
-}
-
-void QGPIOWidget::setInDoubles(QVector<float> doubles)
-{
-    double_list = doubles;
-}
-
-void QGPIOWidget::setInInts(QVector<int> ints)
-{
-    integer_list = ints;
-}
-
 void QGPIOWidget::loadSettings()
 {
     QSettings settings("RobSoft", "QRoboticsCenter");
@@ -244,10 +224,10 @@ void QGPIOWidget::timerEvent(QTimerEvent *event)
         _time += 0.05;
 
         for(k = 0; k < QGPIOWIDGET_FLOAT_COUNT ; k++){
-            ui->plot->addDataPoint(_time, double_list[k], k);
+            ui->plot->addDataPoint(_time, _float_inputs[k]->valueDouble(), k);
         }
         for(k = 0; k < QGPIOWIDGET_INT_COUNT ; k++){
-            ui->plot->addDataPoint(_time, integer_list[k], k+QGPIOWIDGET_FLOAT_COUNT);
+            ui->plot->addDataPoint(_time, _int_inputs[k]->valueDouble(), k+QGPIOWIDGET_FLOAT_COUNT);
         }
 
         if(running()){
