@@ -56,6 +56,7 @@ void QPolarPlot::setSize(size_t size)
 void QPolarPlot::addCircle(double radius)
 {
     _circles.append(radius);
+    update();
 }
 
 void QPolarPlot::addPoint(const QPointF &point)
@@ -63,6 +64,7 @@ void QPolarPlot::addPoint(const QPointF &point)
     _points.append(point);
     if(_points.size()>_size)
         popPoint();
+    update();
 }
 
 void QPolarPlot::popPoint()
