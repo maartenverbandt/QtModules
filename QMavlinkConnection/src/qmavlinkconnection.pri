@@ -13,6 +13,7 @@
                 $$PWD/qmavlinkconnectioninfodialog.cpp \
                 $$PWD/qmavlinkconnectionlogger.cpp
     HEADERS +=  \
+                $$PWD/mavlink.h \
                 $$PWD/qconnectioncoordinator.h \
                 $$PWD/qmavlinkconnection.h \
                 $$PWD/qusbdevicediscoveryagent.h \
@@ -27,8 +28,3 @@
 } else {
     message( "Skipping $$PWD: already included" )
 }
-
-HEADERS += \
-    $$PWD/mavlink.h
-
-SOURCES +=
