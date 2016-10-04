@@ -33,9 +33,6 @@ public:
     void connected(QMavlinkConnection* connection);
     void timedout(QMavlinkConnection* connection);
 
-    //QList<QSerialPortInfo>          scanUSB();
-    //QList<QBluetoothServiceInfo>    scanBT();
-
     void setupUSB();
     void setupBT();
     void setupTCP();
