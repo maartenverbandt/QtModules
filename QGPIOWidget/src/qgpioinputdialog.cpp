@@ -51,21 +51,21 @@ void QGPIOInputDialog::readCsvLine()
     // read line and pack in struct
     if(~_stream->atEnd()){
         QStringList columns = _stream->readLine().split('\t',QString::SkipEmptyParts);
-        QGPIOWidget::gpio_t gpio;
+        mavlink_gpio_t gpio;
         if(columns.length()>0){
             gpio.time = columns[0].toUInt();
         }
         if(columns.length()>1){
             int k = 1;
             while((k<9) && (k<columns.length())){
-                gpio.floats[k-1] = columns[k].toFloat();
+                gpio.gpio_float[k-1] = columns[k].toFloat();
                 k++;
             }
         }
         if(columns.length()>9){
             int k = 9;
             while((k<13) && (k<columns.length())){
-                gpio.ints[k-9] = columns[k].toInt();
+                gpio.gpio_int[k-9] = columns[k].toInt();
                 k++;
             }
         }

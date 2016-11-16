@@ -191,6 +191,21 @@ void QGPIOWidget::setLabels()
     }
 }
 
+QStringList QGPIOWidget::getLabels()
+{
+    QStringList labels;
+    labels.reserve(QGPIOWIDGET_IOCOUNT);
+
+    for(int k = 0;k < QGPIOWIDGET_FLOAT_COUNT;k++){
+        labels.append(_float_inputs[k]->text());
+    }
+    for(int k = 0;k < QGPIOWIDGET_INT_COUNT;k++){
+        labels.append(_int_inputs[k]->text());
+    }
+
+    return labels;
+}
+
 bool QGPIOWidget::running()
 {
     return !_paused;
@@ -231,13 +246,13 @@ void QGPIOWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void QGPIOWidget::setInput(QGPIOWidget::gpio_t gpio)
+void QGPIOWidget::setInput(mavlink_gpio_t gpio)
 {
     int k;
     for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++)
-        _float_inputs[k]->setValue(gpio.floats[k]);
+        _float_inputs[k]->setValue(gpio.gpio_float[k]);
     for(k=0;k<QGPIOWIDGET_INT_COUNT;k++)
-        _int_inputs[k]->setValue(gpio.ints[k]);
+        _int_inputs[k]->setValue(gpio.gpio_int[k]);
 }
 
 void QGPIOWidget::checkCheckboxs()
@@ -252,30 +267,20 @@ void QGPIOWidget::checkCheckboxs()
 
 void QGPIOWidget::inputLabelsSend()
 {
-    QStringList labels;
-    labels.reserve(QGPIOWIDGET_IOCOUNT);
-
-    for(int k = 0;k < QGPIOWIDGET_FLOAT_COUNT;k++){
-        labels.append(_float_inputs[k]->text());
-    }
-    for(int k = 0;k < QGPIOWIDGET_INT_COUNT;k++){
-        labels.append(_int_inputs[k]->text());
-    }
-
-    emit inputLabelsSet(labels);
+    emit inputLabelsSet(getLabels());
 }
 
 void QGPIOWidget::sendGPIO()
 {
     int k;
-    gpio_t gpio;
+    mavlink_gpio_t gpio;
 
     gpio.time = 0;
     for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++)
-        gpio.floats[k] = _float_outputs[k]->value();
+        gpio.gpio_float[k] = _float_outputs[k]->value();
 
     for(k=0;k<QGPIOWIDGET_INT_COUNT;k++)
-        gpio.ints[k] = _int_outputs[k]->value();
+        gpio.gpio_int[k] = _int_outputs[k]->value();
 
 
     emit setOutput(gpio);
