@@ -26,7 +26,6 @@ public:
 private:
     int _fd;
     bool _connected;
-    controller_state_t _state;
 
     const static int AXIS_LEFT_X = 0;
     const static int AXIS_LEFT_Y = 1;
@@ -34,6 +33,7 @@ private:
     const static int AXIS_RIGHT_Y = 3;
 
     const static int BUTTON_L1 = 4;
+    const static int BUTTON_L2 = 5;
     const static int BUTTON_L3 = 8;
     const static int BUTTON_R1 = 6;
     const static int BUTTON_R3 = 9;

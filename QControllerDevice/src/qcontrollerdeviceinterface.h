@@ -40,7 +40,11 @@ public:
         TOGGLE_RECORD
     } action_cmd_t;
 
+    controller_state_t getState();
     virtual bool connected() = 0;
+
+protected:
+    controller_state_t _state;
 
 public slots:
     virtual void start() = 0;

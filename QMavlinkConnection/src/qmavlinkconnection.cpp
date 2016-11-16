@@ -5,8 +5,8 @@
 QMavlinkConnection::QMavlinkConnection(QObject *parent, QIODevice *io, QString name, serial_t serial_type):
     QObject(parent),
     _io(io),
-    _name(name),
     _serial_type(serial_type),
+    _name(name),
     _packet_count(0),
     _packet_drops(0),
     _disconnect_action("disconnect",this),

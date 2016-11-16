@@ -4,3 +4,8 @@ QControllerDeviceInterface::QControllerDeviceInterface(QObject *parent) : QObjec
 {
 
 }
+
+QControllerDeviceInterface::controller_state_t QControllerDeviceInterface::getState()
+{
+    return _state;
+}
