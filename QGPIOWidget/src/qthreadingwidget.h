@@ -3,6 +3,8 @@
 
 #include <QTableWidget>
 #include <QAction>
+#include <thread.h>
+#include <mavlink.h>
 
 typedef struct thread_t{
     quint8 id;
@@ -15,38 +17,27 @@ typedef struct thread_t{
     quint32 executions;
 } thread_t;
 
-Q_DECLARE_METATYPE(thread_t)
-
-/*namespace Ui {
-class QThreadingWidget;
-}*/
-
 class QThreadingWidget : public QTableWidget
 {
     Q_OBJECT
 
 public:
     explicit QThreadingWidget(QWidget *parent = 0);
-    ~QThreadingWidget();
 
     bool hasThread(int id);
     int findThread(int id);
 
-    QAction *getPopupAction();
-
 private:
-    //Ui::QThreadingWidget *ui;
-    QList<thread_t> threads;
-    QAction *_popup;
-
+    QList<Thread> _threads;
     void populateRow(int row);
-
-protected slots:
-    void closeEvent(QCloseEvent *e);
+    void updateWidget();
+    void updateWidget(int index);
 
 public slots:
-    void updateThreadInfo(thread_t);
+    void updateThread(Thread thread);
 
 };
+
+//Q_DECLARE_METATYPE(mavlink_thread_info_t)
 
 #endif // QTHREADINGWIDGET_H

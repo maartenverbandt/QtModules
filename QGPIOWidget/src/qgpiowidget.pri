@@ -36,3 +36,11 @@
 } else {
     message( "Skipping $$PWD: already included" )
 }
+
+HEADERS += \
+    $$PWD/thread.h \
+    $$PWD/qthreadingdialog.h
+
+SOURCES += \
+    $$PWD/thread.cpp \
+    $$PWD/qthreadingdialog.cpp

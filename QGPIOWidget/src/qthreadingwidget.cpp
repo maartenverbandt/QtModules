@@ -1,19 +1,11 @@
 #include "qthreadingwidget.h"
 
 QThreadingWidget::QThreadingWidget(QWidget *parent) :
-    QTableWidget(0,7,parent),
-    _popup(new QAction("Thread info", this))
+    QTableWidget(0,7,parent)
 {
     QStringList header;
     header << "ID" << "priority" << "<duration>" << "<latency>" << "duration" << "latency" << "executions";
     setHorizontalHeaderLabels(header);
-
-    QObject::connect(_popup,SIGNAL(triggered()),this,SLOT(show()));
-}
-
-QThreadingWidget::~QThreadingWidget()
-{
-    //delete ui;
 }
 
 bool QThreadingWidget::hasThread(int id)
@@ -23,17 +15,12 @@ bool QThreadingWidget::hasThread(int id)
 
 int QThreadingWidget::findThread(int id)
 {
-    for(int k = 0; k<threads.length() ; k++){
-        if(threads[k].id == id){
+    for(int k = 0; k<_threads.length() ; k++){
+        if(_threads[k].id() == id){
             return k;
         }
     }
     return -1;
-}
-
-QAction *QThreadingWidget::getPopupAction()
-{
-    return _popup;
 }
 
 void QThreadingWidget::populateRow(int row)
@@ -47,28 +34,38 @@ void QThreadingWidget::populateRow(int row)
     item(row,1)->setTextAlignment(Qt::AlignCenter);
 }
 
-void QThreadingWidget::updateThreadInfo(thread_t thread)
+void QThreadingWidget::updateWidget()
 {
-    int index = findThread(thread.id);
-    if(index>=0){
-        threads[index] = thread;
-    } else {
-        threads.append(thread);
+    for(int k=0;k<_threads.length();k++)
+        updateWidget(k);
+}
+
+void QThreadingWidget::updateWidget(int index)
+{
+    // Check if new thread
+    if(index>=rowCount()){
         insertRow(rowCount());
-        index=rowCount()-1;
         populateRow(index);
     }
-
-    item(index,0)->setText(QString::number(thread.id));
-    item(index,1)->setText(QString::number(thread.priority));
-    item(index,2)->setText(QString::number(thread.average_duration));
-    item(index,3)->setText(QString::number(thread.average_latency));
-    item(index,4)->setText(QString::number(thread.duration));
-    item(index,5)->setText(QString::number(thread.latency));
-    item(index,6)->setText(QString::number(thread.executions));
+    // Fill out data
+    item(index,0)->setText(QString::number(_threads[index].id()));
+    item(index,1)->setText(QString::number(_threads[index].priority()));
+    item(index,2)->setText(QString::number(_threads[index].averageDuration()));
+    item(index,3)->setText(QString::number(_threads[index].averageLatency()));
+    item(index,4)->setText(QString::number(_threads[index].duration()));
+    item(index,5)->setText(QString::number(_threads[index].latency()));
+    item(index,6)->setText(QString::number(_threads[index].executions()));
 }
 
-void QThreadingWidget::closeEvent(QCloseEvent *e)
+void QThreadingWidget::updateThread(Thread thread)
 {
-    setVisible(false);
+    int index = findThread(thread.id());
+    if(index>=0){
+        _threads[index] = thread;
+    } else {
+        _threads.append(thread);
+        index++;
+    }
+    updateWidget(index);
 }
+

@@ -282,7 +282,6 @@ void QGPIOWidget::sendGPIO()
     for(k=0;k<QGPIOWIDGET_INT_COUNT;k++)
         gpio.gpio_int[k] = _int_outputs[k]->value();
 
-
     emit setOutput(gpio);
 }
 
