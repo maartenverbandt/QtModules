@@ -96,7 +96,7 @@ void QMapWidget::paintEvent(QPaintEvent *)
 
     painter.setPen(_robot_pen);
     painter.setBrush(_robot_brush);
-    painter.drawPolygon(transform.rotateRadians(_pose.z()).map(_robot));
+    painter.drawPolygon(transform.rotateRadians(_pose.z()).translate(_pose.x(),_pose.y()).map(_robot));
 }
 
 void QMapWidget::resizeEvent(QResizeEvent *)
