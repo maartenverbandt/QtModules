@@ -29,6 +29,7 @@ private:
     QVector3D _pose;
     QPolygonF _points;
     QPolygonF _robot;
+    QPolygonF _tail;
 
     QPointF _center;
     double _scale;
@@ -38,9 +39,12 @@ private:
     QPen _robot_pen;
     QBrush _robot_brush;
     QPen _point_pen;
+    QPen _tail_pen;
 
     void setScale();
     void setCenter();
+
+    void addTailPoint(QPointF point);
 
 signals:
 

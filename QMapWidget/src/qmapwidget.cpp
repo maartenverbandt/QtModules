@@ -17,6 +17,9 @@ QMapWidget::QMapWidget(QWidget *parent) :
     _robot_brush.setStyle(Qt::SolidPattern);
     _point_pen.setColor(Qt::black);
     _point_pen.setWidth(2);
+    _tail_pen.setColor(Qt::blue);
+    _tail_pen.setWidth(2);
+    _tail_pen.setStyle(Qt::SolidLine);
 
     // set black background
     QPalette Pal(palette());
@@ -66,6 +69,13 @@ void QMapWidget::addPoint(QPointF point)
     update();
 }
 
+void QMapWidget::addTailPoint(QPointF point)
+{
+    _tail.append(point);
+    if(_tail.size() > 100)
+        _tail.pop_front();
+}
+
 void QMapWidget::setRange(double radius)
 {
     _range = radius;
@@ -84,6 +94,8 @@ void QMapWidget::setCenter()
 
 void QMapWidget::paintEvent(QPaintEvent *)
 {
+    addTailPoint(_pose.toPointF());
+
     QPainter painter(this);
     painter.drawRect(rect());
 
@@ -93,6 +105,9 @@ void QMapWidget::paintEvent(QPaintEvent *)
 
     painter.setPen(_point_pen);
     painter.drawPoints(transform.map(_points));
+
+    painter.setPen(_tail_pen);
+    painter.drawPolyline(transform.map(_tail));
 
     painter.setPen(_robot_pen);
     painter.setBrush(_robot_brush);
