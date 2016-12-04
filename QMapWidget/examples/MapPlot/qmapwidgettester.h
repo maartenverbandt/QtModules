@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTime>
+#include <QVector2D>
 
 class QMapWidgetTester : public QObject
 {
@@ -15,6 +16,7 @@ private:
 
 signals:
     void orientationChanged(double orientation);
+    void poseChanged(QVector2D);
 
 };
 

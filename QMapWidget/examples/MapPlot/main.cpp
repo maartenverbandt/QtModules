@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     QMapWidgetTester *t = new QMapWidgetTester();
 
     QObject::connect(t,SIGNAL(orientationChanged(double)),p,SLOT(setOrientation(double)));
+    QObject::connect(t,SIGNAL(poseChanged(QVector2D)),p,SLOT(setPosition(QVector2D)));
 
     p->show();
     p->setRange(5.0);
