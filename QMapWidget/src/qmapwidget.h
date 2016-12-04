@@ -23,6 +23,7 @@ public:
 
 protected:
     virtual void paintEvent(QPaintEvent *e);
+    virtual void resizeEvent(QResizeEvent *);
 
 private:
     QVector3D _pose;

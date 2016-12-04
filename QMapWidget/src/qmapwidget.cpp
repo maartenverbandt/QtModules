@@ -80,7 +80,7 @@ void QMapWidget::setCenter()
     _center = QPointF(this->width(),this->height())/2.0;
 }
 
-void QMapWidget::paintEvent(QPaintEvent *e)
+void QMapWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.drawRect(rect());
@@ -96,3 +96,10 @@ void QMapWidget::paintEvent(QPaintEvent *e)
     painter.setBrush(_robot_brush);
     painter.drawPolygon(transform.rotateRadians(_pose.z()).map(_robot));
 }
+
+void QMapWidget::resizeEvent(QResizeEvent *)
+{
+    setScale();
+    setCenter();
+}
+
