@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 
     p->show();
     p->setRange(5.0);
+    p->setSize(0.5);
 
     //p->setSize(1);
 

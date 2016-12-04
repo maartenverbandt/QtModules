@@ -17,7 +17,7 @@ public:
 
     void setRange(double radius);
 
-    void setSize(size_t size);
+    void setSize(double size);
     QVector3D getPose();
     void addPoint(QPointF point);
 
@@ -33,7 +33,7 @@ private:
     QPointF _center;
     double _scale;
     double _range;
-    size_t _size;
+    double _size;
 
     QPen _robot_pen;
     QBrush _robot_brush;

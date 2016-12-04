@@ -25,14 +25,16 @@ QMapWidget::QMapWidget(QWidget *parent) :
     this->setPalette(Pal);
 }
 
-void QMapWidget::setSize(size_t size)
+void QMapWidget::setSize(double size)
 {
-    _size = size;
-    _robot = QPolygonF();
-    _robot.append(QPointF(1.0,0.0)*size);
-    _robot.append(QPointF(-0.5,-0.7)*size);
-    _robot.append(QPointF(-0.25,0.0)*size);
-    _robot.append(QPointF(-0.5,0.7)*size);
+    if(_size > 0.0){
+        _size = size;
+        _robot = QPolygonF();
+        _robot.append(QPointF(1.0,0.0)*size);
+        _robot.append(QPointF(-0.5,-0.7)*size);
+        _robot.append(QPointF(-0.25,0.0)*size);
+        _robot.append(QPointF(-0.5,0.7)*size);
+    }
 }
 
 QVector3D QMapWidget::getPose()
