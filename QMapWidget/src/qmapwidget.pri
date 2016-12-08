@@ -7,10 +7,14 @@
     INCLUDEPATH += $$PWD
 
         HEADERS += \
-            $$PWD/qmapwidget.h
+            $$PWD/qmapwidget.h\
+			$$PWD/qpainterelement.h \
+			$$PWD/qrobotelement.h
 
         SOURCES += \
-            $$PWD/qmapwidget.cpp
+            $$PWD/qmapwidget.cpp\
+			$$PWD/qpainterelement.cpp \
+			$$PWD/qrobotelement.cpp
                         
 
     FORMS += 
