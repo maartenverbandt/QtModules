@@ -126,6 +126,10 @@ void QMapWidget::paintEvent(QPaintEvent *)
     QTransform transspeed(_velocity.x(),_velocity.y(),-_velocity.y(),_velocity.x(),_pose.x(),_pose.y());
     painter.drawPolygon((transspeed*transform).map(_speed));
 
+    //painter.setPen(_robot_pen);
+    //painter.setBrush(_robot_brush);
+    //painter.drawPolygon(transform.translate(_pose.x(),_pose.y()).rotateRadians(_pose.z()).map(_robot));
+    robotelement.draw(painter,transform.translate(_pose.x(),_pose.y()).rotateRadians(_pose.z()));
 }
 
 void QMapWidget::resizeEvent(QResizeEvent *)

@@ -8,6 +8,8 @@
 #include <QPointF>
 #include <QPainter>
 
+#include <qrobotelement.h>
+
 class QMapWidget : public QWidget
 {
     Q_OBJECT
@@ -26,6 +28,7 @@ protected:
     virtual void resizeEvent(QResizeEvent *);
 
 private:
+    QRobotElement robotelement;
     QVector3D _pose;
     QVector2D _velocity;
     QPolygonF _points;
