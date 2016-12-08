@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(t,SIGNAL(orientationChanged(double)),p,SLOT(setOrientation(double)));
     QObject::connect(t,SIGNAL(poseChanged(QVector2D)),p,SLOT(setPosition(QVector2D)));
+    QObject::connect(t,SIGNAL(speedChanged(QVector2D)),p,SLOT(setGlobalVelocity(QVector2D)));
 
     p->show();
     p->setRange(5.0);

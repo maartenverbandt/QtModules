@@ -17,6 +17,7 @@ private:
 signals:
     void orientationChanged(double orientation);
     void poseChanged(QVector2D);
+    void speedChanged(QVector2D);
 
 };
 
