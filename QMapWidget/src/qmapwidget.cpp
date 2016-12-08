@@ -37,6 +37,14 @@ void QMapWidget::setSize(double size)
         _robot.append(QPointF(-0.5,-0.7)*size);
         _robot.append(QPointF(-0.25,0.0)*size);
         _robot.append(QPointF(-0.5,0.7)*size);
+
+        _speed = QPolygonF();
+        _speed.append(QPointF(0.0,0.0)*size);
+        _speed.append(QPointF(4.5,0.0)*size);
+        _speed.append(QPointF(4.25,0.35)*size);
+        _speed.append(QPointF(5.0,0.0)*size);
+        _speed.append(QPointF(4.25,-0.35)*size);
+        _speed.append(QPointF(4.5,0.0)*size);
     }
 }
 
@@ -61,6 +69,11 @@ void QMapWidget::setOrientation(double orientation)
 {
     _pose.setZ(orientation);
     update();
+}
+
+void QMapWidget::setGlobalVelocity(QVector2D velocity)
+{
+    _velocity = velocity;
 }
 
 void QMapWidget::addPoint(QPointF point)
@@ -110,8 +123,9 @@ void QMapWidget::paintEvent(QPaintEvent *)
     painter.drawPolyline(transform.map(_tail));
 
     painter.setPen(_robot_pen);
-    painter.setBrush(_robot_brush);
-    painter.drawPolygon(transform.translate(_pose.x(),_pose.y()).rotateRadians(_pose.z()).map(_robot));
+    QTransform transspeed(_velocity.x(),_velocity.y(),-_velocity.y(),_velocity.x(),_pose.x(),_pose.y());
+    painter.drawPolygon((transspeed*transform).map(_speed));
+
 }
 
 void QMapWidget::resizeEvent(QResizeEvent *)

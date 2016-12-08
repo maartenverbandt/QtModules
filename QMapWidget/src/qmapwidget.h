@@ -27,8 +27,10 @@ protected:
 
 private:
     QVector3D _pose;
+    QVector2D _velocity;
     QPolygonF _points;
     QPolygonF _robot;
+    QPolygonF _speed;
     QPolygonF _tail;
 
     QPointF _center;
@@ -52,6 +54,8 @@ public slots:
     void setPose(QVector3D pose);
     void setPosition(QVector2D position);
     void setOrientation(double orientation);
+
+    void setGlobalVelocity(QVector2D velocity);
 
 };
 
