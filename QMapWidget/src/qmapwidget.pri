@@ -11,12 +11,14 @@
             $$PWD/qpainterelement.h \
             $$PWD/qrobotelement.h \
             $$PWD/qtrajectoryelement.h \
+            $$PWD/qarrowelement.h
 
         SOURCES += \
             $$PWD/qmapwidget.cpp\
             $$PWD/qpainterelement.cpp \
             $$PWD/qrobotelement.cpp \
             $$PWD/qtrajectoryelement.cpp \
+            $$PWD/qarrowelement.cpp
                         
 
     FORMS += 
