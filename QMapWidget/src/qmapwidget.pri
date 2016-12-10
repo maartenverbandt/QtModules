@@ -13,6 +13,7 @@
             $$PWD/qarrowelement.h \
             $$PWD/qmarkerelement.h \
             $$PWD/qrobotelement.h \
+            $$PWD/qcloudelement.h
 
         SOURCES += \
             $$PWD/qmapwidget.cpp\
@@ -21,6 +22,7 @@
             $$PWD/qarrowelement.cpp \
             $$PWD/qmarkerelement.cpp \
             $$PWD/qrobotelement.cpp \
+            $$PWD/qcloudelement.cpp
                         
 
     FORMS += 
