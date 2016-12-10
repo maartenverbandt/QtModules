@@ -12,6 +12,7 @@
             $$PWD/qtrajectoryelement.h \
             $$PWD/qarrowelement.h \
             $$PWD/qmarkerelement.h \
+            $$PWD/qrobotelement.h \
 
         SOURCES += \
             $$PWD/qmapwidget.cpp\
@@ -19,6 +20,7 @@
             $$PWD/qtrajectoryelement.cpp \
             $$PWD/qarrowelement.cpp \
             $$PWD/qmarkerelement.cpp \
+            $$PWD/qrobotelement.cpp \
                         
 
     FORMS += 
