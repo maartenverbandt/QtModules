@@ -32,5 +32,11 @@ void QArrowElement::setSize(double size)
 void QArrowElement::draw(QPainter &painter, QTransform transform)
 {
     QPainterElement::draw(painter,transform);
-    painter.drawPolygon(transform.map(_arrow));
+    QTransform rotate(_vector.x(),_vector.y(),-_vector.y(),_vector.x(),0.0,0.0);
+    painter.drawPolygon((rotate*transform).map(_arrow));
+}
+
+void QArrowElement::setVector(QVector2D vector)
+{
+    _vector = vector;
 }

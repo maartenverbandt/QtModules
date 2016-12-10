@@ -2,6 +2,7 @@
 #define QARROWELEMENT_H
 
 #include <qpainterelement.h>
+#include <QVector2D>
 
 class QArrowElement : public QPainterElement
 {
@@ -13,6 +14,10 @@ public:
 
 private:
     QPolygonF _arrow;
+    QVector2D _vector;
+
+public slots:
+    void setVector(QVector2D vector);
 
 };
 
