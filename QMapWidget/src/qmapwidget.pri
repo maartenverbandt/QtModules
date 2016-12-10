@@ -9,16 +9,16 @@
         HEADERS += \
             $$PWD/qmapwidget.h\
             $$PWD/qpainterelement.h \
-            $$PWD/qrobotelement.h \
             $$PWD/qtrajectoryelement.h \
-            $$PWD/qarrowelement.h
+            $$PWD/qarrowelement.h \
+            $$PWD/qmarkerelement.h \
 
         SOURCES += \
             $$PWD/qmapwidget.cpp\
             $$PWD/qpainterelement.cpp \
-            $$PWD/qrobotelement.cpp \
             $$PWD/qtrajectoryelement.cpp \
-            $$PWD/qarrowelement.cpp
+            $$PWD/qarrowelement.cpp \
+            $$PWD/qmarkerelement.cpp \
                         
 
     FORMS += 
