@@ -15,6 +15,10 @@ class QRobotElement : public QObject
 public:
     QRobotElement(QObject *parent = 0);
 
+    QMarkerElement* getMarker();
+    QTrajectoryElement* getTrajectory();
+    QArrowElement* getSpeed();
+
     void draw(QPainter &painter, QTransform transform);
 
 private:

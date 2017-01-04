@@ -5,6 +5,21 @@ QRobotElement::QRobotElement(QObject *parent) : QObject(parent)
 
 }
 
+QMarkerElement *QRobotElement::getMarker()
+{
+    return &_marker;
+}
+
+QTrajectoryElement *QRobotElement::getTrajectory()
+{
+    return &_trajectory;
+}
+
+QArrowElement *QRobotElement::getSpeed()
+{
+    return &_speed;
+}
+
 void QRobotElement::draw(QPainter &painter, QTransform transform)
 {
     _trajectory.draw(painter,transform);
