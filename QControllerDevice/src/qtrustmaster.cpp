@@ -72,10 +72,19 @@ void QTrustMaster::mapButtons(int id, bool value)
     case BUTTON_L2:
         _state.buttonL2 = value;
         break;
+    case BUTTON_L3:
+        _state.buttonL3 = value;
+        break;
     case BUTTON_R1:
         _state.buttonR1 = value;
         if(value)
             emit switchNextRobot();
+        break;
+    case BUTTON_R2:
+        _state.buttonR2 = value;
+        break;
+    case BUTTON_R3:
+        _state.buttonR3 = value;
         break;
     case BUTTON_A:
         _state.buttonA = value;

@@ -36,6 +36,7 @@ private:
     const static int BUTTON_L2 = 5;
     const static int BUTTON_L3 = 8;
     const static int BUTTON_R1 = 6;
+    const static int BUTTON_R2 = 7;
     const static int BUTTON_R3 = 9;
     const static int BUTTON_A = 0;
     const static int BUTTON_B = 2;

@@ -2,66 +2,30 @@
 
 QMapWidget::QMapWidget(QWidget *parent) :
     QWidget(parent),
-    _pose(QVector3D(0.0,0.0,0.0)),
     _scale(1.0)
 {
     // set sizes
-    setSize(1.0);
     setRange(1.0);
     setCenter();
-
-    // set pen styles
-    _robot_pen.setColor(Qt::black);
-    _robot_pen.setWidth(2);
-    _robot_brush.setColor(Qt::green);
-    _robot_brush.setStyle(Qt::SolidPattern);
-    _point_pen.setColor(Qt::black);
-    _point_pen.setWidth(2);
 
     // set black background
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::white);
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
+
+    // connect change to update
+    QObject::connect(&robot,SIGNAL(poseChanged()),this,SLOT(update()));
 }
 
-void QMapWidget::setSize(size_t size)
+QRobotElement *QMapWidget::getRobot()
 {
-    _size = size;
-    _robot = QPolygonF();
-    _robot.append(QPointF(1.0,0.0)*size);
-    _robot.append(QPointF(-0.5,-0.7)*size);
-    _robot.append(QPointF(-0.25,0.0)*size);
-    _robot.append(QPointF(-0.5,0.7)*size);
+    return &robot;
 }
 
-QVector3D QMapWidget::getPose()
+QCloudElement *QMapWidget::getCloud()
 {
-    return _pose;
-}
-
-void QMapWidget::setPose(QVector3D pose)
-{
-    _pose = pose;
-    update();
-}
-
-void QMapWidget::setPosition(QVector2D position)
-{
-    _pose = QVector3D(position,_pose.z());
-    update();
-}
-
-void QMapWidget::setOrientation(double orientation)
-{
-    _pose.setZ(orientation);
-    update();
-}
-
-void QMapWidget::addPoint(QPointF point)
-{
-    _points.append(point);
-    update();
+    return &cloud;
 }
 
 void QMapWidget::setRange(double radius)
@@ -80,19 +44,25 @@ void QMapWidget::setCenter()
     _center = QPointF(this->width(),this->height())/2.0;
 }
 
-void QMapWidget::paintEvent(QPaintEvent *e)
+void QMapWidget::paintEvent(QPaintEvent *)
 {
+    // Draw outer rectangle
     QPainter painter(this);
     painter.drawRect(rect());
 
+    // Setup canvas coordinates
     painter.translate(_center);
     painter.scale(1.0,-1.0);
     QTransform transform = QTransform::fromScale(_scale,_scale);
 
-    painter.setPen(_point_pen);
-    painter.drawPoints(transform.map(_points));
-
-    painter.setPen(_robot_pen);
-    painter.setBrush(_robot_brush);
-    painter.drawPolygon(transform.rotateRadians(_pose.z()).map(_robot));
+    // Draw robot and point cloud
+    cloud.draw(painter,transform);
+    robot.draw(painter,transform);
 }
+
+void QMapWidget::resizeEvent(QResizeEvent *)
+{
+    setScale();
+    setCenter();
+}
+
