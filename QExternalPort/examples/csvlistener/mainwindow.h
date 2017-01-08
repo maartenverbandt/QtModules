@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <qpositioncmdportdialog.h>
 #include <mavlink/robot_messages/mavlink.h>
 
 namespace Ui {
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QPositionCmdPortDialog* d;
 
 public slots:
     void positionCmdCatch(mavlink_position_cmd_t position_cmd);
