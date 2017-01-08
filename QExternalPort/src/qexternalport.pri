@@ -2,7 +2,7 @@
     included_modules += $$PWD
     message( "Including $$PWD" )
 
-    QT +=
+    QT += network
 
     INCLUDEPATH += $$PWD
 
@@ -31,3 +31,16 @@
 } else {
     message( "Skipping $$PWD: already included" )
 }
+
+HEADERS += \
+    $$PWD/qudpport.h \
+    $$PWD/qpositioncmdudpport.h \
+    $$PWD/qudpportwidget.h
+
+SOURCES += \
+    $$PWD/qudpport.cpp \
+    $$PWD/qpositioncmdudpport.cpp \
+    $$PWD/qudpportwidget.cpp
+
+FORMS += \
+    $$PWD/qudpportwidget.ui
