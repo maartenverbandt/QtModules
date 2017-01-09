@@ -20,7 +20,8 @@ public:
     QByteArray readLine();
 
 private slots:
-    void on_spinBox_valueChanged(int arg1);
+    void on_incoming_port_valueChanged(int arg1);
+    void on_outgoing_port_valueChanged(int arg1);
 
 private:
     Ui::QUdpPortWidget *ui;

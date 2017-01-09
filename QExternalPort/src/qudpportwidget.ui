@@ -17,12 +17,12 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Port:</string>
+      <string>Incoming port:</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QSpinBox" name="spinBox"/>
+    <widget class="QSpinBox" name="incoming_port"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
@@ -38,6 +38,20 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Outgoing port:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="outgoing_port">
+     <property name="maximum">
+      <number>65536</number>
      </property>
     </widget>
    </item>
