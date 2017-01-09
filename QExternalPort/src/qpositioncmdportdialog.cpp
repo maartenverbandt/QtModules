@@ -2,9 +2,11 @@
 
 QPositionCmdPortDialog::QPositionCmdPortDialog(QWidget *parent) :
     QExternalPortDialog("position command",parent),
-    _file_port(new QPositionCmdFilePort(this))
+    _file_port(new QPositionCmdFilePort(this)),
+    _udp_port(new QPositionCmdUdpPort(this))
 {
     addPort(_file_port,"file");
+    addPort(_udp_port,"UDP");
 }
 
 mavlink_position_cmd_t QPositionCmdPortDialog::getPositionCmdPacket()

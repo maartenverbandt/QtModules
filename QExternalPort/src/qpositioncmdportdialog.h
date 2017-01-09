@@ -3,6 +3,7 @@
 
 #include <qexternalportdialog.h>
 #include <qpositioncmdfileport.h>
+#include <qpositioncmdudpport.h>
 #include <mavlink/robot_messages/mavlink.h>
 
 class QPositionCmdPortDialog : public QExternalPortDialog
@@ -19,6 +20,7 @@ protected:
 
 private:
     QPositionCmdFilePort* _file_port;
+    QPositionCmdUdpPort* _udp_port;
 
 signals:
     void positionCmdPacket(mavlink_position_cmd_t position_cmd);
