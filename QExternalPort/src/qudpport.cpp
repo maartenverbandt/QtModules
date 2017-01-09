@@ -1,11 +1,11 @@
 #include "qudpport.h"
 
-QUdpPort::QUdpPort(QObject *parent) :
+QUdpPort::QUdpPort(const int line_size, QObject *parent) :
     QObject(parent),
     _socket(new QUdpSocket(this)),
     _line_size(line_size)
 {
-    _socket->bind(); //bind to random port
+    _socket->bind();
 }
 
 void QUdpPort::setPort(quint16 port)
@@ -28,16 +28,16 @@ void QUdpPort::reset()
     quint16 port = _socket->localPort();
     _socket->disconnectFromHost();
     _socket->bind(port);
-    _socket->readAll();
 }
 
 QByteArray QUdpPort::readLine()
 {
-    QByteArray bytes;
-    while(_socket->bytesAvailable()>=_line_size){
-        bytes = _socket->read(_line_size);
+    QByteArray bytes = QByteArray(_line_size,0);
+    while(_socket->hasPendingDatagrams()){
+        _socket->readDatagram(bytes.data(),bytes.size());
         _lines_read++;
     }
+
     return bytes;
 }
 
