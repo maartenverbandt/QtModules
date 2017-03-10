@@ -14,7 +14,7 @@ QExternalPortDialog::~QExternalPortDialog()
     delete _stack;
 }
 
-void QExternalPortDialog::setCurrentPort(int index)
+void QExternalPortDialog::setCurrentInputWidget(int index)
 {
     if(index<_stack->count()){
         _buttons->button(index)->setChecked(true);
@@ -33,10 +33,10 @@ void QExternalPortDialog::addInputWidget(QInputWidget *w)
 
     _buttons->addButton(button,_stack->count());
     _stack->addWidget(w);
-    setCurrentPort(_stack->count()-1);
+    setCurrentInputWidget(_stack->count()-1);
 }
 
-QInputWidget *QExternalPortDialog::currentPort()
+QInputWidget *QExternalPortDialog::currentInputWidget()
 {
     return _ports.value(_stack->currentIndex());
 }
@@ -57,7 +57,7 @@ QAction *QExternalPortDialog::getPopupAction()
 
 void QExternalPortDialog::timerEvent(QTimerEvent *)
 {
-    emit commands(currentPort()->read());
+    emit commands(currentInputWidget()->read());
 }
 
 void QExternalPortDialog::layoutSetup()
@@ -110,7 +110,7 @@ void QExternalPortDialog::stop()
 
 void QExternalPortDialog::reset()
 {
-    currentPort()->reset();
+    currentInputWidget()->reset();
 }
 
 
