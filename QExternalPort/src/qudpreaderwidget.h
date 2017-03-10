@@ -2,30 +2,30 @@
 #define QUDPPORTWIDGET_H
 
 #include <QWidget>
-#include <qudpport.h>
+#include <qudpreader.h>
 
 namespace Ui {
 class QUdpPortWidget;
 }
 
-class QUdpPortWidget : public QWidget
+class QUdpReaderWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit QUdpPortWidget(quint64 line_size, QWidget *parent = 0);
-    ~QUdpPortWidget();
+    explicit QUdpReaderWidget(quint64 line_size, QString name, QWidget *parent = 0);
+    ~QUdpReaderWidget();
 
-    QUdpPort* getUdpPort();
+    QUdpReader* getUdpReader();
     QByteArray readLine();
+    bool enabled();
 
 private slots:
     void on_incoming_port_valueChanged(int arg1);
-    void on_outgoing_port_valueChanged(int arg1);
 
 private:
     Ui::QUdpPortWidget *ui;
-    QUdpPort* _udp_port;
+    QUdpReader* _udp_port;
 
 };
 

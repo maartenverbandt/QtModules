@@ -1,14 +1,11 @@
-#ifndef QUDPPORT_H
-#define QUDPPORT_H
+#ifndef QUDPREADER_H
+#define QUDPREADER_H
 
-#include <QObject>
 #include <QUdpSocket>
 
-class QUdpPort : public QObject
-{
-    Q_OBJECT
+class QUdpReader{
 public:
-    explicit QUdpPort(const int line_size, QObject *parent = 0);
+    QUdpReader(const int line_size, QObject *parent = 0);
 
     void setPort(quint16 port);
     quint16 getPort();
@@ -25,4 +22,4 @@ private:
 
 };
 
-#endif // QUDPPORT_H
+#endif // QUDPREADER_H

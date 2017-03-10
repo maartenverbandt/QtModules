@@ -1,13 +1,12 @@
-#include "qgpiofileport.h"
+#include "qgpiocsvreader.h"
 
-QGPIOFilePort::QGPIOFilePort(QObject *parent) :
-    QObject(parent),
-    _csv_reader(new QCsvReaderWidget(0))
+QGpioCsvReader::QGpioCsvReader(QWidget *parent) :
+    _csv_reader(new QCsvReaderWidget("gpio", parent))
 {
 
 }
 
-mavlink_gpio_t QGPIOFilePort::getGpioPacket()
+mavlink_gpio_t QGpioCsvReader::getGpioPacket()
 {
     int k = 0;
     mavlink_gpio_t gpio;
@@ -27,16 +26,26 @@ mavlink_gpio_t QGPIOFilePort::getGpioPacket()
     return gpio;
 }
 
-QVariant QGPIOFilePort::getPacket()
+QVariant QGpioCsvReader::getPacket()
 {
     QVariant gpio;
     gpio.setValue(getGpioPacket());
     return gpio;
 }
 
-QWidget *QGPIOFilePort::getWidget()
+QWidget *QGpioCsvReader::getWidget()
 {
     return _csv_reader;
+}
+
+bool QGpioCsvReader::enabled()
+{
+    return _csv_reader->enabled();
+}
+
+void QGpioCsvReader::reset()
+{
+    _csv_reader->getCsvReader()->reset();
 }
 
 

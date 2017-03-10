@@ -15,11 +15,13 @@ class QCsvReaderWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit QCsvReaderWidget(QWidget *parent = 0);
+    explicit QCsvReaderWidget(QString name, QWidget *parent = 0);
     ~QCsvReaderWidget();
 
     QCsvReader* getCsvReader();
     QList<double> readLine();
+
+    bool enabled();
 
 private slots:
     void on_pushButton_clicked();

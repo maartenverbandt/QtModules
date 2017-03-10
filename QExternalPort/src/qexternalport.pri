@@ -10,37 +10,30 @@
             $$PWD/qcsvreader.h\
             $$PWD/qcsvreaderwidget.h \
             $$PWD/qdataportinterface.h \
-            $$PWD/qgpiofileport.h \
-            $$PWD/qgpioportinterface.h \
-            $$PWD/qpositioncmdfileport.h \
-            $$PWD/qpositioncmdportdialog.h \
-            $$PWD/qpositioncmdportinterface.h \
+            $$PWD/qgpiocsvreader.h \
+            $$PWD/qpositioncmdcsvreader.h \
+            $$PWD/qinputwidget.h \
+            $$PWD/qtudpreader.h \
+            $$PWD/qudpreader.h \
+            $$PWD/qudpreaderwidget.h \
             $$PWD/qexternalportdialog.h
 
         SOURCES += \
-			$$PWD/qcsvreader.cpp \
-			$$PWD/qcsvreaderwidget.cpp \
-			$$PWD/qgpiofileport.cpp \
-			$$PWD/qpositioncmdfileport.cpp \
-			$$PWD/qpositioncmdportdialog.cpp \
+            $$PWD/qcsvreader.cpp \
+            $$PWD/qcsvreaderwidget.cpp \
+            $$PWD/qgpiocsvreader.cpp \
+            $$PWD/qpositioncmdcsvreader.cpp \
+            $$PWD/qinputwidget.cpp \
+            $$PWD/qudpreader.cpp \
+            $$PWD/qudpreaderwidget.cpp \
             $$PWD/qexternalportdialog.cpp
                         
 
-    FORMS += $$PWD/qcsvreaderwidget.ui
+    FORMS += $$PWD/qcsvreaderwidget.ui\
+             $$PWD/qudpportwidget.ui
+
+include(../../QMavlinkConnection/src/qmavlinkconnection.pri)
 
 } else {
     message( "Skipping $$PWD: already included" )
 }
-
-HEADERS += \
-    $$PWD/qudpport.h \
-    $$PWD/qpositioncmdudpport.h \
-    $$PWD/qudpportwidget.h
-
-SOURCES += \
-    $$PWD/qudpport.cpp \
-    $$PWD/qpositioncmdudpport.cpp \
-    $$PWD/qudpportwidget.cpp
-
-FORMS += \
-    $$PWD/qudpportwidget.ui

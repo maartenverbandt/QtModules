@@ -1,15 +1,13 @@
-#include "qpositioncmdfileport.h"
+#include "qpositioncmdcsvreader.h"
 
-QPositionCmdFilePort::QPositionCmdFilePort(QObject *parent):
-    QObject(parent),
-    _csv_reader(new QCsvReaderWidget(0))
+QPositionCmdCsvReader::QPositionCmdCsvReader(QWidget *parent):
+    _csv_reader(new QCsvReaderWidget("position cmd",parent))
 {
 
 }
 
-mavlink_position_cmd_t QPositionCmdFilePort::getPositionCmdPacket()
+mavlink_position_cmd_t QPositionCmdCsvReader::getPositionCmdPacket()
 {
-    int k = 0;
     mavlink_position_cmd_t position_cmd;
 
     QList<double> values = _csv_reader->readLine();
@@ -27,16 +25,26 @@ mavlink_position_cmd_t QPositionCmdFilePort::getPositionCmdPacket()
     return position_cmd;
 }
 
-QVariant QPositionCmdFilePort::getPacket()
+QVariant QPositionCmdCsvReader::getPacket()
 {
     QVariant position_cmd;
     position_cmd.setValue(getPositionCmdPacket());
     return position_cmd;
 }
 
-QWidget *QPositionCmdFilePort::getWidget()
+QWidget *QPositionCmdCsvReader::getWidget()
 {
     return _csv_reader;
+}
+
+bool QPositionCmdCsvReader::enabled()
+{
+    return _csv_reader->enabled();
+}
+
+void QPositionCmdCsvReader::reset()
+{
+    _csv_reader->getCsvReader()->reset();
 }
 
 
