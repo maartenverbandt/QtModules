@@ -70,7 +70,7 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
     }
 
     setLabels();
-    loadSettings();
+    //loadSettings();
 
     checkCheckboxs();
     set_button = new QPushButton("Set");
@@ -91,13 +91,16 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
 
 QGPIOWidget::~QGPIOWidget()
 {
-    saveSettings();
+    //saveSettings();
     delete ui;
 }
 
-void QGPIOWidget::loadSettings()
+void QGPIOWidget::restoreState(QString group)
 {
-    QSettings settings("RobSoft", "QRoboticsCenter");
+    QSettings settings;
+
+    // set parent group
+    settings.beginGroup(group);
 
     // set window group
     settings.beginGroup("QGPIOWidget");
@@ -140,11 +143,15 @@ void QGPIOWidget::loadSettings()
     settings.endArray();
 
     settings.endGroup();
+    settings.endGroup();
 }
 
-void QGPIOWidget::saveSettings()
+void QGPIOWidget::saveState(QString group)
 {
-    QSettings settings("RobSoft", "QRoboticsCenter");
+    QSettings settings;
+
+    // set parent group
+    settings.beginGroup(group);
 
     // set window group
     settings.beginGroup("QGPIOWidget");
@@ -173,6 +180,7 @@ void QGPIOWidget::saveSettings()
         settings.setValue("value",_int_outputs[k]->value());
     }
     settings.endArray();
+    settings.endGroup();
     settings.endGroup();
 }
 
