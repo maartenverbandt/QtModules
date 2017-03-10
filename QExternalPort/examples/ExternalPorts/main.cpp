@@ -15,20 +15,12 @@ int main(int argc, char *argv[])
     w.show();
 
     QInputWidget *csv = new QInputWidget(0);
-    QGpioCsvReader *gpio = new QGpioCsvReader(csv);
-    QPositionCmdCsvReader *pcmd = new QPositionCmdCsvReader(csv);
-
-    csv->addPort(gpio);
-    csv->addPort(pcmd);
-    //csv->show();
+    csv->addPort(new QGpioCsvReader(csv));
+    csv->addPort(new QPositionCmdCsvReader(csv));
 
     QInputWidget *udp = new QInputWidget(0);
-    QDataPortInterface *gpio_udp = new QTUdpReader<mavlink_gpio_t>("gpio", udp);
-    QDataPortInterface *pcmd_udp = new QTUdpReader<mavlink_position_cmd_t>("position cmd", udp);
-
-    udp->addPort(gpio_udp);
-    udp->addPort(pcmd_udp);
-    //udp->show();
+    udp->addPort(new QGpioUdpReader(udp));
+    udp->addPort(new QPositionCmdUdpReader(udp));
 
     QExternalPortDialog *d = new QExternalPortDialog("Command port");
     d->addInputWidget(csv,"CSV");

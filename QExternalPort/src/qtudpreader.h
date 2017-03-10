@@ -3,6 +3,7 @@
 
 #include <qdataportinterface.h>
 #include <qudpreaderwidget.h>
+#include <mavlink.h>
 
 template <typename T> class QTUdpReader : public QDataPortInterface
 {
@@ -40,6 +41,20 @@ public:
 private:
     QUdpReaderWidget* _udp_reader;
 
+};
+
+class QGpioUdpReader: public QTUdpReader<mavlink_gpio_t>{
+public:
+    QGpioUdpReader(QWidget *parent) :
+        QTUdpReader<mavlink_gpio_t>("gpio",parent)
+    {}
+};
+
+class QPositionCmdUdpReader: public QTUdpReader<mavlink_position_cmd_t>{
+public:
+    QPositionCmdUdpReader(QWidget *parent) :
+        QTUdpReader<mavlink_position_cmd_t>("position cmd",parent)
+    {}
 };
 
 #endif // QTUDPREADER_H
