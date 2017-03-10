@@ -21,10 +21,10 @@ void QExternalPortDialog::setCurrentPort(int index)
     }
 }
 
-void QExternalPortDialog::addInputWidget(QInputWidget *w, QString name)
+void QExternalPortDialog::addInputWidget(QInputWidget *w)
 {
     _ports.append(w);
-    QPushButton* button = new QPushButton(name,this);
+    QPushButton* button = new QPushButton(w->objectName(),this);
     button->setMinimumSize(80,80);
     button->setMaximumSize(80,80);
     button->setCheckable(true);
@@ -39,6 +39,15 @@ void QExternalPortDialog::addInputWidget(QInputWidget *w, QString name)
 QInputWidget *QExternalPortDialog::currentPort()
 {
     return _ports.value(_stack->currentIndex());
+}
+
+QInputWidget *QExternalPortDialog::findInputWidget(QString name)
+{
+    for(int i=0; i<_ports.size(); i++){
+        if(_ports[i]->objectName() == name)
+            return _ports[i];
+    }
+    return NULL;
 }
 
 QAction *QExternalPortDialog::getPopupAction()

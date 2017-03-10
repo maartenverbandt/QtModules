@@ -11,7 +11,7 @@ class QInputWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit QInputWidget(QWidget *parent = 0);
+    explicit QInputWidget(QString name, QWidget *parent = 0);
 
     void addPort(QDataPortInterface *port);
     QList<QVariant> read();

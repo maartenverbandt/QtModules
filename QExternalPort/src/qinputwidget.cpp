@@ -1,7 +1,8 @@
 #include "qinputwidget.h"
 
-QInputWidget::QInputWidget(QWidget *parent) : QWidget(parent)
+QInputWidget::QInputWidget(QString name, QWidget *parent) : QWidget(parent)
 {
+    setObjectName(name);
     setLayout(new QVBoxLayout(this));
 }
 

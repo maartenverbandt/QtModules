@@ -14,17 +14,17 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    QInputWidget *csv = new QInputWidget(0);
+    QInputWidget *csv = new QInputWidget("CSV",0);
     csv->addPort(new QGpioCsvReader(csv));
     csv->addPort(new QPositionCmdCsvReader(csv));
 
-    QInputWidget *udp = new QInputWidget(0);
+    QInputWidget *udp = new QInputWidget("UDP",0);
     udp->addPort(new QGpioUdpReader(udp));
     udp->addPort(new QPositionCmdUdpReader(udp));
 
     QExternalPortDialog *d = new QExternalPortDialog("Command port");
-    d->addInputWidget(csv,"CSV");
-    d->addInputWidget(udp,"UDP");
+    d->addInputWidget(csv);
+    d->addInputWidget(udp);
     d->show();
 
     Listener l;
