@@ -21,9 +21,9 @@ void QExternalPortDialog::setCurrentPort(int index)
     }
 }
 
-void QExternalPortDialog::addPort(QInputWidget *port, QString name)
+void QExternalPortDialog::addInputWidget(QInputWidget *w, QString name)
 {
-    _ports.append(port);
+    _ports.append(w);
     QPushButton* button = new QPushButton(name,this);
     button->setMinimumSize(80,80);
     button->setMaximumSize(80,80);
@@ -32,7 +32,7 @@ void QExternalPortDialog::addPort(QInputWidget *port, QString name)
     _button_layout->setAlignment(button,Qt::AlignTop);
 
     _buttons->addButton(button,_stack->count());
-    _stack->addWidget(port);
+    _stack->addWidget(w);
     setCurrentPort(_stack->count()-1);
 }
 

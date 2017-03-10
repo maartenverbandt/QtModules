@@ -16,7 +16,7 @@ public:
     explicit QExternalPortDialog(QString name, QWidget *parent = 0);
     ~QExternalPortDialog();
 
-    void addPort(QInputWidget *port, QString name);
+    void addInputWidget(QInputWidget *w, QString name);
     QInputWidget* currentPort();
     void setCurrentPort(int index);
 

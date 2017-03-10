@@ -31,8 +31,8 @@ int main(int argc, char *argv[])
     //udp->show();
 
     QExternalPortDialog *d = new QExternalPortDialog("Command port");
-    d->addPort(csv,"csv");
-    d->addPort(udp,"udp");
+    d->addInputWidget(csv,"CSV");
+    d->addInputWidget(udp,"UDP");
     d->show();
 
     Listener l;
