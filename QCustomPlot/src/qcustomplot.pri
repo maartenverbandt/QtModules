@@ -2,7 +2,7 @@
     included_modules += $$PWD
     message( "Including $$PWD" )
 
-    QT +=
+    QT += printsupport
 
     INCLUDEPATH += $$PWD
 

@@ -10,14 +10,14 @@ QMavlinkConnectionInfoDialog::QMavlinkConnectionInfoDialog(QWidget *parent) :
 
     _bars_rate = new QCPBars(ui->barPlot->xAxis, ui->barPlot->yAxis);
     _bars_rate->setWidth(BAR_WIDTH);
-    ui->barPlot->addPlottable(_bars_rate);
+    //ui->barPlot-> addPlottable(_bars_rate);
 
     _bars_count = new QCPBars(ui->barPlot->xAxis, ui->barPlot->yAxis2);
     _bars_count->setWidth(BAR_WIDTH);
-    ui->barPlot->addPlottable(_bars_count);
+    //ui->barPlot->addPlottable(_bars_count);
 
-    ui->barPlot->xAxis->setAutoTicks(false);
-    ui->barPlot->xAxis->setAutoTickLabels(false);
+    //ui->barPlot->xAxis->setAutoTicks(false);
+    //ui->barPlot->xAxis->setAutoTickLabels(false);
 
     _bars_count->setBrush(QBrush(QColor(124, 252, 0, 100)));
     _bars_count->setPen(QPen(QColor(30, 130, 30), 1.0));
@@ -60,8 +60,8 @@ void QMavlinkConnectionInfoDialog::updateAxis()
         _bar_pos.replace(k,k);
     }
 
-    ui->barPlot->xAxis->setTickVector(_tick_pos);
-    ui->barPlot->xAxis->setTickVectorLabels(_tick_label);
+    //ui->barPlot->xAxis->ticker()->setTickCount(_message_id.length()); //  setTickVector (_tick_pos);
+    //ui->barPlot->xAxis->setTickVectorLabels(_tick_label);
     ui->barPlot->xAxis->setRange(-0.5, _message_id.length()-0.5);
 }
 

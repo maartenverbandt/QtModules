@@ -31,7 +31,6 @@
     FORMS += $$PWD/qgpiowidget.ui\
     $$PWD/qgpioinputdialog.ui
 
-    DEFINES += QT_NO_PRINTER
     include(../../QCustomPlot/src/qcustomplot.pri)
 } else {
     message( "Skipping $$PWD: already included" )

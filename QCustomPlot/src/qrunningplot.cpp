@@ -22,18 +22,19 @@ void QRunningPlot::init(double span, quint8 n, quint8 type)
 
     for(int i=0;i<n;i++){
         switch(_type){
-            case QRUNNINGPLOT_TYPE_GRAPH:
-                this->addPlottable(new QCPGraph(this->xAxis,this->yAxis));
-                ((QCPGraph*)(this->plottable(i)))->setData(x, y);
-                break;
-            case QRUNNINGPLOT_TYPE_CURVE:
-                this->addPlottable(new QCPCurve(this->xAxis,this->yAxis));
-                //((QCPCurve*)(this->plottable(i)))->setData(x, y, y);
-                break;
-            default:
-                this->addPlottable(new QCPGraph(this->xAxis,this->yAxis));
-                ((QCPGraph*)(this->plottable(i)))->setData(x, y);
-                break;
+        case QRUNNINGPLOT_TYPE_GRAPH:{
+            //this->addPlottable(
+            QCPGraph *g = new QCPGraph(this->xAxis,this->yAxis);
+            g->setData(x, y);
+            break;}
+        case QRUNNINGPLOT_TYPE_CURVE:{
+            new QCPCurve(this->xAxis,this->yAxis);
+            //((QCPCurve*)(this->plottable(i)))->setData(x, y, y);
+            break;}
+        default:{
+            QCPGraph *g = new QCPGraph(this->xAxis,this->yAxis);
+            g->setData(x, y);
+            break;}
         }
     }
 }
@@ -41,15 +42,15 @@ void QRunningPlot::init(double span, quint8 n, quint8 type)
 void QRunningPlot::addDataPoint(double x, double y, quint8 g, double t){
     switch(_type){
         case QRUNNINGPLOT_TYPE_GRAPH:
-            ((QCPGraph*)(this->plottable(g)))->removeDataBefore(x-_span);
+            ((QCPGraph*)(this->plottable(g)))->data()->removeBefore(x-_span);
             ((QCPGraph*)(this->plottable(g)))->addData(x, y);
             break;
         case QRUNNINGPLOT_TYPE_CURVE:
-            ((QCPCurve*)(this->plottable(g)))->removeDataBefore(t-_span);
+            ((QCPCurve*)(this->plottable(g)))->data()->removeBefore(t-_span);
             ((QCPCurve*)(this->plottable(g)))->addData(t, x, y);
             break;
         default:
-            ((QCPGraph*)(this->plottable(g)))->removeDataBefore(x-_span);
+            ((QCPGraph*)(this->plottable(g)))->data()->removeBefore(x-_span);
             ((QCPGraph*)(this->plottable(g)))->addData(x, y);
             break;
     }

@@ -69,11 +69,11 @@ void QAxisDialog::closeEvent(QCloseEvent *e)
                 _axis->setRange(ui->lineEdit_minimum->text().toDouble(),ui->lineEdit_maximum->text().toDouble());
             }
             if(!ui->lineEdit_ticksize->text().isEmpty()){
-                _axis->setAutoTickStep(false);
-                _axis->setTickStep(ui->lineEdit_ticksize->text().toDouble());
+                //_axis->setAutoTickStep(false);
+                //_axis->setTickStep(ui->lineEdit_ticksize->text().toDouble());
             }
         } else { // set autoticks on
-            _axis->setAutoTicks(true);
+            //_axis->setAutoTicks(true);
             _axis->rescale();
         }
     }
