@@ -7,7 +7,7 @@
 #include <QButtonGroup>
 #include <QStackedWidget>
 #include <QAction>
-#include <qdataportinterface.h>
+#include <qinputwidget.h>
 
 class QExternalPortDialog : public QDialog
 {
@@ -16,15 +16,18 @@ public:
     explicit QExternalPortDialog(QString name, QWidget *parent = 0);
     ~QExternalPortDialog();
 
-    void addPort(QDataPortInterface *port, QString name);
-    QDataPortInterface* getCurrentPort();
-    void setCurrentPort(int index);
-    QVariant getPacket();
+    void addInputWidget(QInputWidget *w);
+    QInputWidget* currentInputWidget();
+    QInputWidget *findInputWidget(QString name);
+    void setCurrentInputWidget(int index);
 
     QAction* getPopupAction();
 
+protected:
+    void timerEvent(QTimerEvent *);
+
 private:
-    QList<QDataPortInterface*> _ports;
+    QList<QInputWidget*> _ports;
 
     QAction* _popup;
     int _timer_id;
@@ -43,6 +46,9 @@ public slots:
     void start();
     void stop();
     void reset();
+
+signals:
+    void commands(QList<QVariant> l);
 
 };
 

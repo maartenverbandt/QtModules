@@ -4,13 +4,9 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    d(new QPositionCmdPortDialog(0)),
     s(new QUdpSocket(this))
 {
     ui->setupUi(this);
-    menuBar()->addAction(d->getPopupAction());
-
-    QObject::connect(d,SIGNAL(positionCmdPacket(mavlink_position_cmd_t)),this,SLOT(positionCmdCatch(mavlink_position_cmd_t)));
 }
 
 MainWindow::~MainWindow()
@@ -31,13 +27,7 @@ void MainWindow::timerEvent(QTimerEvent *)
     s->writeDatagram((char*)(&cmd),MAVLINK_MSG_ID_POSITION_CMD_LEN,QHostAddress::LocalHost,ui->spinBox->value());
 }
 
-void MainWindow::positionCmdCatch(mavlink_position_cmd_t position_cmd)
-{
-    qDebug() << position_cmd.x << position_cmd.y << position_cmd.z;
-    qDebug() << position_cmd.xFF << position_cmd.yFF << position_cmd.zFF;
-}
-
 void MainWindow::on_pushButton_clicked()
 {
-    startTimer(50,Qt::PreciseTimer);
+    startTimer(10,Qt::PreciseTimer);
 }

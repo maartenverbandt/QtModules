@@ -1,6 +1,8 @@
 #include "qexternalportdialog.h"
 
-QExternalPortDialog::QExternalPortDialog(QString name, QWidget *parent) : QDialog(parent), _popup(new QAction(name,this))
+QExternalPortDialog::QExternalPortDialog(QString name, QWidget *parent) :
+    QDialog(parent),
+    _popup(new QAction(name,this))
 {
     layoutSetup();
     QObject::connect(_popup,SIGNAL(triggered()),this,SLOT(show()));
@@ -12,31 +14,40 @@ QExternalPortDialog::~QExternalPortDialog()
     delete _stack;
 }
 
-void QExternalPortDialog::setCurrentPort(int index)
+void QExternalPortDialog::setCurrentInputWidget(int index)
 {
     if(index<_stack->count()){
         _buttons->button(index)->setChecked(true);
     }
 }
 
-void QExternalPortDialog::addPort(QDataPortInterface *port, QString name)
+void QExternalPortDialog::addInputWidget(QInputWidget *w)
 {
-    _ports.append(port);
-    QPushButton* button = new QPushButton(name,this);
-    button->setMinimumSize(60,60);
-    button->setMaximumSize(60,60);
+    _ports.append(w);
+    QPushButton* button = new QPushButton(w->objectName(),this);
+    button->setMinimumSize(80,80);
+    button->setMaximumSize(80,80);
     button->setCheckable(true);
-    _button_layout->addWidget(button);
+    _button_layout->insertWidget(_button_layout->count()-1,button);
     _button_layout->setAlignment(button,Qt::AlignTop);
 
     _buttons->addButton(button,_stack->count());
-    _stack->addWidget(port->getWidget());
-    setCurrentPort(_stack->count()-1);
+    _stack->addWidget(w);
+    setCurrentInputWidget(_stack->count()-1);
 }
 
-QDataPortInterface *QExternalPortDialog::getCurrentPort()
+QInputWidget *QExternalPortDialog::currentInputWidget()
 {
     return _ports.value(_stack->currentIndex());
+}
+
+QInputWidget *QExternalPortDialog::findInputWidget(QString name)
+{
+    for(int i=0; i<_ports.size(); i++){
+        if(_ports[i]->objectName() == name)
+            return _ports[i];
+    }
+    return NULL;
 }
 
 QAction *QExternalPortDialog::getPopupAction()
@@ -44,15 +55,16 @@ QAction *QExternalPortDialog::getPopupAction()
     return _popup;
 }
 
-QVariant QExternalPortDialog::getPacket()
+void QExternalPortDialog::timerEvent(QTimerEvent *)
 {
-    return getCurrentPort()->getPacket();
+    emit commands(currentInputWidget()->read());
 }
 
 void QExternalPortDialog::layoutSetup()
 {
     _layout = new QHBoxLayout();
     _button_layout = new QVBoxLayout();
+    _button_layout->addStretch();
     _buttons = new QButtonGroup(this);
     _buttons->setExclusive(true);
 
@@ -98,7 +110,7 @@ void QExternalPortDialog::stop()
 
 void QExternalPortDialog::reset()
 {
-
+    currentInputWidget()->reset();
 }
 
 

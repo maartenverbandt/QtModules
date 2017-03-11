@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <mavlink.h>
 #include <QTime>
+#include <QUdpSocket>
 
 namespace Ui {
 class MainWindow;
@@ -23,17 +24,14 @@ protected:
 
 private:
     Ui::MainWindow *ui;
-    * d;
     QUdpSocket* s;
 
 signals:
     void positionCmdSend(mavlink_position_cmd_t position_cmd);
 
-public slots:
-    void positionCmdCatch(mavlink_position_cmd_t position_cmd);
-
 private slots:
     void on_pushButton_clicked();
 };
+
 
 #endif // MAINWINDOW_H

@@ -35,8 +35,8 @@ public:
     explicit QGPIOWidget(QWidget *parent = 0);
     ~QGPIOWidget();
 
-    void loadSettings();
-    void saveSettings();
+    void restoreState(QString group);
+    void saveState(QString group);
     QStringList getLabels();
 
     //OBSOLETE
