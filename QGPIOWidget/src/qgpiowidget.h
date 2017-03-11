@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QBoxLayout>
 #include <QLayout>
+#include <QPushButton>
+#include <QButtonGroup>
+#include <QSettings>
 #include <qrunningplot.h>
 
 #include <qgeneraloutput.h>
