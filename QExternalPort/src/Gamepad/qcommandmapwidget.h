@@ -8,7 +8,7 @@
 
 
 namespace Ui {
-class QGamepadCommandWidget;
+class QCommandMapWidget;
 }
 
 class QCommandMapWidget : public QWidget, public QCommandMap
@@ -16,7 +16,7 @@ class QCommandMapWidget : public QWidget, public QCommandMap
     Q_OBJECT
 
 public:
-    explicit QCommandMapWidget(QGamepadInputWidget *parent = 0);
+    explicit QCommandMapWidget(QString name, QGamepadInputWidget *parent = 0);
     ~QCommandMapWidget();
 
     bool enabled();
@@ -24,7 +24,7 @@ public:
     void setup();
 
 private:
-    Ui::QGamepadCommandWidget *ui;
+    Ui::QCommandMapWidget *ui;
     QSignalMapper *_boxmapper;
 
     QList<QGamepadButton*> _buttons;

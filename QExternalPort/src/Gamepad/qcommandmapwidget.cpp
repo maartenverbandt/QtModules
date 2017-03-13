@@ -1,12 +1,13 @@
 #include "qcommandmapwidget.h"
-#include "ui_qgamepadcommandwidget.h"
+#include "ui_qcommandmapwidget.h"
 
-QCommandMapWidget::QCommandMapWidget(QGamepadInputWidget *parent) :
+QCommandMapWidget::QCommandMapWidget(QString name, QGamepadInputWidget *parent) :
     QWidget(parent),
-    ui(new Ui::QGamepadCommandWidget),
+    ui(new Ui::QCommandMapWidget),
     _boxmapper(new QSignalMapper(this))
 {
     ui->setupUi(this);
+    ui->groupBox->setTitle(name);
 
     // setup buttons
     _buttons = parent->gamepad()->buttons();
