@@ -4,6 +4,8 @@
 #include <qgpiocsvreader.h>
 #include <qpositioncmdcsvreader.h>
 #include <qtudpreader.h>
+#include <qgamepadinputwidget.h>
+#include <qvelocitygamepadcommand.h>
 #include <mavlink.h>
 #include <qexternalportdialog.h>
 #include <listener.h>
@@ -22,9 +24,13 @@ int main(int argc, char *argv[])
     udp->addPort(new QGpioUdpReader(udp));
     udp->addPort(new QPositionCmdUdpReader(udp));
 
+    QGamepadInputWidget *gamepad = new QGamepadInputWidget("Gamepad");
+    gamepad->addPort(new QVelocityGamepadCommand(gamepad));
+
     QExternalPortDialog *d = new QExternalPortDialog("Command port");
     d->addInputWidget(csv);
     d->addInputWidget(udp);
+    d->addInputWidget(gamepad);
     d->show();
 
     Listener l;

@@ -17,7 +17,6 @@ private:
 
     QList<QGamepadButton*> _buttons;
 
-
 };
 
 #endif // QCONFIGUREDGAMEPAD_H
