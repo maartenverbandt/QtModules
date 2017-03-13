@@ -37,3 +37,17 @@ include(../../QMavlinkConnection/src/qmavlinkconnection.pri)
 } else {
     message( "Skipping $$PWD: already included" )
 }
+
+HEADERS += \
+    $$PWD/qgamepadinputwidget.h \
+    $$PWD/qgamepadbutton.h \
+    $$PWD/qconfiguredgamepad.h \
+    $$PWD/qgamepadcommand.h \
+    $$PWD/qvelocitygamepadcommand.h
+
+SOURCES += \
+    $$PWD/qgamepadinputwidget.cpp \
+    $$PWD/qgamepadbutton.cpp \
+    $$PWD/qconfiguredgamepad.cpp \
+    $$PWD/qgamepadcommand.cpp \
+    $$PWD/qvelocitygamepadcommand.cpp
