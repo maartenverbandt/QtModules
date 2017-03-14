@@ -2,48 +2,26 @@
 #define QGAMEPADBUTTON_H
 
 #include <QObject>
+#include <QtGamepad/QGamepadManager>
 
 class QGamepadButton : public QObject
 {
     Q_OBJECT
 
 public:
-    typedef enum button_id_t {
-        axisLeftX,
-        axisLeftY,
-        axisRightX,
-        axisRightY,
-        buttonL1,
-        buttonL2,
-        buttonL3,
-        buttonR1,
-        buttonR2,
-        buttonR3,
-        buttonA,
-        buttonB,
-        buttonX,
-        buttonY,
-        buttonLeft,
-        buttonRight,
-        buttonUp,
-        buttonDown,
-        disabled
-    } button_id_t;
+    explicit QGamepadButton(int device_id, int button_id, QObject *parent = 0);
 
-    explicit QGamepadButton(button_id_t id, QString name, QObject *parent = 0);
-
-    button_id_t id();
+    int deviceID();
+    int buttonID();
     double value();
     void setValue(double value);
 
-    static QGamepadButton* Disabled(QObject* parent = 0){ return new QGamepadButton(disabled, "Disabled", parent); }
-    static QGamepadButton* LeftX(QObject* parent = 0){ return new QGamepadButton(axisLeftX, "Left X", parent); }
-    static QGamepadButton* LeftY(QObject* parent = 0){ return new QGamepadButton(axisLeftY, "Left Y", parent); }
-    static QGamepadButton* RightX(QObject* parent = 0){ return new QGamepadButton(axisRightX, "Right X", parent); }
-    static QGamepadButton* RightY(QObject* parent = 0){ return new QGamepadButton(axisRightY, "Right Y", parent); }
+    const static QString name(QGamepadManager::GamepadAxis axis);
+    const static QString name(QGamepadManager::GamepadButton button);
 
 private:
-    button_id_t _id;
+    int _device_id;
+    int _button_id;
     double _value;
 
 };
