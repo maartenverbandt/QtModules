@@ -17,7 +17,7 @@ public:
     virtual QList<QVariant> read();
     void reset();
 
-private:
+protected:
     QList<QDataPortInterface*> ports;
 
 };
