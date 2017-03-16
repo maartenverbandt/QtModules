@@ -11,14 +11,16 @@ public:
     QCommandMap();
 
     void add(QString command);
-    bool map(QString command, QGamepadButton* button);
+    bool map(QString command, QGamepadButton button);
     bool configured(QString command);
     double value(QString command);
 
     QList<QString> commands();
 
+    bool setValue(QGamepadButton button);
+
 private:
-    QMap<QString,QGamepadButton*> _map;
+    QMap<QString,QGamepadButton> _map;
 
 };
 

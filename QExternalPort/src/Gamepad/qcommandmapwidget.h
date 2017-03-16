@@ -3,13 +3,15 @@
 
 #include <QWidget>
 #include <QSignalMapper>
+#include <QComboBox>
 #include <qcommandmap.h>
 #include <qgamepadinputwidget.h>
-
 
 namespace Ui {
 class QCommandMapWidget;
 }
+
+class QGamepadInputWidget;
 
 class QCommandMapWidget : public QWidget, public QCommandMap
 {
@@ -25,12 +27,7 @@ public:
 
 private:
     Ui::QCommandMapWidget *ui;
-    QSignalMapper *_boxmapper;
-
-    QList<QGamepadButton*> _buttons;
     QList<QComboBox*> _boxes;
-
-    QGamepadButton* button(QString name);
 
 private slots:
     void boxChanged(int id);

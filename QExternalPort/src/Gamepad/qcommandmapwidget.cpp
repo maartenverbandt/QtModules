@@ -8,9 +8,6 @@ QCommandMapWidget::QCommandMapWidget(QString name, QGamepadInputWidget *parent) 
 {
     ui->setupUi(this);
     ui->groupBox->setTitle(name);
-
-    // setup buttons
-    _buttons = parent->gamepad()->buttons();
 }
 
 QCommandMapWidget::~QCommandMapWidget()
@@ -23,14 +20,14 @@ bool QCommandMapWidget::enabled()
     return ui->groupBox->isChecked();
 }
 
-QGamepadButton *QCommandMapWidget::button(QString name)
+/*QGamepadButton *QCommandMapWidget::button(QString name)
 {
     for (int i=0; i<_buttons.size(); i++){
         if(_buttons[i]->objectName() == name)
             return _buttons[i];
     }
     return NULL;
-}
+}*/
 
 void QCommandMapWidget::setup()
 {
