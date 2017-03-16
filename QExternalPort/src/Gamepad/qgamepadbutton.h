@@ -1,28 +1,34 @@
 #ifndef QGAMEPADBUTTON_H
 #define QGAMEPADBUTTON_H
 
-#include <QObject>
+#include <QMap>
 #include <QtGamepad/QGamepadManager>
 
-class QGamepadButton : public QObject
+class QGamepadButton
 {
-    Q_OBJECT
-
 public:
-    explicit QGamepadButton(int device_id, int button_id, QObject *parent = 0);
+    QGamepadButton(int device_id = -1, int button_id = -1);
+    static QGamepadButton Disabled();
+    bool isDisabled();
 
-    int deviceID();
-    int buttonID();
+    int deviceID() const;
+    int buttonID() const;
     double value();
     void setValue(double value);
+    bool operator==(const QGamepadButton &b);
 
-    const static QString name(QGamepadManager::GamepadAxis axis);
-    const static QString name(QGamepadManager::GamepadButton button);
+    static const QString name(QGamepadManager::GamepadAxis axis);
+    static const QString name(QGamepadManager::GamepadButton button);
+    static int buttonID(QGamepadManager::GamepadAxis axis);
+    static int buttonID(QGamepadManager::GamepadButton button);
 
 private:
     int _device_id;
     int _button_id;
     double _value;
+
+    static const QMap<QGamepadManager::GamepadAxis,QString> _axis_map;
+    static const QMap<QGamepadManager::GamepadButton,QString> _button_map;
 
 };
 

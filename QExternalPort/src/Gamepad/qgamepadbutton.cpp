@@ -1,42 +1,59 @@
 #include "qgamepadbutton.h"
 
+const QMap<QGamepadManager::GamepadAxis,QString> QGamepadButton::_axis_map{{QGamepadManager::AxisLeftX,"Left X"},
+                                                                           {QGamepadManager::AxisLeftY,"Left Y"},
+                                                                           {QGamepadManager::AxisRightX,"Right X"},
+                                                                           {QGamepadManager::AxisRightY,"Right Y"}};
+
+const QMap<QGamepadManager::GamepadButton,QString> QGamepadButton::_button_map   {{QGamepadManager::ButtonA,"Button A"},
+                                                                                        {QGamepadManager::ButtonB,"Button B"},
+                                                                                        {QGamepadManager::ButtonX,"Button X"},
+                                                                                        {QGamepadManager::ButtonY,"Button Y"}};
+
 const QString QGamepadButton::name(QGamepadManager::GamepadAxis axis)
 {
-    switch(axis){
-    case QGamepadManager::AxisLeftX: return "Left X";
-    case QGamepadManager::AxisLeftY: return "Left Y";
-    case QGamepadManager::AxisRightX: return "Right X";
-    case QGamepadManager::AxisRightY: return "Right Y";
-    case QGamepadManager::AxisInvalid: return "Invalid";
-    }
+    return _axis_map[axis];
 }
 
 const QString QGamepadButton::name(QGamepadManager::GamepadButton button)
 {
-    switch(button){
-    case QGamepadManager::buttonA: return "Button A";
-    case QGamepadManager::buttonB: return "Button B";
-    case QGamepadManager::buttonX: return "Button X";
-    case QGamepadManager::buttonY: return "Button Y";
-    //default
-    }
+    return _button_map[button];
 }
 
-QGamepadButton::QGamepadButton(int device_id, int button_id, QObject *parent) :
-    QObject(parent),
+int QGamepadButton::buttonID(QGamepadManager::GamepadAxis axis)
+{
+    return (int)axis;
+}
+
+int QGamepadButton::buttonID(QGamepadManager::GamepadButton button)
+{
+    return 1000+(int)button;
+}
+
+QGamepadButton::QGamepadButton(int device_id, int button_id) :
     _device_id(device_id),
     _button_id(button_id),
     _value(0)
 {
-    setObjectName(name);
+
 }
 
-int QGamepadButton::deviceID()
+QGamepadButton QGamepadButton::Disabled()
+{
+    return QGamepadButton(-1,-1);
+}
+
+bool QGamepadButton::isDisabled()
+{
+    return (deviceID() == -1) && (buttonID() == -1);
+}
+
+int QGamepadButton::deviceID() const
 {
     return _device_id;
 }
 
-int QGamepadButton::buttonID()
+int QGamepadButton::buttonID() const
 {
     return _button_id;
 }
@@ -49,4 +66,9 @@ double QGamepadButton::value()
 void QGamepadButton::setValue(double value)
 {
     _value = value;
+}
+
+bool QGamepadButton::operator==(const QGamepadButton &b)
+{
+    return (_button_id == b._button_id) && (_device_id == b._device_id);
 }
