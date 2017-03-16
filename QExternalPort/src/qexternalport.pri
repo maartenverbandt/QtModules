@@ -22,7 +22,6 @@
             $$PWD/UDP/qudpreaderwidget.h \
             $$PWD/Gamepad/qgamepadinputwidget.h \
             $$PWD/Gamepad/qgamepadbutton.h \
-            $$PWD/Gamepad/qconfiguredgamepad.h \
             $$PWD/Gamepad/qvelocitygamepadcommand.h
 
         SOURCES += \
@@ -36,7 +35,6 @@
             $$PWD/UDP/qudpreaderwidget.cpp \
             $$PWD/Gamepad/qgamepadinputwidget.cpp \
             $$PWD/Gamepad/qgamepadbutton.cpp \
-            $$PWD/Gamepad/qconfiguredgamepad.cpp \
             $$PWD/Gamepad/qvelocitygamepadcommand.cpp
                         
 
