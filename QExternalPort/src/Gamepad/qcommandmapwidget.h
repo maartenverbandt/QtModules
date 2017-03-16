@@ -28,6 +28,7 @@ public:
 private:
     Ui::QCommandMapWidget *ui;
     QList<QComboBox*> _boxes;
+    QSignalMapper *_boxmapper;
 
 private slots:
     void boxChanged(int id);

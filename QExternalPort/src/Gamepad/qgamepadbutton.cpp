@@ -30,6 +30,46 @@ int QGamepadButton::buttonID(QGamepadManager::GamepadButton button)
     return 1000+(int)button;
 }
 
+QList<QString> QGamepadButton::axisNames()
+{
+    return _axis_map.values();
+}
+
+QList<int> QGamepadButton::axisIDs()
+{
+    QList<int> list;
+    QList<QGamepadManager::GamepadAxis> keys = _axis_map.keys();
+    QListIterator<QGamepadManager::GamepadAxis> i(keys);
+    while(i.hasNext())
+        list.append(buttonID(i.next()));
+    return list;
+}
+
+QList<QString> QGamepadButton::buttonNames()
+{
+    return _button_map.values();
+}
+
+QList<int> QGamepadButton::buttonIDs()
+{
+    QList<int> list;
+    QList<QGamepadManager::GamepadButton> keys = _button_map.keys();
+    QListIterator<QGamepadManager::GamepadButton> i(keys);
+    while(i.hasNext())
+        list.append(buttonID(i.next()));
+    return list;
+}
+
+const QMap<QGamepadManager::GamepadAxis, QString> QGamepadButton::axisMap()
+{
+    return _axis_map;
+}
+
+const QMap<QGamepadManager::GamepadButton, QString> QGamepadButton::buttonMap()
+{
+    return _button_map;
+}
+
 QGamepadButton::QGamepadButton(int device_id, int button_id) :
     _device_id(device_id),
     _button_id(button_id),

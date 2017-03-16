@@ -22,6 +22,14 @@ public:
     static int buttonID(QGamepadManager::GamepadAxis axis);
     static int buttonID(QGamepadManager::GamepadButton button);
 
+    static QList<QString> axisNames();
+    static QList<int> axisIDs();
+    static QList<QString> buttonNames();
+    static QList<int> buttonIDs();
+
+    static const QMap<QGamepadManager::GamepadAxis,QString> axisMap();
+    static const QMap<QGamepadManager::GamepadButton,QString> buttonMap();
+
 private:
     int _device_id;
     int _button_id;
