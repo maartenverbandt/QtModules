@@ -5,7 +5,17 @@ QGamepadInputWidget::QGamepadInputWidget(QString name, QWidget *parent) :
     _gamepads(new QComboBox())
 {
     layout()->addWidget(_gamepads);
+
+    QList<int> g = QGamepadManager::instance()->connectedGamepads();
+    QListIterator<int> i(g);
+    while(i.hasNext())
+        gamepadConnected(i.next());
+
     QObject::connect(QGamepadManager::instance(),&QGamepadManager::gamepadConnected,this,&QGamepadInputWidget::gamepadConnected);
+    QObject::connect(QGamepadManager::instance(),&QGamepadManager::gamepadAxisEvent,this,&QGamepadInputWidget::axisEvent);
+    QObject::connect(QGamepadManager::instance(),&QGamepadManager::gamepadButtonPressEvent,this,&QGamepadInputWidget::buttonEvent);
+    //QObject::connect(QGamepadManager::instance(),&QGamepadManager::gamepadButtonReleaseEvent,this,&QGamepadInputWidget::buttonEvent);
+
 }
 
 int QGamepadInputWidget::currentDeviceID()
@@ -38,16 +48,11 @@ void QGamepadInputWidget::gamepadConnected(int deviceID)
 void QGamepadInputWidget::axisEvent(int deviceID, QGamepadManager::GamepadAxis axis, double value)
 {
     if(deviceID == currentDeviceID())
-        emit valueChanged(QGamepadButton::buttonID(axis),value);
+        update(deviceID, QGamepadButton::buttonID(axis), value);
 }
 
 void QGamepadInputWidget::buttonEvent(int deviceID, QGamepadManager::GamepadButton button, double value)
 {
     if(deviceID == currentDeviceID())
-        emit valueChanged(QGamepadButton::buttonID(button),value);
+        update(deviceID, QGamepadButton::buttonID(button), value);
 }
-
-
-
-
-
