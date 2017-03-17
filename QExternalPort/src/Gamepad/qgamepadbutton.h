@@ -12,7 +12,9 @@ public:
     bool isDisabled();
 
     int deviceID() const;
+    void setDeviceID(int device_id);
     int buttonID() const;
+    void setButtonID(int button_id);
     double value();
     void setValue(double value);
     bool operator==(const QGamepadButton &b);

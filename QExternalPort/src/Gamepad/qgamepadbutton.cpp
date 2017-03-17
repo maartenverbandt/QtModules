@@ -93,9 +93,19 @@ int QGamepadButton::deviceID() const
     return _device_id;
 }
 
+void QGamepadButton::setDeviceID(int device_id)
+{
+    _device_id = device_id;
+}
+
 int QGamepadButton::buttonID() const
 {
     return _button_id;
+}
+
+void QGamepadButton::setButtonID(int button_id)
+{
+    _button_id = button_id;
 }
 
 double QGamepadButton::value()
@@ -110,5 +120,5 @@ void QGamepadButton::setValue(double value)
 
 bool QGamepadButton::operator==(const QGamepadButton &b)
 {
-    return (_button_id == b._button_id) && (_device_id == b._device_id);
+    return (_button_id==b._button_id);
 }
