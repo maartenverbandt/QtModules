@@ -53,9 +53,11 @@ FORMS += \
 HEADERS += \
     $$PWD/Gamepad/qcommandmap.h \
     $$PWD/Gamepad/qcommandmapwidget.h \
-    $$PWD/Gamepad/qgamepadcommand.h
+    $$PWD/Gamepad/qgamepadcommand.h \
+    $$PWD/Gamepad/qcommand.h
 
 SOURCES += \
     $$PWD/Gamepad/qcommandmap.cpp \
     $$PWD/Gamepad/qcommandmapwidget.cpp \
-    $$PWD/Gamepad/qgamepadcommand.cpp
+    $$PWD/Gamepad/qgamepadcommand.cpp \
+    $$PWD/Gamepad/qcommand.cpp
