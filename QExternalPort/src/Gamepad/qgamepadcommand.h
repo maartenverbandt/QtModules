@@ -3,12 +3,11 @@
 
 #include <qdataportinterface.h>
 #include <qcommandmapwidget.h>
-#include <qgamepadinputwidget.h>
 
 class QGamepadCommand : public QDataPortInterface
 {
 public:
-    QGamepadCommand(QString name, QGamepadInputWidget *parent = 0);
+    QGamepadCommand(QString name, QWidget *parent = 0);
 
     virtual QVariant getPacket() = 0;
     virtual QWidget *getWidget();

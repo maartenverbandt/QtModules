@@ -1,6 +1,6 @@
 #include "qgamepadcommand.h"
 
-QGamepadCommand::QGamepadCommand(QString name, QGamepadInputWidget *parent) :
+QGamepadCommand::QGamepadCommand(QString name, QWidget *parent) :
     _cmd_widget(new QCommandMapWidget(name,parent))
 {
     _cmd_widget->setup();

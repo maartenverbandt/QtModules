@@ -1,6 +1,6 @@
 #include "qvelocitygamepadcommand.h"
 
-QVelocityGamepadCommand::QVelocityGamepadCommand(QGamepadInputWidget *parent) :
+QVelocityGamepadCommand::QVelocityGamepadCommand(QWidget *parent) :
     QGamepadCommand("Velocity",parent)
 {
     _cmd_widget->add("vx");

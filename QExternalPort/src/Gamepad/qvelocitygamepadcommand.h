@@ -7,7 +7,7 @@
 class QVelocityGamepadCommand : public QGamepadCommand
 {
 public:
-    QVelocityGamepadCommand(QGamepadInputWidget *parent = 0);
+    QVelocityGamepadCommand(QWidget *parent = 0);
 
     mavlink_velocity_cmd_t getVelocityCmdPacket();
     virtual QVariant getPacket();
