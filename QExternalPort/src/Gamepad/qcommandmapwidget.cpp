@@ -1,10 +1,9 @@
 #include "qcommandmapwidget.h"
 #include "ui_qcommandmapwidget.h"
 
-QCommandMapWidget::QCommandMapWidget(QString name, QGamepadInputWidget *parent) :
+QCommandMapWidget::QCommandMapWidget(QString name, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::QCommandMapWidget),
-    _boxmapper(new QSignalMapper(this))
+    ui(new Ui::QCommandMapWidget)
 {
     ui->setupUi(this);
     ui->groupBox->setTitle(name);
@@ -20,6 +19,54 @@ bool QCommandMapWidget::enabled()
     return ui->groupBox->isChecked();
 }
 
+void QCommandMapWidget::add(QString name)
+{
+    QCommand *command = new QCommand(name,0);
+    add(command);
+}
+
+void QCommandMapWidget::add(QCommand *command)
+{
+    _map.insert(command->objectName(), command);
+    ui->layout->addWidget(command);
+}
+
+double QCommandMapWidget::value(QString command)
+{
+    return _map[command]->value();
+}
+
+bool QCommandMapWidget::setValue(QGamepadButton button)
+{
+    QList<QCommand*> commands = _map.values();
+    for(int i=0; i<commands.size(); i++){
+        if(commands[i]->button()->buttonID() == button.buttonID()){
+            commands[i]->button()->setValue(button.value());
+            return true;
+        }
+    }
+    return false;
+}
+
+void QCommandMapWidget::setup()
+{
+
+}
+
+void QCommandMapWidget::masterDeviceChanged(int device_id)
+{
+    QList<QCommand*> commands = _map.values();
+    QListIterator<QCommand*> i(commands);
+    while(i.hasNext())
+        i.next()->masterDeviceChanged(device_id);
+}
+
+/*void QCommandMapWidget::add(QString command)
+{
+    QCommandMap::add(command);
+
+}*/
+
 /*QGamepadButton *QCommandMapWidget::button(QString name)
 {
     for (int i=0; i<_buttons.size(); i++){
@@ -29,7 +76,9 @@ bool QCommandMapWidget::enabled()
     return NULL;
 }*/
 
-void QCommandMapWidget::setup()
+
+
+/*void QCommandMapWidget::setup()
 {
     QList<QString> buttonnames = QGamepadButton::axisNames();
     buttonnames.append(QGamepadButton::buttonNames());
@@ -48,9 +97,9 @@ void QCommandMapWidget::setup()
         _boxes.append(select);
     }
     QObject::connect(_boxmapper,SIGNAL(mapped(int)),this,SLOT(boxChanged(int)));
-}
+}*/
 
-void QCommandMapWidget::boxChanged(int id)
+/*void QCommandMapWidget::boxChanged(int id)
 {
     //map(commands()[id], _buttons[_boxes[id]->currentIndex()]);
-}
+}*/
