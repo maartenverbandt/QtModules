@@ -40,6 +40,7 @@ private:
     void layoutSetup();
 
 public slots:
+    void sendPacket(QVariant packet);
     void sendPackets(QList<QVariant> list);
     void reset();
 

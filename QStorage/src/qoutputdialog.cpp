@@ -83,6 +83,12 @@ void QOutputDialog::layoutSetup()
     QObject::connect(_buttons,SIGNAL(buttonToggled(int,bool)),_stack,SLOT(setCurrentIndex(int)));
 }
 
+void QOutputDialog::sendPacket(QVariant packet)
+{
+    QList<QVariant> list({packet});
+    sendPackets(list);
+}
+
 void QOutputDialog::reset()
 {
     currentOutputWidget()->reset();
