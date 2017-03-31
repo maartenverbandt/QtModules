@@ -1,5 +1,5 @@
-#ifndef QEXTERNALPORTDIALOG_H
-#define QEXTERNALPORTDIALOG_H
+#ifndef QOUTPUTDIALOG_H
+#define QOUTPUTDIALOG_H
 
 #include <QDialog>
 #include <QLayout>
@@ -46,4 +46,4 @@ public slots:
 
 };
 
-#endif // QEXTERNALPORTDIALOG_H
+#endif // QOUTPUTDIALOG_H
