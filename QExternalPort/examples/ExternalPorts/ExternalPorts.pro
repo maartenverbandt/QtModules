@@ -15,10 +15,12 @@ INCLUDEPATH += mavlink
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    listener.cpp
+    listener.cpp \
+    talker.cpp
 
 HEADERS  += mainwindow.h \
-    listener.h
+    listener.h \
+    talker.h
 
 FORMS    += mainwindow.ui
 

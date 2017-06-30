@@ -14,7 +14,7 @@ void Listener::message_received(QList<QVariant> l)
         if(type == qMetaTypeId<mavlink_gpio_t>()) {
             qDebug() << "Type: mavlink_gpio_t";
             mavlink_gpio_t gpio = i.next().value<mavlink_gpio_t>();
-            qDebug() << gpio.gpio_float[0] << gpio.time;
+            qDebug() << gpio.gpio_float[0] << gpio.time << gpio.gpio_int[0];
         } else if(type == qMetaTypeId<mavlink_velocity_cmd_t>()) {
             qDebug() << "Type: mavlink_velocity_cmd_t";
             mavlink_velocity_cmd_t cmd = i.next().value<mavlink_velocity_cmd_t>();

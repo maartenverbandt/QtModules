@@ -10,6 +10,11 @@
 #include <qexternalportdialog.h>
 #include <listener.h>
 
+#include <qoutputwidget.h>
+#include <qtudpwriter.h>
+#include <qmeasurementportdialog.h>
+#include <talker.h>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -35,6 +40,16 @@ int main(int argc, char *argv[])
 
     Listener l;
     QObject::connect(d,&QExternalPortDialog::commands,&l,&Listener::message_received);
+
+    QOutputWidget *udp2 = new QOutputWidget("UDP",0);
+    udp2->addPort(new QGpioUdpWriter(udp2));
+    udp2->addPort(new QPositionCmdUdpWriter(udp2));
+    QMeasurementPortDialog *d2 = new QMeasurementPortDialog("Measurement port");
+    d2->addOutputWidget(udp2);
+    d2->show();
+
+    Talker t;
+    QObject::connect(&t,&Talker::message_sent,d2,&QMeasurementPortDialog::measurements);
 
     return a.exec();
 }
