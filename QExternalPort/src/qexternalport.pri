@@ -9,6 +9,8 @@
                    $$PWD/Commands/CSV \
                    $$PWD/Commands/UDP \
                    $$PWD/Commands/Gamepad \
+                   $$PWD/Measurements \
+                   $$PWD/Measurements/UDP
 
         HEADERS += \
             $$PWD/Commands/qdataportinterface.h \
@@ -27,6 +29,12 @@
             $$PWD/Commands/Gamepad/qcommandmapwidget.h \
             $$PWD/Commands/Gamepad/qgamepadcommand.h \
             $$PWD/Commands/Gamepad/qcommand.h \
+            $$PWD/Measurements/qmeasurementportinterface.h \
+            $$PWD/Measurements/qoutputwidget.h \
+            $$PWD/Measurements/qmeasurementportdialog.h \
+            $$PWD/Measurements/UDP/qudpwriter.h \
+            $$PWD/Measurements/UDP/qudpwriterwidget.h \
+            $$PWD/Measurements/UDP/qtudpwriter.h
 
         SOURCES += \
             $$PWD/Commands/qinputwidget.cpp \
@@ -43,11 +51,16 @@
             $$PWD/Commands/Gamepad/qcommandmapwidget.cpp \
             $$PWD/Commands/Gamepad/qgamepadcommand.cpp \
             $$PWD/Commands/Gamepad/qcommand.cpp \
+            $$PWD/Measurements/qoutputwidget.cpp \
+            $$PWD/Measurements/qmeasurementportdialog.cpp \
+            $$PWD/Measurements/UDP/qudpwriter.cpp \
+            $$PWD/Measurements/UDP/qudpwriterwidget.cpp
                         
 
     FORMS += $$PWD/Commands/CSV/qcsvreaderwidget.ui\
              $$PWD/Commands/UDP/qudpportwidget.ui \
              $$PWD/Commands/Gamepad/qcommandmapwidget.ui \
+             $$PWD/Measurements/UDP/qudpwriterwidget.ui
 
 include(../../QMavlinkConnection/src/qmavlinkconnection.pri)
 

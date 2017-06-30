@@ -1,0 +1,6 @@
+#include "qoutputport.h"
+
+QOutputWidget::QOutputWidget(QString name, QWidget *parent) : QWidget(parent)
+{
+
+}
