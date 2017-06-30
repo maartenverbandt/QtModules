@@ -5,57 +5,52 @@
     QT += network
 
     INCLUDEPATH += $$PWD \
-                   $$PWD/CSV \
-                   $$PWD/UDP \
-                   $$PWD/Gamepad
+                   $$PWD/Commands \
+                   $$PWD/Commands/CSV \
+                   $$PWD/Commands/UDP \
+                   $$PWD/Commands/Gamepad \
 
         HEADERS += \
-            $$PWD/qdataportinterface.h \
-            $$PWD/qexternalportdialog.h \
-            $$PWD/qinputwidget.h \
-            $$PWD/CSV/qcsvreader.h\
-            $$PWD/CSV/qcsvreaderwidget.h \
-            $$PWD/CSV/qgpiocsvreader.h \
-            $$PWD/CSV/qpositioncmdcsvreader.h \
-            $$PWD/UDP/qtudpreader.h \
-            $$PWD/UDP/qudpreader.h \
-            $$PWD/UDP/qudpreaderwidget.h \
-            $$PWD/Gamepad/qgamepadinputwidget.h \
-            $$PWD/Gamepad/qgamepadbutton.h \
-            $$PWD/Gamepad/qvelocitygamepadcommand.h
+            $$PWD/Commands/qdataportinterface.h \
+            $$PWD/Commands/qexternalportdialog.h \
+            $$PWD/Commands/qinputwidget.h \
+            $$PWD/Commands/CSV/qcsvreader.h\
+            $$PWD/Commands/CSV/qcsvreaderwidget.h \
+            $$PWD/Commands/CSV/qgpiocsvreader.h \
+            $$PWD/Commands/CSV/qpositioncmdcsvreader.h \
+            $$PWD/Commands/UDP/qtudpreader.h \
+            $$PWD/Commands/UDP/qudpreader.h \
+            $$PWD/Commands/UDP/qudpreaderwidget.h \
+            $$PWD/Commands/Gamepad/qgamepadinputwidget.h \
+            $$PWD/Commands/Gamepad/qgamepadbutton.h \
+            $$PWD/Commands/Gamepad/qvelocitygamepadcommand.h \
+            $$PWD/Commands/Gamepad/qcommandmapwidget.h \
+            $$PWD/Commands/Gamepad/qgamepadcommand.h \
+            $$PWD/Commands/Gamepad/qcommand.h \
 
         SOURCES += \
-            $$PWD/qinputwidget.cpp \
-            $$PWD/qexternalportdialog.cpp \
-            $$PWD/CSV/qcsvreader.cpp \
-            $$PWD/CSV/qcsvreaderwidget.cpp \
-            $$PWD/CSV/qgpiocsvreader.cpp \
-            $$PWD/CSV/qpositioncmdcsvreader.cpp \
-            $$PWD/UDP/qudpreader.cpp \
-            $$PWD/UDP/qudpreaderwidget.cpp \
-            $$PWD/Gamepad/qgamepadinputwidget.cpp \
-            $$PWD/Gamepad/qgamepadbutton.cpp \
-            $$PWD/Gamepad/qvelocitygamepadcommand.cpp
+            $$PWD/Commands/qinputwidget.cpp \
+            $$PWD/Commands/qexternalportdialog.cpp \
+            $$PWD/Commands/CSV/qcsvreader.cpp \
+            $$PWD/Commands/CSV/qcsvreaderwidget.cpp \
+            $$PWD/Commands/CSV/qgpiocsvreader.cpp \
+            $$PWD/Commands/CSV/qpositioncmdcsvreader.cpp \
+            $$PWD/Commands/UDP/qudpreader.cpp \
+            $$PWD/Commands/UDP/qudpreaderwidget.cpp \
+            $$PWD/Commands/Gamepad/qgamepadinputwidget.cpp \
+            $$PWD/Commands/Gamepad/qgamepadbutton.cpp \
+            $$PWD/Commands/Gamepad/qvelocitygamepadcommand.cpp \
+            $$PWD/Commands/Gamepad/qcommandmapwidget.cpp \
+            $$PWD/Commands/Gamepad/qgamepadcommand.cpp \
+            $$PWD/Commands/Gamepad/qcommand.cpp \
                         
 
-    FORMS += $$PWD/CSV/qcsvreaderwidget.ui\
-             $$PWD/UDP/qudpportwidget.ui
+    FORMS += $$PWD/Commands/CSV/qcsvreaderwidget.ui\
+             $$PWD/Commands/UDP/qudpportwidget.ui \
+             $$PWD/Commands/Gamepad/qcommandmapwidget.ui \
 
 include(../../QMavlinkConnection/src/qmavlinkconnection.pri)
 
 } else {
     message( "Skipping $$PWD: already included" )
 }
-
-FORMS += \
-    $$PWD/Gamepad/qcommandmapwidget.ui
-
-HEADERS += \
-    $$PWD/Gamepad/qcommandmapwidget.h \
-    $$PWD/Gamepad/qgamepadcommand.h \
-    $$PWD/Gamepad/qcommand.h
-
-SOURCES += \
-    $$PWD/Gamepad/qcommandmapwidget.cpp \
-    $$PWD/Gamepad/qgamepadcommand.cpp \
-    $$PWD/Gamepad/qcommand.cpp

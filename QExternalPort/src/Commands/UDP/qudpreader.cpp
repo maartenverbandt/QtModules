@@ -1,21 +1,28 @@
 #include "qudpreader.h"
 
 QUdpReader::QUdpReader(const int line_size, QObject *parent) :
-    _socket(new QUdpSocket(parent)),
+    QObject(parent),
+    _socket(new QUdpSocket(this)),
     _line_size(line_size),
     _lines_read(0)
 {
     _socket->bind();
+    _port = _socket->localPort();
 }
 
 void QUdpReader::setPort(quint16 port)
 {
-    _socket->bind(port);
+    _port = port;
+    _socket->deleteLater();
+    _socket = new QUdpSocket(this);
+    if(!_socket->bind(_port)){
+        qDebug() << _socket->errorString();
+    }
 }
 
 quint16 QUdpReader::getPort()
 {
-    return _socket->localPort();
+    return _port;
 }
 
 QUdpSocket *QUdpReader::getSocket()
@@ -25,9 +32,7 @@ QUdpSocket *QUdpReader::getSocket()
 
 void QUdpReader::reset()
 {
-    quint16 port = _socket->localPort();
-    _socket->disconnectFromHost();
-    _socket->bind(port);
+    setPort(_port);
     _lines_read = 0;
 }
 

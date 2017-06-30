@@ -1,11 +1,11 @@
-#ifndef QUDPPORTWIDGET_H
-#define QUDPPORTWIDGET_H
+#ifndef QUDPREADERWIDGET_H
+#define QUDPREADERWIDGET_H
 
 #include <QWidget>
 #include <qudpreader.h>
 
 namespace Ui {
-class QUdpPortWidget;
+class QUdpReaderWidget;
 }
 
 class QUdpReaderWidget : public QWidget
@@ -24,9 +24,9 @@ private slots:
     void on_incoming_port_valueChanged(int arg1);
 
 private:
-    Ui::QUdpPortWidget *ui;
+    Ui::QUdpReaderWidget *ui;
     QUdpReader* _udp_port;
 
 };
 
-#endif // QUDPPORTWIDGET_H
+#endif // QUDPREADERWIDGET_H

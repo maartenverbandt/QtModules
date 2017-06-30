@@ -3,7 +3,7 @@
 
 QUdpReaderWidget::QUdpReaderWidget(quint64 line_size, QString name, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::QUdpPortWidget),
+    ui(new Ui::QUdpReaderWidget),
     _udp_port(new QUdpReader(line_size,parent))
 {
     ui->setupUi(this);

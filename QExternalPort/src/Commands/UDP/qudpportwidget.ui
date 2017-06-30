@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QUdpPortWidget</class>
- <widget class="QWidget" name="QUdpPortWidget">
+ <class>QUdpReaderWidget</class>
+ <widget class="QWidget" name="QUdpReaderWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>92</height>
+    <height>93</height>
    </rect>
   </property>
   <property name="minimumSize">
