@@ -39,6 +39,7 @@ private:
     void layoutSetup();
 
 public slots:
+    void measurement(QVariant m);
     void measurements(QList<QVariant> l);
     void reset();
 

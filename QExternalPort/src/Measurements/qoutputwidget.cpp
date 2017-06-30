@@ -12,6 +12,14 @@ void QOutputWidget::addPort(QMeasurementPortInterface *port)
     ports.append(port);
 }
 
+void QOutputWidget::setPacket(QVariant p)
+{
+    for(int i=0; i<ports.size(); i++){
+        if(ports[i]->enabled())
+            ports[i]->setPacket(p);
+    }
+}
+
 void QOutputWidget::setPackets(QList<QVariant> p)
 {
     for(int i=0; i<ports.size(); i++){

@@ -83,6 +83,15 @@ void QMeasurementPortDialog::layoutSetup()
     QObject::connect(_buttons,SIGNAL(buttonToggled(int,bool)),_stack,SLOT(setCurrentIndex(int)));
 }
 
+void QMeasurementPortDialog::measurement(QVariant m)
+{
+    if(_start->isChecked()){
+        QListIterator<QOutputWidget*> i(_ports);
+        while(i.hasNext())
+            i.next()->setPacket(m);
+    }
+}
+
 void QMeasurementPortDialog::measurements(QList<QVariant> l)
 {
     if(_start->isChecked()){

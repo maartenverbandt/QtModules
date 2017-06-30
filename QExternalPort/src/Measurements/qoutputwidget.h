@@ -14,7 +14,8 @@ public:
     explicit QOutputWidget(QString name, QWidget *parent = 0);
 
     void addPort(QMeasurementPortInterface *port);
-    virtual void setPackets(QList<QVariant> p);
+    void setPacket(QVariant p);
+    void setPackets(QList<QVariant> p);
     void reset();
 
 protected:
