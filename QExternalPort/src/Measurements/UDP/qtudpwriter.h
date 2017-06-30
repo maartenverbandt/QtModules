@@ -50,10 +50,17 @@ public:
     {}
 };
 
-class QPositionCmdUdpWriter: public QTUdpWriter<mavlink_position_cmd_t>{
+class QPoseUdpWriter: public QTUdpWriter<mavlink_pose_t>{
 public:
-    QPositionCmdUdpWriter(QWidget *parent) :
-        QTUdpWriter<mavlink_position_cmd_t>("position cmd",parent)
+    QPoseUdpWriter(QWidget *parent) :
+        QTUdpWriter<mavlink_pose_t>("pose",parent)
+    {}
+};
+
+class QAttitudeUdpWriter: public QTUdpWriter<mavlink_attitude_t>{
+public:
+    QAttitudeUdpWriter(QWidget *parent) :
+        QTUdpWriter<mavlink_attitude_t>("attitude",parent)
     {}
 };
 
