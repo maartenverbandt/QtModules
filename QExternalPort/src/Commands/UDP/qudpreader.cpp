@@ -13,11 +13,11 @@ QUdpReader::QUdpReader(const int line_size, QObject *parent) :
 void QUdpReader::setPort(quint16 port)
 {
     _port = port;
-    _socket->deleteLater();
-    _socket = new QUdpSocket(this);
-    if(!_socket->bind(_port)){
+    _socket->close();
+    if(!(_socket->state() == QAbstractSocket::UnconnectedState || _socket->waitForDisconnected(1000))){
         qDebug() << _socket->errorString();
     }
+    _socket->bind(_port);
 }
 
 quint16 QUdpReader::getPort()
