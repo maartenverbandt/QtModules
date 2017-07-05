@@ -20,6 +20,7 @@ public:
 private:
     QUdpSocket* _socket;
     quint16 _port;
+    static quint16 _next_port;
 
     const int _line_size;
     quint64 _lines_read;

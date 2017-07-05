@@ -1,11 +1,14 @@
 #include "qudpwriter.h"
 
+quint16 QUdpWriter::_next_port = 28000;
+
 QUdpWriter::QUdpWriter(QObject *parent) :
     QObject(parent),
     _socket(new QUdpSocket(parent)),
     _lines_written(0)
 {
-    _port = _socket->localPort();
+    _port = _next_port;
+    _next_port++;
 }
 
 void QUdpWriter::setPort(quint16 port)

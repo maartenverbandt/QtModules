@@ -1,13 +1,16 @@
 #include "qudpreader.h"
 
+quint16 QUdpReader::_next_port = 27500;
+
 QUdpReader::QUdpReader(const int line_size, QObject *parent) :
     QObject(parent),
     _socket(new QUdpSocket(this)),
     _line_size(line_size),
     _lines_read(0)
 {
-    _socket->bind();
-    _port = _socket->localPort();
+    _socket->bind(_next_port);
+    _port = _next_port;
+    _next_port++;
 }
 
 void QUdpReader::setPort(quint16 port)

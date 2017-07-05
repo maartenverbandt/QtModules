@@ -23,6 +23,8 @@ private:
     quint16 _port;
     quint64 _lines_written;
 
+    static quint16 _next_port;
+
 public slots:
     void setPort(quint16 port);
 
