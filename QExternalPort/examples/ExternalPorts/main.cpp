@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     QOutputWidget *udp2 = new QOutputWidget("UDP",0);
     udp2->addPort(new QGpioUdpWriter(udp2));
-    udp2->addPort(new QPositionCmdUdpWriter(udp2));
+    udp2->addPort(new QAttitudeUdpWriter(udp2));
     QMeasurementPortDialog *d2 = new QMeasurementPortDialog("Measurement port");
     d2->addOutputWidget(udp2);
     d2->show();

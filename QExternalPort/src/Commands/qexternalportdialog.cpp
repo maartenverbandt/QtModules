@@ -100,7 +100,7 @@ void QExternalPortDialog::startToggled(bool checked)
 
 void QExternalPortDialog::start()
 {
-    _timer_id = startTimer(50,Qt::PreciseTimer);
+    _timer_id = startTimer(10,Qt::PreciseTimer);
 }
 
 void QExternalPortDialog::stop()
