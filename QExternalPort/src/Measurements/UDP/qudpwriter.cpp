@@ -5,18 +5,12 @@ QUdpWriter::QUdpWriter(QObject *parent) :
     _socket(new QUdpSocket(parent)),
     _lines_written(0)
 {
-    _socket->bind();
     _port = _socket->localPort();
 }
 
 void QUdpWriter::setPort(quint16 port)
 {
     _port = port;
-    _socket->deleteLater();
-    _socket = new QUdpSocket(this);
-    if(!_socket->bind(_port)){
-        qDebug() << _socket->errorString();
-    }
 }
 
 quint16 QUdpWriter::getPort()
