@@ -14,15 +14,21 @@ public:
 
     }
 
-    T getTPacket(){
+    T getTPacket(bool &valid){
         QByteArray line = _udp_reader->readLine();
         T* t = reinterpret_cast<T*>(line.data());
+        valid = !line.isEmpty();
+
         return (*t);
     }
 
     virtual QVariant getPacket(){
         QVariant t;
-        t.setValue(getTPacket());
+        bool valid;
+        t.setValue(getTPacket(valid));
+        if(!valid){
+            t.setValue(valid);
+        }
         return t;
     }
 

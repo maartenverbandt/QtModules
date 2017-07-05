@@ -38,18 +38,19 @@ void QUdpReader::reset()
 
 QByteArray QUdpReader::readLine()
 {
-    QByteArray bytes = QByteArray(_line_size,0);
+    QByteArray bytes = QByteArray(0);
     int t_lines_read = 0;
-    while(_socket->hasPendingDatagrams()){
-        _socket->readDatagram(bytes.data(),bytes.size());
-        t_lines_read++;
+    if(_socket->state() == QAbstractSocket::BoundState){
+        while(_socket->hasPendingDatagrams()){
+            bytes.resize(_line_size);
+            _socket->readDatagram(bytes.data(),bytes.size());
+            t_lines_read++;
+        }
+        _lines_read++;
+    } else {
+        qDebug() << "Socket state: " << _socket->state();
     }
 
-    if(t_lines_read > 1){
-        qDebug() << "More than one message received. Try increasing the read-frequency.";
-    }
-
-    _lines_read++;
     return bytes;
 }
 
