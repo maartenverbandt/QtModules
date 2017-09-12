@@ -20,8 +20,9 @@ QAction* QAbstractRecorder::recorder()
 
 QFile *QAbstractRecorder::openDateFile(QString prefix)
 {
-    QDir().mkdir("logs");
-    QFile *log = new QFile("logs/" + prefix + "_" + QDateTime::currentDateTime().toString("MM_dd_HH_mm") + ".xml");
+    QString dir = QDir::homePath() + "/QRCrecords";
+    QDir().mkdir(dir);
+    QFile *log = new QFile(dir + "/" + prefix + "_" + QDateTime::currentDateTime().toString("MM_dd_HH_mm") + ".xml");
 
     return log;
 }
