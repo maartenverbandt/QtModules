@@ -20,6 +20,10 @@ public:
     QByteArray readLine();
     bool enabled();
 
+
+private:
+    void updatePort();
+
 private slots:
     void on_incoming_port_valueChanged(int arg1);
 

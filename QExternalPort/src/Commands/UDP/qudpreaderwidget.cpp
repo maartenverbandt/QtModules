@@ -8,8 +8,9 @@ QUdpReaderWidget::QUdpReaderWidget(quint64 line_size, QString name, QWidget *par
 {
     ui->setupUi(this);
     ui->incoming_port->setRange(0,65535);
-    ui->incoming_port->setValue(_udp_port->getPort());
     ui->groupBox->setTitle(name);
+    this->updatePort();
+    this->setObjectName(name);
 }
 
 QUdpReaderWidget::~QUdpReaderWidget()
@@ -33,6 +34,12 @@ QByteArray QUdpReaderWidget::readLine()
 bool QUdpReaderWidget::enabled()
 {
     return ui->groupBox->isChecked();
+}
+
+
+void QUdpReaderWidget::updatePort()
+{
+    ui->incoming_port->setValue(_udp_port->getPort());
 }
 
 void QUdpReaderWidget::on_incoming_port_valueChanged(int arg1)
