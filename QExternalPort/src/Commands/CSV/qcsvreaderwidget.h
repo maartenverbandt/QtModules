@@ -23,6 +23,9 @@ public:
 
     bool enabled();
 
+private:
+    void updateFileName();
+
 private slots:
     void on_pushButton_clicked();
 

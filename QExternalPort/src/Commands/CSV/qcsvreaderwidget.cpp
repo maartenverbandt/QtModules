@@ -32,6 +32,12 @@ bool QCsvReaderWidget::enabled()
     return ui->groupBox->isChecked();
 }
 
+
+void QCsvReaderWidget::updateFileName()
+{
+    ui->label->setText(_csv_reader->fileName());
+}
+
 void QCsvReaderWidget::on_pushButton_clicked()
 {
     QFileInfo info(*(_csv_reader->getFile()));
@@ -40,8 +46,7 @@ void QCsvReaderWidget::on_pushButton_clicked()
                                                     tr("CSV files (*.csv *.txt)"));
     if(~path.isEmpty()){
         if(_csv_reader->setFile(path)){
-            QFileInfo info(*(_csv_reader->getFile()));
-            ui->label->setText(info.fileName());
+            updateFileName();
         }
     }
 }
