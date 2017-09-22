@@ -5,6 +5,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QComboBox>
 #include <QStackedWidget>
 #include <QAction>
 #include <qinputwidget.h>
@@ -38,6 +39,7 @@ private:
     QVBoxLayout* _content_layout;
     QButtonGroup* _buttons;
     QStackedWidget* _stack;
+    QComboBox* _frequency;
 
     void layoutSetup();
 

@@ -68,6 +68,16 @@ void QExternalPortDialog::layoutSetup()
     _buttons = new QButtonGroup(this);
     _buttons->setExclusive(true);
 
+    _frequency = new QComboBox();
+    _frequency->setFixedWidth(80);
+    QList<int> freqs{1,5,10,20,50,100,200};
+    QListIterator<int> i(freqs);
+    while(i.hasNext()){
+        int freq = i.next();
+        _frequency->addItem(QString::number(freq) + "Hz", freq);
+    }
+    _frequency->setCurrentIndex(2);
+
     _controls_layout = new QHBoxLayout();
     QPushButton* start = new QPushButton("start");
     start->setCheckable(true);
@@ -76,6 +86,7 @@ void QExternalPortDialog::layoutSetup()
     connect(reset,&QPushButton::clicked,this,&QExternalPortDialog::reset);
     _controls_layout->addWidget(start);
     _controls_layout->addWidget(reset);
+    _controls_layout->addWidget(_frequency);
 
     _content_layout = new QVBoxLayout();
     _stack = new QStackedWidget(this);
@@ -100,11 +111,13 @@ void QExternalPortDialog::startToggled(bool checked)
 
 void QExternalPortDialog::start()
 {
-    _timer_id = startTimer(10,Qt::PreciseTimer);
+    _frequency->setEnabled(false);
+    _timer_id = startTimer(1000/(_frequency->currentData().toInt()),Qt::PreciseTimer);
 }
 
 void QExternalPortDialog::stop()
 {
+    _frequency->setEnabled(true);
     killTimer(_timer_id);
 }
 
