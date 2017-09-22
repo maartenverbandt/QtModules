@@ -24,6 +24,8 @@ bool QCsvReader::setFile(QString filename)
         _file->open(QFile::ReadOnly);
         reset();
         return true;
+    } else {
+        qWarning() << "File" << filename << "does not exist.";
     }
 
     return false;
@@ -32,6 +34,19 @@ bool QCsvReader::setFile(QString filename)
 QFile *QCsvReader::getFile()
 {
     return _file;
+}
+
+QString QCsvReader::fileName(bool full)
+{
+    if(_file->isOpen()){
+        if(full) {
+            return QFileInfo(*_file).absoluteFilePath();
+        } else {
+            return QFileInfo(*_file).fileName();
+        }
+    } else {
+        return "";
+    }
 }
 
 QList<double> QCsvReader::readLine()

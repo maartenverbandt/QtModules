@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
+#include <QDebug>
 
 class QCsvReader : public QObject
 {
@@ -14,6 +16,7 @@ public:
 
     bool setFile(QString filename);
     QFile *getFile();
+    QString fileName(bool full = true);
     void reset();
 
     QList<double> readLine();
