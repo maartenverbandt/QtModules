@@ -55,6 +55,22 @@ QAction *QExternalPortDialog::getPopupAction()
     return _popup;
 }
 
+void QExternalPortDialog::saveState(QString group)
+{
+    QListIterator<QInputWidget*> i(_ports);
+    while(i.hasNext()){
+        i.next()->saveState(group);
+    }
+}
+
+void QExternalPortDialog::restoreState(QString group)
+{
+    QListIterator<QInputWidget*> i(_ports);
+    while(i.hasNext()){
+        i.next()->restoreState(group);
+    }
+}
+
 void QExternalPortDialog::timerEvent(QTimerEvent *)
 {
     emit commands(currentInputWidget()->read());

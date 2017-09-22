@@ -47,4 +47,12 @@ void QPositionCmdCsvReader::reset()
     _csv_reader->getCsvReader()->reset();
 }
 
+void QPositionCmdCsvReader::saveState(QString group)
+{
+    _csv_reader->saveState(group + "/position_cmd");
+}
 
+void QPositionCmdCsvReader::restoreState(QString group)
+{
+    _csv_reader->restoreState(group + "/position_cmd");
+}

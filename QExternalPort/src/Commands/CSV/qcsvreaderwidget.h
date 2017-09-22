@@ -23,6 +23,9 @@ public:
 
     bool enabled();
 
+    void saveState(QString group);
+    void restoreState(QString group);
+
 private:
     void updateFileName();
 

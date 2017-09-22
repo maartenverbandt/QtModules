@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <qudpreader.h>
+#include <QSettings>
 
 namespace Ui {
 class QUdpReaderWidget;
@@ -20,6 +21,8 @@ public:
     QByteArray readLine();
     bool enabled();
 
+    void saveState(QString group);
+    void restoreState(QString group);
 
 private:
     void updatePort();

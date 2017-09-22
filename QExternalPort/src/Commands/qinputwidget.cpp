@@ -30,3 +30,19 @@ void QInputWidget::reset()
         ports[i]->reset();
     }
 }
+
+void QInputWidget::saveState(QString group)
+{
+    QListIterator<QDataPortInterface*> i(ports);
+    while(i.hasNext()){
+        i.next()->saveState(group + "/" + objectName());
+    }
+}
+
+void QInputWidget::restoreState(QString group)
+{
+    QListIterator<QDataPortInterface*> i(ports);
+    while(i.hasNext()){
+        i.next()->restoreState(group + "/" + objectName());
+    }
+}

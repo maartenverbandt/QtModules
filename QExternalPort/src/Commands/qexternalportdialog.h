@@ -24,6 +24,9 @@ public:
 
     QAction* getPopupAction();
 
+    void saveState(QString group);
+    void restoreState(QString group);
+
 protected:
     void timerEvent(QTimerEvent *);
 

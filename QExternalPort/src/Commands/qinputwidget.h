@@ -17,6 +17,9 @@ public:
     virtual QList<QVariant> read();
     void reset();
 
+    void saveState(QString group);
+    void restoreState(QString group);
+
 protected:
     QList<QDataPortInterface*> ports;
 

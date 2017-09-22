@@ -48,4 +48,12 @@ void QGpioCsvReader::reset()
     _csv_reader->getCsvReader()->reset();
 }
 
+void QGpioCsvReader::saveState(QString group)
+{
+    _csv_reader->saveState(group + "/gpio");
+}
 
+void QGpioCsvReader::restoreState(QString group)
+{
+    _csv_reader->restoreState(group + "/gpio");
+}

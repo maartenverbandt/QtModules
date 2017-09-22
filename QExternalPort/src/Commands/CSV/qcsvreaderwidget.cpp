@@ -1,5 +1,6 @@
 #include "qcsvreaderwidget.h"
 #include "ui_qcsvreaderwidget.h"
+#include <QSettings>
 
 QCsvReaderWidget::QCsvReaderWidget(QString name, QWidget *parent) :
     QWidget(parent),
@@ -32,6 +33,27 @@ bool QCsvReaderWidget::enabled()
     return ui->groupBox->isChecked();
 }
 
+void QCsvReaderWidget::saveState(QString group)
+{
+    QSettings settings;
+
+    settings.beginGroup(group);
+    settings.setValue("filename", QVariant(_csv_reader->fileName()));
+    settings.endGroup();
+}
+
+void QCsvReaderWidget::restoreState(QString group)
+{
+    QSettings settings;
+
+    settings.beginGroup(group);
+    if(!_csv_reader->setFile(settings.value("filename").toString())) {
+        qWarning() << "Unable to restore" << settings.value("filename").toString();
+    } else {
+        updateFileName();
+    }
+    settings.endGroup();
+}
 
 void QCsvReaderWidget::updateFileName()
 {

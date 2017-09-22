@@ -17,6 +17,9 @@ public:
     virtual bool enabled();
     virtual void reset();
 
+    virtual void saveState(QString group);
+    virtual void restoreState(QString group);
+
 private:
     QCsvReaderWidget* _csv_reader;
 

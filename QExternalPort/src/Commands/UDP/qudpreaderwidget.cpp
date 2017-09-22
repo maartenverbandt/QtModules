@@ -36,6 +36,27 @@ bool QUdpReaderWidget::enabled()
     return ui->groupBox->isChecked();
 }
 
+void QUdpReaderWidget::saveState(QString group)
+{
+    QSettings settings;
+
+    settings.beginGroup(group + "/" + objectName());
+    settings.setValue("port",QVariant(_udp_port->getPort()));
+    settings.endGroup();
+}
+
+void QUdpReaderWidget::restoreState(QString group)
+{
+    QSettings settings;
+
+    settings.beginGroup(group + "/" + objectName());
+    quint16 port = settings.value("port", 0).toInt();
+    if((_udp_port->getPort() != port) && (port > 0)){
+        _udp_port->setPort(port);
+        this->updatePort();
+    }
+    settings.endGroup();
+}
 
 void QUdpReaderWidget::updatePort()
 {
