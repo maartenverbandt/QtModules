@@ -45,7 +45,7 @@ bool QGpioCsvReader::enabled()
 
 void QGpioCsvReader::reset()
 {
-    _csv_reader->getCsvReader()->reset();
+    _csv_reader->reset();
 }
 
 void QGpioCsvReader::saveState(QString group)

@@ -44,7 +44,7 @@ bool QPositionCmdCsvReader::enabled()
 
 void QPositionCmdCsvReader::reset()
 {
-    _csv_reader->getCsvReader()->reset();
+    _csv_reader->reset();
 }
 
 void QPositionCmdCsvReader::saveState(QString group)

@@ -22,12 +22,14 @@ public:
     QList<double> readLine();
 
     bool enabled();
+    void reset();
 
     void saveState(QString group);
     void restoreState(QString group);
 
 private:
     void updateFileName();
+    void updateProgressBar();
 
 private slots:
     void on_pushButton_clicked();

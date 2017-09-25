@@ -24,13 +24,20 @@ QCsvReader *QCsvReaderWidget::getCsvReader()
 QList<double> QCsvReaderWidget::readLine()
 {
     QList<double> values = _csv_reader->readLine();
-    ui->progressBar->setValue(100.0*_csv_reader->progress());
+    updateProgressBar();
     return values;
 }
 
 bool QCsvReaderWidget::enabled()
 {
     return ui->groupBox->isChecked();
+}
+
+void QCsvReaderWidget::reset()
+{
+    _csv_reader->reset();
+    updateFileName();
+    updateProgressBar();
 }
 
 void QCsvReaderWidget::saveState(QString group)
@@ -58,6 +65,11 @@ void QCsvReaderWidget::restoreState(QString group)
 void QCsvReaderWidget::updateFileName()
 {
     ui->label->setText(_csv_reader->fileName());
+}
+
+void QCsvReaderWidget::updateProgressBar()
+{
+    ui->progressBar->setValue(100.0*_csv_reader->progress());
 }
 
 void QCsvReaderWidget::on_pushButton_clicked()
