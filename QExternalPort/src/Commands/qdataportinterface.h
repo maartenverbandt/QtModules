@@ -13,8 +13,8 @@ public:
     virtual bool enabled() = 0;
     virtual void reset() = 0;
 
-    virtual void saveState(QString group){}
-    virtual void restoreState(QString group){}
+    virtual void saveState(QString){}
+    virtual void restoreState(QString){}
 
 };
 
