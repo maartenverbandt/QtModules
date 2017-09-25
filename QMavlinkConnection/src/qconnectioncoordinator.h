@@ -31,7 +31,7 @@ public:
     QMavlinkConnection* findMavlinkConnection(QString name);
 
     void connected(QMavlinkConnection* connection);
-    void timedout(QMavlinkConnection* connection);
+    void timedOut(QMavlinkConnection* connection);
 
     void setupUSB();
     void setupBT();

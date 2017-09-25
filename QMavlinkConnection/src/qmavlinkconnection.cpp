@@ -11,6 +11,7 @@ QMavlinkConnection::QMavlinkConnection(QObject *parent, QIODevice *io, QString n
     _packet_drops(0),
     _disconnect_action("disconnect",this),
     _reconnect_action("reconnect",this),
+    _timer_packet_count(0),
     _info_action("info",this),
     _log_action("log",this),
     _quicklog_action("quick log",this)
@@ -83,6 +84,7 @@ void QMavlinkConnection::setPending()
     //activate single shot timer
     _timer.setSingleShot(true);
     QObject::connect(&_timer, SIGNAL(timeout()), this, SLOT(timeout()));
+    _timer.setInterval(5000);
 }
 
 void QMavlinkConnection::setConnected()
@@ -102,7 +104,6 @@ QMenu *QMavlinkConnection::constructMenu(const QString menu_title, QWidget* pare
     menu->addAction(&_disconnect_action);
     menu->addSeparator();
     menu->addAction(&_info_action);
-    menu->addAction(&_log_action);
 
     return menu;
 }
@@ -126,14 +127,7 @@ QMenu *QMavlinkConnection::constructMenu(QWidget *parent)
     }
 
     menu_title += ": " + name();
-
-    QMenu *menu = new QMenu(menu_title, parent); //automatically deleted if connection is deleted
-    menu->addAction(&_reconnect_action);
-    menu->addAction(&_disconnect_action);
-    menu->addSeparator();
-    menu->addAction(&_info_action);
-
-    return menu;
+    return constructMenu(menu_title, parent);
 }
 
 void QMavlinkConnection::mavlinkMsgSend(mavlink_message_t msg)
@@ -154,6 +148,7 @@ void QMavlinkConnection::checkHeartbeat(mavlink_message_t msg)
         _robot_type = heartbeat.type;
 
         static_cast<QConnectionCoordinator*>(parent())->connected(this);
+        setConnected();
     }
 }
 
@@ -166,7 +161,7 @@ void QMavlinkConnection::timeout()
 void QMavlinkConnection::mavlinkParseData()
 {
     QByteArray data = _io->readAll();
-    for(unsigned int k=0;k<data.length();k++){
+    for(int k=0;k<data.length();k++){
         if(mavlink_parse_char(0, data.at(k), &_msg, &_status)){
             _packet_count++;
             emit mavlinkMsgReceived(_msg);

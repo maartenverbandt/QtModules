@@ -28,15 +28,13 @@ void QConnectionCoordinator::connected(QMavlinkConnection *connection)
     connection->setConnected();
     _connections.append(connection);
     emit mavlinkConnectionFound(connection);
-    qDebug() << "Device name:" << connection->name();
-    qDebug() << "mavlink detected";
+    qDebug() << "mavlink detected for" << connection->name();
 }
 
-void QConnectionCoordinator::timedout(QMavlinkConnection *connection)
+void QConnectionCoordinator::timedOut(QMavlinkConnection *connection)
 {
     connection->deleteLater();
-    qDebug() << "Device name:" << connection->name();
-    qDebug() << "no mavlink detected";
+    qDebug() << "NO mavlink detected" << connection->name();
 }
 
 void QConnectionCoordinator::query()
