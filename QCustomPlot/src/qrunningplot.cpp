@@ -40,7 +40,7 @@ void QRunningPlot::init(double span, quint8 n, quint8 type)
 }
 
 void QRunningPlot::addDataPoint(double x, double y, quint8 g, double t){
-    if(isnan(x) || isnan(y)) {
+    if((x != x) || (y != y)) {
         qWarning() << "Plot: value is NaN. This won't be visible!";
     }
 
