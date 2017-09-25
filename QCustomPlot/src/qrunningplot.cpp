@@ -62,13 +62,15 @@ void QRunningPlot::addDataPoint(double x, double y, quint8 g, double t){
 
 void QRunningPlot::reDraw()
 {
-    this->xAxis->rescale(true);
-    this->xAxis2->rescale(true);
-    if(_rescale_y){
-        this->yAxis->rescale(true);
-        this->yAxis2->rescale(true);
+    if(this->isEnabled()){
+        this->xAxis->rescale(true);
+        this->xAxis2->rescale(true);
+        if(_rescale_y){
+            this->yAxis->rescale(true);
+            this->yAxis2->rescale(true);
+        }
+        this->replot();
     }
-    this->replot();
 }
 
 void QRunningPlot::contextMenuEvent(QContextMenuEvent *event)
@@ -81,6 +83,18 @@ void QRunningPlot::contextMenuEvent(QContextMenuEvent *event)
     QObject::connect(&setXaxisAction, SIGNAL(triggered()), this, SLOT(setSpanInput()));
     QObject::connect(&setYaxisAction, SIGNAL(triggered()), this, SLOT(setAxisInput()));
     menu.exec(event->globalPos());
+}
+
+void QRunningPlot::changeEvent(QEvent *event)
+{
+    if(event->type() == QEvent::EnabledChange){
+        if(this->isEnabled()){
+            this->setBackground(QBrush(Qt::white));
+        } else {
+            this->setBackground(QBrush(QApplication::palette(this).brush(QPalette::Disabled,QPalette::Window)));
+        }
+        this->replot();
+    }
 }
 
 void QRunningPlot::setSpanInput()

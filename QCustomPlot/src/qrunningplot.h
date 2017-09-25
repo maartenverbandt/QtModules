@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QMenu>
 #include <QInputDialog>
+#include <QApplication>
 #include <qaxisdialog.h>
 
 #define QRUNNINGPLOT_TYPE_GRAPH 0
@@ -23,7 +24,8 @@ public:
     void setAxes(QCPAxis *keyAxis, QCPAxis *valueAxis, quint8 g);
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    virtual void contextMenuEvent(QContextMenuEvent *event);
+    virtual void changeEvent(QEvent *event);
 
 private:
     unsigned int _type;
