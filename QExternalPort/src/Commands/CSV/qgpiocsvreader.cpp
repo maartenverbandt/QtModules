@@ -16,6 +16,9 @@ mavlink_gpio_t QGpioCsvReader::getGpioPacket()
         values.append(0.0);
 
     QListIterator<double> i(values);
+    if(values.length() > 12){
+        gpio.time = i.next();
+    }
     for(k=0;k<8;k++){
         gpio.gpio_float[k] = i.next();
     }
