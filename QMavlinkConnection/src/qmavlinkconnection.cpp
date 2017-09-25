@@ -10,7 +10,7 @@ QMavlinkConnection::QMavlinkConnection(QObject *parent, QIODevice *io, QString n
     _packet_count(0),
     _packet_drops(0),
     _timer_packet_count(0),
-    _suspend_action("suspend",this),
+    _activate_action("active",this),
     _info_action("info",this),
     _log_action("log",this),
     _quicklog_action("quick log",this)
@@ -19,9 +19,9 @@ QMavlinkConnection::QMavlinkConnection(QObject *parent, QIODevice *io, QString n
     QObject::connect(_io, &QIODevice::readyRead, this, &QMavlinkConnection::mavlinkParseData);
 
     //configure actions
-    _suspend_action.setCheckable(true);
-    _suspend_action.setChecked(false);
-    QObject::connect(&_suspend_action, &QAction::toggled, this, &QMavlinkConnection::toggleSuspend);
+    _activate_action.setCheckable(true);
+    _activate_action.setChecked(true);
+    QObject::connect(&_activate_action, &QAction::toggled, this, &QMavlinkConnection::toggleActivate);
     QObject::connect(&_info_action,&QAction::triggered,this,&QMavlinkConnection::connectionInfoDialog);
     _log_action.setCheckable(true);
     _quicklog_action.setCheckable(true);
@@ -93,21 +93,21 @@ void QMavlinkConnection::setConnected()
     QObject::disconnect(this,&QMavlinkConnection::mavlinkMsgReceived, this, &QMavlinkConnection::checkHeartbeat); //no heartbeats
 }
 
-void QMavlinkConnection::setSuspended()
-{
-    _io->close();
-    qDebug() << "connection suspended";
-}
-
 void QMavlinkConnection::setActive()
 {
     _io->open(QIODevice::ReadWrite);
     qDebug() << "connection activated";
 }
 
-QAction *QMavlinkConnection::getSuspendAction()
+void QMavlinkConnection::setSuspended()
 {
-    return &_suspend_action;
+    _io->close();
+    qDebug() << "connection suspended";
+}
+
+QAction *QMavlinkConnection::getActivateAction()
+{
+    return &_activate_action;
 }
 
 QAction *QMavlinkConnection::getQuicklogAction()
@@ -118,7 +118,7 @@ QAction *QMavlinkConnection::getQuicklogAction()
 QMenu *QMavlinkConnection::constructMenu(const QString menu_title, QWidget* parent)
 {
     QMenu *menu = new QMenu(menu_title, parent); //automatically deleted if connection is deleted
-    menu->addAction(&_suspend_action);
+    menu->addAction(&_activate_action);
     menu->addSeparator();
     menu->addAction(&_info_action);
 
@@ -206,12 +206,12 @@ void QMavlinkConnection::quicklogActionCallback(bool checked)
     logCallback(checked,true);
 }
 
-void QMavlinkConnection::toggleSuspend()
+void QMavlinkConnection::toggleActivate()
 {
-    if(_suspend_action.isChecked()){
-        setSuspended();
-    } else {
+    if(_activate_action.isChecked()){
         setActive();
+    } else {
+        setSuspended();
     }
 }
 

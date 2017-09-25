@@ -44,7 +44,7 @@ public:
     void setSuspended();
     void setActive();
 
-    QAction *getSuspendAction();
+    QAction *getActivateAction();
     QAction *getInfoAction();
     QAction *getQuicklogAction();
     QAction *getLogAction();
@@ -68,7 +68,7 @@ private:
     unsigned long       _timer_packet_count;
 
     //actions
-    QAction _suspend_action;
+    QAction _activate_action;
     QAction _info_action;
     QAction _log_action;
     QAction _quicklog_action;
@@ -91,7 +91,7 @@ public slots:
     void connectionInfoDialog();
     void logActionCallback(bool checked);
     void quicklogActionCallback(bool checked);
-    void toggleSuspend();
+    void toggleActivate();
 };
 
 #endif // QMAVLINKCONNECTION_H
