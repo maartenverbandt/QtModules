@@ -9,26 +9,26 @@ QMavlinkConnection::QMavlinkConnection(QObject *parent, QIODevice *io, QString n
     _name(name),
     _packet_count(0),
     _packet_drops(0),
-    _disconnect_action("disconnect",this),
-    _reconnect_action("reconnect",this),
     _timer_packet_count(0),
+    _suspend_action("suspend",this),
     _info_action("info",this),
     _log_action("log",this),
     _quicklog_action("quick log",this)
-{
+{    
     //connect iodevice
-    QObject::connect(_io, SIGNAL(readyRead()), this, SLOT(mavlinkParseData()));
+    QObject::connect(_io, &QIODevice::readyRead, this, &QMavlinkConnection::mavlinkParseData);
 
     //configure actions
-    QObject::connect(&_disconnect_action,SIGNAL(triggered()),this,SLOT(deleteLater()));
-    //QObject::connect(&_reconnect_action,SIGNAL(triggered()),this,SLOT(reconnect()));
-    QObject::connect(&_info_action,SIGNAL(triggered()),this,SLOT(connectionInfoDialog()));
+    _suspend_action.setCheckable(true);
+    _suspend_action.setChecked(false);
+    QObject::connect(&_suspend_action, &QAction::toggled, this, &QMavlinkConnection::toggleSuspend);
+    QObject::connect(&_info_action,&QAction::triggered,this,&QMavlinkConnection::connectionInfoDialog);
     _log_action.setCheckable(true);
     _quicklog_action.setCheckable(true);
-    QObject::connect(&_log_action, SIGNAL(triggered(bool)), &_quicklog_action, SLOT(setChecked(bool)));
-    QObject::connect(&_quicklog_action, SIGNAL(triggered(bool)), &_log_action, SLOT(setChecked(bool)));
-    QObject::connect(&_log_action, SIGNAL(triggered(bool)), this, SLOT(logActionCallback(bool)));
-    QObject::connect(&_quicklog_action, SIGNAL(triggered(bool)), this, SLOT(quicklogActionCallback(bool)));
+    QObject::connect(&_log_action, &QAction::triggered, &_quicklog_action, &QAction::setChecked);
+    QObject::connect(&_quicklog_action, &QAction::triggered, &_log_action, &QAction::setChecked);
+    QObject::connect(&_log_action, &QAction::triggered, this, &QMavlinkConnection::logActionCallback);
+    QObject::connect(&_quicklog_action, &QAction::triggered, this, &QMavlinkConnection::quicklogActionCallback);
 }
 
 QMavlinkConnection::~QMavlinkConnection()
@@ -79,18 +79,35 @@ QString QMavlinkConnection::getMenuName()
 void QMavlinkConnection::setPending()
 {
     //check the heartbeat
-    QObject::connect(this,SIGNAL(mavlinkMsgReceived(mavlink_message_t)),this,SLOT(checkHeartbeat(mavlink_message_t)));
+    QObject::connect(this,&QMavlinkConnection::mavlinkMsgReceived,this,&QMavlinkConnection::checkHeartbeat);
 
     //activate single shot timer
     _timer.setSingleShot(true);
-    QObject::connect(&_timer, SIGNAL(timeout()), this, SLOT(timeout()));
     _timer.setInterval(5000);
+    QObject::connect(&_timer, &QTimer::timeout, this, &QMavlinkConnection::timeout);
 }
 
 void QMavlinkConnection::setConnected()
 {
     _timer.stop(); //prevent the timeout event
-    QObject::disconnect(this,SIGNAL(mavlinkMsgReceived(mavlink_message_t)),this,SLOT(checkHeartbeat(mavlink_message_t))); //no heartbeats
+    QObject::disconnect(this,&QMavlinkConnection::mavlinkMsgReceived, this, &QMavlinkConnection::checkHeartbeat); //no heartbeats
+}
+
+void QMavlinkConnection::setSuspended()
+{
+    _io->close();
+    qDebug() << "connection suspended";
+}
+
+void QMavlinkConnection::setActive()
+{
+    _io->open(QIODevice::ReadWrite);
+    qDebug() << "connection activated";
+}
+
+QAction *QMavlinkConnection::getSuspendAction()
+{
+    return &_suspend_action;
 }
 
 QAction *QMavlinkConnection::getQuicklogAction()
@@ -101,7 +118,7 @@ QAction *QMavlinkConnection::getQuicklogAction()
 QMenu *QMavlinkConnection::constructMenu(const QString menu_title, QWidget* parent)
 {
     QMenu *menu = new QMenu(menu_title, parent); //automatically deleted if connection is deleted
-    menu->addAction(&_disconnect_action);
+    menu->addAction(&_suspend_action);
     menu->addSeparator();
     menu->addAction(&_info_action);
 
@@ -154,7 +171,7 @@ void QMavlinkConnection::checkHeartbeat(mavlink_message_t msg)
 
 void QMavlinkConnection::timeout()
 {
-    static_cast<QConnectionCoordinator*>(parent())->timedout(this);
+    static_cast<QConnectionCoordinator*>(parent())->timedOut(this);
     qDebug() << this->name() << "timed out.";
 }
 
@@ -174,8 +191,8 @@ void QMavlinkConnection::mavlinkParseData()
 void QMavlinkConnection::connectionInfoDialog()
 {
     QMavlinkConnectionInfoDialog *dialog = new QMavlinkConnectionInfoDialog();
-    QObject::connect(this,SIGNAL(mavlinkMsgReceived(mavlink_message_t)),dialog,SLOT(mavlinkMsgReceived(mavlink_message_t)));
-    QObject::connect(this,SIGNAL(destroyed()),dialog,SLOT(deleteLater()));
+    QObject::connect(this,&QMavlinkConnection::mavlinkMsgReceived,dialog,&QMavlinkConnectionInfoDialog::mavlinkMsgReceived);
+    QObject::connect(this,&QMavlinkConnection::destroyed,dialog,&QMavlinkConnectionInfoDialog::deleteLater);
     dialog->show();
 }
 
@@ -189,6 +206,15 @@ void QMavlinkConnection::quicklogActionCallback(bool checked)
     logCallback(checked,true);
 }
 
+void QMavlinkConnection::toggleSuspend()
+{
+    if(_suspend_action.isChecked()){
+        setSuspended();
+    } else {
+        setActive();
+    }
+}
+
 void QMavlinkConnection::logCallback(bool checked, bool autoname)
 {
     if(checked){
@@ -200,9 +226,9 @@ void QMavlinkConnection::logCallback(bool checked, bool autoname)
 
         //make logger with that filename
         QMavlinkConnectionLogger* logger = new QMavlinkConnectionLogger(filename,this);
-        QObject::connect(this,SIGNAL(closeLog()),logger,SLOT(deleteLater()));
-        QObject::connect(this, SIGNAL(mavlinkMsgReceived(mavlink_message_t)), logger, SLOT(mavlinkMsgReceived(mavlink_message_t)));
-        QObject::connect(logger, SIGNAL(mavlinkMsgSend(mavlink_message_t)), this, SLOT(mavlinkMsgSend(mavlink_message_t)));
+        QObject::connect(this,&QMavlinkConnection::closeLog,logger,&QMavlinkConnectionLogger::deleteLater);
+        QObject::connect(this,&QMavlinkConnection::mavlinkMsgReceived,logger,&QMavlinkConnectionLogger::mavlinkMsgReceived);
+        QObject::connect(logger,&QMavlinkConnectionLogger::mavlinkMsgSend,this,&QMavlinkConnection::mavlinkMsgSend);
     } else {
         //close existing log via callback
         emit closeLog();

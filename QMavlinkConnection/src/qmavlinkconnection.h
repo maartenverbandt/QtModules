@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QIODevice>
-#include <QTimer>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QMenu>
@@ -42,9 +41,10 @@ public:
 
     void setPending();
     void setConnected();
+    void setSuspended();
+    void setActive();
 
-    QAction *getDisconnectAction();
-    QAction *getReconnectAction();
+    QAction *getSuspendAction();
     QAction *getInfoAction();
     QAction *getQuicklogAction();
     QAction *getLogAction();
@@ -64,13 +64,11 @@ private:
 
     unsigned long       _packet_count;
     unsigned long       _packet_drops;
-
     QTimer              _timer;
     unsigned long       _timer_packet_count;
 
     //actions
-    QAction _disconnect_action;
-    QAction _reconnect_action;
+    QAction _suspend_action;
     QAction _info_action;
     QAction _log_action;
     QAction _quicklog_action;
@@ -93,6 +91,7 @@ public slots:
     void connectionInfoDialog();
     void logActionCallback(bool checked);
     void quicklogActionCallback(bool checked);
+    void toggleSuspend();
 };
 
 #endif // QMAVLINKCONNECTION_H
