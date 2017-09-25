@@ -70,7 +70,6 @@ private:
     bool _paused;
 
     int _plot_timer;
-    int _gpio_timer;
 
     void setLabels();
 

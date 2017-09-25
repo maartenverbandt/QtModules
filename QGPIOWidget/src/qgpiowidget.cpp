@@ -82,8 +82,7 @@ QGPIOWidget::QGPIOWidget(QWidget *parent) :
     ui->frame_buttons->setLayout(grid_layout_buttons);
 
     //start timer
-    _plot_timer = startTimer(20,Qt::PreciseTimer);
-    _gpio_timer = startTimer(10,Qt::PreciseTimer);
+    _plot_timer = startTimer(50,Qt::PreciseTimer);
 
     setAttribute(Qt::WA_DeleteOnClose);
     show();
@@ -226,9 +225,7 @@ bool QGPIOWidget::paused()
 
 void QGPIOWidget::timerEvent(QTimerEvent *event)
 {
-    if(event->timerId() == _gpio_timer){
-        //do something with gpio stuff?
-    } else if(event->timerId() == _plot_timer) {
+    if(event->timerId() == _plot_timer) {
         int k;
         _time += 0.05;
 
