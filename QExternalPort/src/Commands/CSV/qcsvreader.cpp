@@ -49,7 +49,7 @@ QString QCsvReader::fileName(bool full)
     }
 }
 
-QList<double> QCsvReader::readLine()
+QList<double> QCsvReader::readLine(bool *at_end)
 {
     // read line
     QStringList strings = _stream->readLine().split('\t',QString::SkipEmptyParts);
@@ -59,6 +59,7 @@ QList<double> QCsvReader::readLine()
         values.append(i.next().toDouble());
 
     // check end of file
+    *at_end = _stream->atEnd();
     if(_stream->atEnd()){
         atEnd();
         reset();

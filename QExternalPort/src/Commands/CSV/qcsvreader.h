@@ -19,7 +19,7 @@ public:
     QString fileName(bool full = true);
     void reset();
 
-    QList<double> readLine();
+    QList<double> readLine(bool *at_end = Q_NULLPTR);
     double progress();
 
 private:

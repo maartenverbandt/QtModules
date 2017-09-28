@@ -23,8 +23,13 @@ QCsvReader *QCsvReaderWidget::getCsvReader()
 
 QList<double> QCsvReaderWidget::readLine()
 {
-    QList<double> values = _csv_reader->readLine();
+    bool at_end;
+    QList<double> values = _csv_reader->readLine(&at_end);
     updateProgressBar();
+    if(at_end && (!ui->repeat->isChecked())){
+        ui->groupBox->setChecked(false);
+    }
+
     return values;
 }
 
@@ -46,6 +51,7 @@ void QCsvReaderWidget::saveState(QString group)
 
     settings.beginGroup(group);
     settings.setValue("filename", QVariant(_csv_reader->fileName()));
+    settings.setValue("repeat",QVariant(ui->repeat->isChecked()));
     settings.endGroup();
 }
 
@@ -59,6 +65,7 @@ void QCsvReaderWidget::restoreState(QString group)
     } else {
         updateFileName();
     }
+    ui->repeat->setChecked(settings.value("repeat",true).toBool());
     settings.endGroup();
 }
 
