@@ -7,9 +7,10 @@ class QParameter : public QObject
 {
     Q_OBJECT
 public:
-    explicit QParameter(const QString name, QObject *parent = 0);
+    explicit QParameter(const QString name, const int offset, QObject *parent = 0);
 
     const QString name();
+    const int offset();
     virtual const QString valueString() = 0;
     virtual void setValue(const QString value) = 0;
     virtual int type() = 0;
@@ -22,6 +23,7 @@ public:
 
 private:
     const QString _name;
+    const int _offset;
 
 signals:
 

@@ -7,11 +7,13 @@
 class QStringParameter : public QParameter
 {
 public:
-    QStringParameter(QString name, QString value, QObject *parent = 0);
+    QStringParameter(QString name, int offset, QString value, QObject *parent = 0);
 
     virtual const QString valueString();
     virtual void setValue(const QString value);
     virtual int type();
+
+    QString value();
 
 private:
     QString _value;

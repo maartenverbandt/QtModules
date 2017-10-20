@@ -9,22 +9,29 @@ QParameterTableWidget::QParameterTableWidget(QParameterManager *manager, QWidget
 {
     setup();
 
-    QListIterator<QParameter*> i(manager->parameters());
-    while(i.hasNext())
-        addParameter(i.next());
+    QList<QParameter*> list = manager->parameters();
+    for(int k=0; k<list.size(); k++) {
+        addParameter(list[k]->name(), list[k]->valueString());
+    }
 
+    QObject::connect(_table, &QTableWidget::cellChanged, this, &QParameterTableWidget::handleCellChanged);
+
+    QObject::connect(manager, &QParameterManager::parameterAdded, this, &QParameterTableWidget::addParameter);
     QObject::connect(manager, &QParameterManager::parameterChanged, this, &QParameterTableWidget::updateParameter);
     QObject::connect(this, &QParameterTableWidget::parameterChanged, manager, &QParameterManager::updateParameter);
+    QObject::connect(_send, &QPushButton::clicked, manager, &QParameterManager::transmitParameters);
+    QObject::connect(_load, &QPushButton::clicked, manager, &QParameterManager::requestParameters);
+    QObject::connect(_store, &QPushButton::clicked, manager, &QParameterManager::storeParameters);
 }
 
-int QParameterTableWidget::addParameter(QParameter *parameter)
+int QParameterTableWidget::addParameter(QString name, QString value)
 {
     _table->insertRow(_table->rowCount());
-    QTableWidgetItem *name = new QTableWidgetItem(parameter->name());
-    QTableWidgetItem *value = new QTableWidgetItem(parameter->valueString());
-    value->setTextAlignment(Qt::AlignRight);
-    _table->setItem(_table->rowCount()-1,0,name);
-    _table->setItem(_table->rowCount()-1,1,value);
+    QTableWidgetItem *name_item = new QTableWidgetItem(name);
+    QTableWidgetItem *value_item = new QTableWidgetItem(value);
+    value_item->setTextAlignment(Qt::AlignRight);
+    _table->setItem(_table->rowCount()-1,0,name_item);
+    _table->setItem(_table->rowCount()-1,1,value_item);
 
     return (_table->rowCount()-1);
 }
@@ -49,11 +56,13 @@ void QParameterTableWidget::setup()
     lv->addLayout(lh);
 }
 
-void QParameterTableWidget::handleCellChanged(int row)
+void QParameterTableWidget::handleCellChanged(int row, int column)
 {
-    QString name = _table->item(row,0)->text();
-    QString value = _table->item(row,1)->text();
-    emit parameterChanged(name, value);
+    if(column==1) {
+        QString name = _table->item(row,0)->text();
+        QString value = _table->item(row,1)->text();
+        emit parameterChanged(name, value);
+    }
 }
 
 void QParameterTableWidget::updateParameter(QString name, QString value)
@@ -69,7 +78,7 @@ void QParameterTableWidget::updateParameter(QString name, QString value)
     // Change the corresponding value
     if(list.size() == 1) {
         int row = _table->row(list[0]);
-        _table->itemAt(row, 1)->setText(value);
+        _table->item(row,1)->setText(value);
     } else {
         qWarning() << "More than one parameter found! Implementation error it seems.";
     }

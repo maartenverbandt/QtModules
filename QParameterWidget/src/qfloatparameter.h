@@ -7,12 +7,14 @@
 class QFloatParameter : public QParameter
 {
 public:
-    QFloatParameter(QString name, float value, QObject *parent = 0);
+    QFloatParameter(QString name, int offset, float value, QObject *parent = 0);
 
     virtual const QString valueString();
     virtual void setValue(const QString value);
-    void setValue(double value);
     virtual int type();
+
+    void setValue(double value);
+    float value();
 
 private:
     float _value;

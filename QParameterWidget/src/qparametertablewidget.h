@@ -16,7 +16,7 @@ class QParameterTableWidget : public QWidget
 public:
     QParameterTableWidget(QParameterManager *manager, QWidget *parent = 0);
 
-    int addParameter(QParameter *parameter);
+    int addParameter(QString name, QString value);
 
 private:
     QTableWidget *_table;
@@ -27,7 +27,7 @@ private:
     void setup();
 
 public slots:
-    void handleCellChanged(int row);
+    void handleCellChanged(int row, int column);
     void updateParameter(QString name, QString value);
 
 signals:

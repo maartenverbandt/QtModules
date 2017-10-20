@@ -1,7 +1,7 @@
 #include "qparameter.h"
 
-QParameter::QParameter(QString name, QObject *parent) :
-    QObject(parent), _name(name)
+QParameter::QParameter(QString name, int offset, QObject *parent) :
+    QObject(parent), _name(name), _offset(offset)
 {
 
 }
@@ -9,4 +9,9 @@ QParameter::QParameter(QString name, QObject *parent) :
 const QString QParameter::name()
 {
     return _name;
+}
+
+const int QParameter::offset()
+{
+    return _offset;
 }

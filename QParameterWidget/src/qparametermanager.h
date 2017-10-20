@@ -3,6 +3,9 @@
 
 #include <qdatanode.h>
 #include <qparameter.h>
+#include <qintegerparameter.h>
+#include <qfloatparameter.h>
+#include <qstringparameter.h>
 #include <qdebug.h>
 
 class QParameterManager : public QDataNode
@@ -22,20 +25,22 @@ private:
     QMap<QString,QParameter*> _parameter_map;
 
 signals:
-    void parameterAdded(QString name);
+    void parameterAdded(QString name, QString value);
     void parameterChanged(QString name, QString value);
 
-protected slots:
-    /*virtual void transmit(mavlink_event_t);
-    virtual void transmit(mavlink_param_int_t);
-    virtual void transmit(mavlink_param_float_t);*/
+    virtual void transmit(event_t event);
+    virtual void transmit(param_int_t param_int);
+    virtual void transmit(param_float_t param_float);
 
-    virtual void receive(mavlink_event_t event);
-    virtual void receive(mavlink_param_int_t param_int);
-    virtual void receive(mavlink_param_float_t param_float);
+protected slots:
+    virtual void receive(param_int_t param_int);
+    virtual void receive(param_float_t param_float);
 
 public slots:
     void updateParameter(QString name, QString value);
+    void transmitParameters();
+    void requestParameters();
+    void storeParameters();
 
 };
 

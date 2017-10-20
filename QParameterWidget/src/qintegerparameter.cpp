@@ -1,7 +1,7 @@
 #include "qintegerparameter.h"
 
-QIntegerParameter::QIntegerParameter(QString name, int value, QObject *parent) :
-    QParameter(name, parent), _value(value)
+QIntegerParameter::QIntegerParameter(QString name, int offset, int value, QObject *parent) :
+    QParameter(name, offset, parent), _value(value)
 {
 
 }
@@ -25,6 +25,11 @@ void QIntegerParameter::setValue(const QString value)
 void QIntegerParameter::setValue(int value)
 {
     _value = value;
+}
+
+int QIntegerParameter::value()
+{
+    return _value;
 }
 
 int QIntegerParameter::type()

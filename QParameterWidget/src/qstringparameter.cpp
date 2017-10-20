@@ -1,7 +1,7 @@
 #include "qstringparameter.h"
 
-QStringParameter::QStringParameter(QString name, QString value, QObject *parent) :
-    QParameter(name, parent), _value(value)
+QStringParameter::QStringParameter(QString name, int offset, QString value, QObject *parent) :
+    QParameter(name, offset, parent), _value(value)
 {
 
 }
@@ -19,4 +19,9 @@ void QStringParameter::setValue(const QString value)
 int QStringParameter::type()
 {
     return QParameter::STRING;
+}
+
+QString QStringParameter::value()
+{
+    return _value;
 }

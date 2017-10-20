@@ -1,7 +1,7 @@
 #include "qfloatparameter.h"
 
-QFloatParameter::QFloatParameter(QString name, float value, QObject *parent) :
-    QParameter(name, parent), _value(value)
+QFloatParameter::QFloatParameter(QString name, int offset, float value, QObject *parent) :
+    QParameter(name, offset, parent), _value(value)
 {
 
 }
@@ -25,6 +25,11 @@ void QFloatParameter::setValue(const QString value)
 void QFloatParameter::setValue(double value)
 {
     _value = value;
+}
+
+float QFloatParameter::value()
+{
+    return _value;
 }
 
 int QFloatParameter::type()
