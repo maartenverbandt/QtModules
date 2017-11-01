@@ -40,4 +40,11 @@ enum event_id_t {
     PARAMETERS_REQUEST_ST0RE = 101
 };
 
+enum robot_type_t {
+    BALLBOT = 10,
+    SEGBOT = 11,
+    TILTINGTABLE = 12,
+    CAR = 20
+};
+
 #endif // QSERIALPROTOCOL_TYPEDEFS_H

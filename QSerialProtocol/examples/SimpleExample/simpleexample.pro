@@ -5,8 +5,10 @@ PROTOCOL = mavlink
 INCLUDEPATH += $$PWD
 
 HEADERS += \
+    qheartbeatchecker.h
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    qheartbeatchecker.cpp
 
 include(../../src/qserialprotocol.pri)

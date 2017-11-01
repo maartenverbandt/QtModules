@@ -2,7 +2,6 @@
 #define QDATANODE_H
 
 #include <QObject>
-#include <QVariant>
 #include <qserialprotocol_typedefs.h>
 
 class QDataNode : public QObject
@@ -10,15 +9,13 @@ class QDataNode : public QObject
     Q_OBJECT
 
 public:
-    explicit QDataNode(QObject *parent = 0);
+    QDataNode(QObject *parent = 0);
 
-    void transmitTo(QDataNode* other);
-    void receiveFrom(QDataNode* other);
-    static void connect(QDataNode* n1, QDataNode* n2);
+    virtual void transmitTo(QDataNode* other);
+    virtual void receiveFrom(QDataNode* other);
+    virtual void connectTo(QDataNode* other);
 
 signals:
-    void readyRead();
-
     void transmit(heartbeat_t);
     void transmit(event_t);
     void transmit(param_int_t);

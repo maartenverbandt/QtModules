@@ -19,8 +19,8 @@ void QDataNode::receiveFrom(QDataNode *other)
     other->transmitTo(this);
 }
 
-void QDataNode::connect(QDataNode *n1, QDataNode *n2)
+void QDataNode::connectTo(QDataNode *other)
 {
-    n1->transmitTo(n2);
-    n2->transmitTo(n1);
+    transmitTo(other);
+    receiveFrom(other);
 }

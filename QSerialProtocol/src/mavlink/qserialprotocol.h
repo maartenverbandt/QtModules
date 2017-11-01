@@ -11,8 +11,11 @@ class QSerialProtocol : public QDataNode {
 private:
     mavlink_message_t _msg;
     mavlink_status_t _status;
-    int _packet_count;
-    int _packet_drops;
+    int _packet_count = 0;
+    int _packet_drops = 0;
+
+    int _transmitter_id = -1;
+    int _transmitter_type = -1;
 
     QIODevice* _io;
 
@@ -21,6 +24,8 @@ public:
 
     int packetCount();
     int packetDrops();
+    int transmitterID();
+    int transmitterType();
 
 private slots:
     void decode();

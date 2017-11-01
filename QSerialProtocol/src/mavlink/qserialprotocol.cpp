@@ -1,7 +1,7 @@
 #include <qserialprotocol.h>
 
 QSerialProtocol::QSerialProtocol(QIODevice *io, QObject *parent) :
-    QDataNode(parent), _packet_count(0), _packet_drops(0), _io(io)
+    QDataNode(parent), _io(io)
 {
     QObject::connect(_io, &QIODevice::readyRead, this, &QSerialProtocol::decode);
 }
@@ -12,6 +12,11 @@ void QSerialProtocol::decode()
     for(int k=0;k<b.length();k++){
         if(mavlink_parse_char(0, b.at(k), &_msg, &_status)){
             _packet_count++;
+            if(_transmitter_id < 0) {
+                _transmitter_id = _msg.sysid;
+            } else if(_transmitter_id != _msg.sysid){
+                qDebug() << "System id appears to have changed";
+            }
             switch(_msg.msgid) {
                 case MAVLINK_MSG_ID_HEARTBEAT: {
                     heartbeat_t heartbeat;
@@ -85,5 +90,15 @@ int QSerialProtocol::packetCount()
 int QSerialProtocol::packetDrops()
 {
     return _packet_drops;
+}
+
+int QSerialProtocol::transmitterID()
+{
+    return _transmitter_id;
+}
+
+int QSerialProtocol::transmitterType()
+{
+    return _transmitter_type;
 }
 

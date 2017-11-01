@@ -11,17 +11,19 @@ class QHeartbeatDetector : public QDataNode
 
 private:
     QTimer _timer;
+    QDataNode *_datanode;
 
 public:
-    QHeartbeatDetector();
+    explicit QHeartbeatDetector(QDataNode *datanode);
 
 public slots:
     void receive(heartbeat_t heartbeat);
     void timeout();
+    void start();
 
 signals:
-    void alive(heartbeat_t heartbeat);
-    void dead();
+    void alive(QDataNode *datanode);
+    void dead(QDataNode *datanode);
 };
 
 #endif // QHEARTBEATDETECTOR_H
