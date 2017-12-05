@@ -2,7 +2,7 @@
     included_modules += $$PWD
     message( "Including $$PWD" )
 
-    QT += network
+    QT += network gamepad
 
     INCLUDEPATH += $$PWD \
                    $$PWD/CSV \
@@ -19,9 +19,9 @@
             $$PWD/UDP/qtudpreader.h \
             $$PWD/UDP/qudpreader.h \
             $$PWD/UDP/qudpreaderwidget.h \
-            #$$PWD/Gamepad/qgamepadinputwidget.h \
-            #$$PWD/Gamepad/qgamepadbutton.h \
-            #$$PWD/Gamepad/qvelocitygamepadcommand.h
+            $$PWD/Gamepad/qgamepadinputwidget.h \
+            $$PWD/Gamepad/qgamepadbutton.h \
+            $$PWD/Gamepad/qvelocitygamepadcommand.h
 
         SOURCES += \
             $$PWD/qinputwidget.cpp \
@@ -31,9 +31,9 @@
             $$PWD/CSV/qpositioncmdcsvreader.cpp \
             $$PWD/UDP/qudpreader.cpp \
             $$PWD/UDP/qudpreaderwidget.cpp \
-            #$$PWD/Gamepad/qgamepadinputwidget.cpp \
-            #$$PWD/Gamepad/qgamepadbutton.cpp \
-            #$$PWD/Gamepad/qvelocitygamepadcommand.cpp
+            $$PWD/Gamepad/qgamepadinputwidget.cpp \
+            $$PWD/Gamepad/qgamepadbutton.cpp \
+            $$PWD/Gamepad/qvelocitygamepadcommand.cpp
                         
 
     FORMS += $$PWD/CSV/qcsvreaderwidget.ui\
@@ -45,18 +45,18 @@ include(../../QSerialProtocol/src/qserialprotocol.pri)
     message( "Skipping $$PWD: already included" )
 }
 
-#FORMS += \
-#    $$PWD/Gamepad/qcommandmapwidget.ui
+FORMS += \
+    $$PWD/Gamepad/qcommandmapwidget.ui
 
-#HEADERS += \
-#    $$PWD/Gamepad/qcommandmapwidget.h \
-#    $$PWD/Gamepad/qgamepadcommand.h \
-#    $$PWD/Gamepad/qcommand.h
+HEADERS += \
+    $$PWD/Gamepad/qcommandmapwidget.h \
+    $$PWD/Gamepad/qgamepadcommand.h \
+    $$PWD/Gamepad/qcommand.h
 
-#SOURCES += \
-#    $$PWD/Gamepad/qcommandmapwidget.cpp \
-#    $$PWD/Gamepad/qgamepadcommand.cpp \
-#    $$PWD/Gamepad/qcommand.cpp
+SOURCES += \
+    $$PWD/Gamepad/qcommandmapwidget.cpp \
+    $$PWD/Gamepad/qgamepadcommand.cpp \
+    $$PWD/Gamepad/qcommand.cpp
 
 HEADERS += \
     $$PWD/CSV/qcsvreaderdatanodewidget.h \

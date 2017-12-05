@@ -6,7 +6,7 @@ QGamepadCommand::QGamepadCommand(QString name, QWidget *parent) :
     _cmd_widget->setup();
 }
 
-QWidget *QGamepadCommand::getWidget()
+QWidget *QGamepadCommand::w()
 {
     return _cmd_widget;
 }

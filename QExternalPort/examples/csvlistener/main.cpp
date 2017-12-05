@@ -3,7 +3,9 @@
 #include <qgpiocsvreader.h>
 #include <qpositioncmdcsvreader.h>
 #include <qtudpreader.h>
+#include <qgamepadinputwidget.h>
 #include <qcommandportwidget.h>
+#include <qvelocitygamepadcommand.h>
 
 int main(int argc, char *argv[])
 {
@@ -24,9 +26,13 @@ int main(int argc, char *argv[])
     inputwidgetUDP->addPort(new QGpioUdpReader(0));
     inputwidgetUDP->addPort(new QPositionCmdUdpReader(0));
 
+    QGamepadInputWidget *gpinput = new QGamepadInputWidget("gamepad");
+    gpinput->addPort(new QVelocityGamepadCommand());
+
     QCommandPortWidget *command = new QCommandPortWidget(0);
     command->addInputWidget(inputwidget);
     command->addInputWidget(inputwidgetUDP);
+    command->addInputWidget(gpinput);
     command->show();
 
     return a.exec();

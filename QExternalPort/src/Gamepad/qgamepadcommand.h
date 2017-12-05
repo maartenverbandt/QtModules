@@ -9,8 +9,7 @@ class QGamepadCommand : public QDataPortInterface
 public:
     QGamepadCommand(QString name, QWidget *parent = 0);
 
-    virtual QVariant getPacket() = 0;
-    virtual QWidget *getWidget();
+    virtual QWidget *w();
     QCommandMapWidget *cmdWidget();
 
     virtual bool enabled();
