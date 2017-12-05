@@ -2,8 +2,7 @@
 #define QGPIORECORDER_H
 
 #include <qabstractrecorder.h>
-#include <qgpiowidget.h>
-#include <mavlink.h>
+#include <qrobotwindow.h>
 
 class QGPIORecorder : public QAbstractRecorder
 {
@@ -12,18 +11,27 @@ public:
     QGPIORecorder(QGPIOWidget *gpio, QObject* parent = 0);
 
 private:
-    QFile* _log;
     QGPIOWidget* _gpio;
 
-    QString createHeader();
-    QString createFooter();
+    virtual QString insertHeader();
 
 public slots:
-    void gpioReceived(mavlink_gpio_t gpio);
-    //void setLabels(QStringList); //OBSOLETE
-    void startRecording();
-    void stopRecording();
+    virtual void receive(gpio_t gpio);
 
 };
+
+/*class QGPIORecordAction : public QAction
+{
+    Q_OBJECT
+
+public:
+    explicit QGPIORecordAction(QRobotWindow *window, QObject *parent = 0);
+
+private:
+    QRobotWindow *_window;
+    QGPIORecorder *_recorder = NULL;
+
+
+};*/
 
 #endif // QGPIORECORDER_H

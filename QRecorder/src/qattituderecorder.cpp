@@ -2,7 +2,7 @@
 
 QAttitudeRecorder::QAttitudeRecorder(QObject *parent) : QAbstractRecorder(parent), _log(NULL)
 {
-    _recorder.setText("Attitude");
+    _record.setText("Attitude");
 }
 
 QString QAttitudeRecorder::createHeader()

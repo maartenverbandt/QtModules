@@ -6,30 +6,32 @@
 #include <QFile>
 #include <QDir>
 #include <QDateTime>
+#include <qdatanode.h>
 
-class QAbstractRecorder : public QObject
+class QAbstractRecorder : public QDataNode
 {
     Q_OBJECT
 public:
-    explicit QAbstractRecorder(QObject *parent = 0);
+    explicit QAbstractRecorder(const QString& type, QObject *parent = 0);
 
     bool isRecording();
-    QAction* recorder();
+    QAction *record();
+    void start();
+    void stop();
 
 protected:
-    QAction _recorder;
-    QFile *openDateFile(QString prefix);
+    QFile *_log;
 
-signals:
-    void started();
-    void stopped();
+private:
+    const QString _type;
+    QAction *_record;
+
+    void createHeader();
+    void createFooter();
+    virtual QString insertHeader();
 
 public slots:
-    virtual void startRecording();
-    virtual void stopRecording();
-
-private slots:
-    void handleToggled(bool checked);
+    void activate(bool);
 
 };
 

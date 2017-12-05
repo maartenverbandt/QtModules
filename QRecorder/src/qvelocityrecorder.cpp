@@ -2,7 +2,7 @@
 
 QVelocityRecorder::QVelocityRecorder(QObject *parent) : QAbstractRecorder(parent), _log(NULL)
 {
-    _recorder.setText("Velocity");
+    _record.setText("Velocity");
 }
 
 QString QVelocityRecorder::createHeader()

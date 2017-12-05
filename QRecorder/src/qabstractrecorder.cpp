@@ -1,48 +1,91 @@
 #include "qabstractrecorder.h"
 
-QAbstractRecorder::QAbstractRecorder(QObject *parent) : QObject(parent), _recorder(this)
+QAbstractRecorder::QAbstractRecorder(const QString& type, QObject *parent) :
+    QDataNode(parent), _type(type), _record(new QAction(_type, parent))
 {
-    _recorder.setCheckable(true);
-    _recorder.setChecked(false);
-
-    QObject::connect(&_recorder,SIGNAL(toggled(bool)),this,SLOT(handleToggled(bool)));
+    _record->setCheckable(true);
+    _record->setChecked(false);
+    QObject::connect(_record, &QAction::toggled, this, &QAbstractRecorder::activate);
 }
 
 bool QAbstractRecorder::isRecording()
 {
-    return _recorder.isChecked();
+    return _record->isChecked();
 }
 
-QAction* QAbstractRecorder::recorder()
+QAction *QAbstractRecorder::record()
 {
-    return &_recorder;
+    return _record;
 }
 
-QFile *QAbstractRecorder::openDateFile(QString prefix)
+void QAbstractRecorder::start()
 {
-    QDir().mkdir("logs");
-    QFile *log = new QFile("logs/" + prefix + "_" + QDateTime::currentDateTime().toString("MM_dd_HH_mm") + ".xml");
+    // open file
+    QString dir = QDir::homePath() + "/QRCrecords";
+    QDir().mkdir(dir);
+    _log = new QFile(dir + "/log_" + _type.toLower() + "_" + QDateTime::currentDateTime().toString("MM_dd_HH_mm") + ".xml", this);
+    _log->open(QIODevice::WriteOnly);
 
-    return log;
+    // create header
+    createHeader();
 }
 
-void QAbstractRecorder::startRecording()
+void QAbstractRecorder::stop()
 {
-    emit started();
+    createFooter();
+    _log->close();
 }
 
-void QAbstractRecorder::stopRecording()
+void QAbstractRecorder::createHeader()
 {
-    emit stopped();
+    QString header;
+    header = "<Q" + _type + "Record>\n";
+
+    // Time
+    QDateTime now = QDateTime::currentDateTime();
+    header += "\t<time>\n";
+    header += "\t\t<year>" + now.toString("yyyy") + "</year>\n";
+    header += "\t\t<month>" + now.toString("MM") + "</month>\n";
+    header += "\t\t<day>" + now.toString("dd") + "</day>\n";
+    header += "\t\t<hour>" + now.toString("HH") + "</hour>\n";
+    header += "\t\t<minute>" + now.toString("mm") + "</minute>\n";
+    header += "\t</time>\n";
+
+    // Version
+    header += "\t<version>2.0</version>\n";
+
+    // Comment
+    header += "\t<comment></comment>\n";
+    header += "\n";
+
+    // Labels
+    header += insertHeader();
+    header += "\n";
+
+    // Data
+    header += "\t<data>\n";
+
+    _log->write(header.toLocal8Bit());
 }
 
-void QAbstractRecorder::handleToggled(bool checked)
+void QAbstractRecorder::createFooter()
 {
-    if(checked){
-        startRecording();
-    } else {
-        stopRecording();
-    }
+    QString footer;
+    footer += "\t</data>\n";
+    footer += "</Q" + _type + "Record>";
+
+    _log->write(footer.toLocal8Bit());
 }
 
+QString QAbstractRecorder::insertHeader()
+{
+    return "";
+}
 
+void QAbstractRecorder::activate(bool active)
+{
+    if(active)
+        start();
+    else
+        stop();
+}

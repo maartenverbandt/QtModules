@@ -2,7 +2,7 @@
 
 QPositionRecorder::QPositionRecorder(QObject *parent) : QAbstractRecorder(parent), _log(NULL)
 {
-    _recorder.setText("Position");
+    _record.setText("Position");
 }
 
 QString QPositionRecorder::createHeader()

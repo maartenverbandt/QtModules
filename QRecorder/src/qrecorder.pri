@@ -10,20 +10,26 @@
 		$$PWD/qrecorderwidget.cpp \
 		$$PWD/qabstractrecorder.cpp \
 		$$PWD/qgpiorecorder.cpp \
-		$$PWD/qattituderecorder.cpp \
-		$$PWD/qvelocityrecorder.cpp \
-		$$PWD/qpositionrecorder.cpp
+                #$$PWD/qattituderecorder.cpp \
+                #$$PWD/qvelocityrecorder.cpp \
+                #$$PWD/qpositionrecorder.cpp
 
     HEADERS += \
 		$$PWD/qrecorderwidget.h \
 		$$PWD/qabstractrecorder.h \
 		$$PWD/qgpiorecorder.h \
-		$$PWD/qattituderecorder.h \
-		$$PWD/qvelocityrecorder.h \
-		$$PWD/qpositionrecorder.h
+                #$$PWD/qattituderecorder.h \
+                #$$PWD/qvelocityrecorder.h \
+                #$$PWD/qpositionrecorder.h
 
     FORMS +=
+
+include(../../QSerialProtocol/src/qserialprotocol.pri)
 
 } else {
     message( "Skipping $$PWD: already included" )
 }
+
+HEADERS +=
+
+SOURCES +=
