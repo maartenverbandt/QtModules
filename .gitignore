@@ -2,3 +2,15 @@
 **/*~
 **/*.pro.user
 **/*build*
+QConsoleWidget/
+QControllerDevice/
+QIMUWidget/
+QJoystick/
+QMotorWidget/
+QNetworkQuery/
+QPackage/
+QRoboticsCenter/
+QTWebPost/
+
+QCustomPlot/examples/
+QCustomPlot/documentation/
