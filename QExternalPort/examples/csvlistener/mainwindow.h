@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <QDebug>
-#include <mavlink.h>
+#include <qserialprotocol.h>
 #include <QTime>
+#include <QUdpSocket>
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +24,7 @@ protected:
 
 private:
     Ui::MainWindow *ui;
-    * d;
+    QPositionCmdPortDialog *d;
     QUdpSocket* s;
 
 signals:

@@ -1,24 +1,14 @@
 #ifndef QGPIOFILEPORT_H
 #define QGPIOFILEPORT_H
 
-#include <qcsvreaderwidget.h>
-#include <qdataportinterface.h>
-#include <mavlink.h>
+#include <qcsvreaderdatanodewidget.h>
 
-class QGpioCsvReader : public QDataPortInterface
+class QGpioCsvReader : public QCsvReaderDataNodeWidget
 {
+    Q_OBJECT
 public:
     QGpioCsvReader(QWidget *parent = 0);
-
-    mavlink_gpio_t getGpioPacket();
-    virtual QVariant getPacket();
-    virtual QWidget* getWidget();
-
-    virtual bool enabled();
-    virtual void reset();
-
-private:
-    QCsvReaderWidget* _csv_reader;
+    virtual void transmit_packet();
 
 };
 

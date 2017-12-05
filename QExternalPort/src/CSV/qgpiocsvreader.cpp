@@ -1,15 +1,15 @@
 #include "qgpiocsvreader.h"
 
 QGpioCsvReader::QGpioCsvReader(QWidget *parent) :
-    _csv_reader(new QCsvReaderWidget("gpio", parent))
+    QCsvReaderDataNodeWidget("gpio",parent)
 {
 
 }
 
-mavlink_gpio_t QGpioCsvReader::getGpioPacket()
+void QGpioCsvReader::transmit_packet()
 {
     int k = 0;
-    mavlink_gpio_t gpio;
+    gpio_t gpio;
 
     QList<double> values = _csv_reader->readLine();
     while(values.length() < 12)
@@ -23,29 +23,5 @@ mavlink_gpio_t QGpioCsvReader::getGpioPacket()
         gpio.gpio_int[k] = i.next();
     }
 
-    return gpio;
+    emit transmit(gpio);
 }
-
-QVariant QGpioCsvReader::getPacket()
-{
-    QVariant gpio;
-    gpio.setValue(getGpioPacket());
-    return gpio;
-}
-
-QWidget *QGpioCsvReader::getWidget()
-{
-    return _csv_reader;
-}
-
-bool QGpioCsvReader::enabled()
-{
-    return _csv_reader->enabled();
-}
-
-void QGpioCsvReader::reset()
-{
-    _csv_reader->getCsvReader()->reset();
-}
-
-

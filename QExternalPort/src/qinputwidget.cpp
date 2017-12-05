@@ -8,20 +8,16 @@ QInputWidget::QInputWidget(QString name, QWidget *parent) : QWidget(parent)
 
 void QInputWidget::addPort(QDataPortInterface *port)
 {
-    layout()->addWidget(port->getWidget());
+    layout()->addWidget(port->w());
     ports.append(port);
 }
 
-QList<QVariant> QInputWidget::read()
+void QInputWidget::transmit()
 {
-    QList<QVariant> p;
-
     for(int i=0; i<ports.size(); i++){
         if(ports[i]->enabled())
-            p.append(ports[i]->getPacket());
+            ports[i]->transmit_packet();
     }
-
-    return p;
 }
 
 void QInputWidget::reset()

@@ -14,7 +14,7 @@ public:
     explicit QInputWidget(QString name, QWidget *parent = 0);
 
     void addPort(QDataPortInterface *port);
-    virtual QList<QVariant> read();
+    virtual void transmit();
     void reset();
 
 protected:

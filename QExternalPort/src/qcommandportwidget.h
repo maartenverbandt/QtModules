@@ -1,5 +1,5 @@
-#ifndef QEXTERNALPORTDIALOG_H
-#define QEXTERNALPORTDIALOG_H
+#ifndef QCOMMANDPORTWIDGET_H
+#define QCOMMANDPORTWIDGET_H
 
 #include <QDialog>
 #include <QLayout>
@@ -9,19 +9,15 @@
 #include <QAction>
 #include <qinputwidget.h>
 
-class QExternalPortDialog : public QDialog
+class QCommandPortWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QExternalPortDialog(QString name, QWidget *parent = 0);
-    ~QExternalPortDialog();
+    explicit QCommandPortWidget(QWidget *parent = 0);
 
     void addInputWidget(QInputWidget *w);
-    QInputWidget* currentInputWidget();
-    QInputWidget *findInputWidget(QString name);
+    QInputWidget *currentInputWidget();
     void setCurrentInputWidget(int index);
-
-    QAction* getPopupAction();
 
 protected:
     void timerEvent(QTimerEvent *);
@@ -29,7 +25,6 @@ protected:
 private:
     QList<QInputWidget*> _ports;
 
-    QAction* _popup;
     int _timer_id;
 
     QHBoxLayout* _layout;
@@ -39,7 +34,7 @@ private:
     QButtonGroup* _buttons;
     QStackedWidget* _stack;
 
-    void layoutSetup();
+    void setup();
 
 public slots:
     void startToggled(bool checked);
@@ -47,9 +42,6 @@ public slots:
     void stop();
     void reset();
 
-signals:
-    void commands(QList<QVariant> l);
-
 };
 
-#endif // QEXTERNALPORTDIALOG_H
+#endif // QCOMMANDPORTWIDGET_H
