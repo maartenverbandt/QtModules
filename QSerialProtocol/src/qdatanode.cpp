@@ -7,11 +7,30 @@ QDataNode::QDataNode(QObject *parent) : QObject(parent)
 
 void QDataNode::transmitTo(QDataNode *other)
 {
-    QObject::connect(this, SIGNAL(transmit(heartbeat_t)), other, SLOT(receive(heartbeat_t)));
-    QObject::connect(this, SIGNAL(transmit(event_t)), other, SLOT(receive(event_t)));
-    QObject::connect(this, SIGNAL(transmit(param_int_t)), other, SLOT(receive(param_int_t)));
-    QObject::connect(this, SIGNAL(transmit(param_float_t)), other, SLOT(receive(param_float_t)));
-    QObject::connect(this, SIGNAL(transmit(param_string_t)), other, SLOT(receive(param_string_t)));
+
+#define QDATANODE_CONNECT(s) \
+    QObject::connect(this, static_cast<void (QDataNode::*)(s)>(&QDataNode::transmit), \
+                     other, static_cast<void (QDataNode::*)(s)>(&QDataNode::receive));
+
+    QDATANODE_CONNECT(heartbeat_t);
+    QDATANODE_CONNECT(gpio_t);
+    QDATANODE_CONNECT(thread_info_t);
+    QDATANODE_CONNECT(event_t);
+    QDATANODE_CONNECT(partition_t);
+    QDATANODE_CONNECT(param_int_t);
+    QDATANODE_CONNECT(param_float_t);
+    QDATANODE_CONNECT(param_string_t);
+    QDATANODE_CONNECT(param_data_t);
+    QDATANODE_CONNECT(attitude_cmd_t);
+    QDATANODE_CONNECT(velocity_cmd_t);
+    QDATANODE_CONNECT(position_cmd_t);
+    QDATANODE_CONNECT(attitude_t);
+    QDATANODE_CONNECT(velocity_t);
+    QDATANODE_CONNECT(position_t);
+    QDATANODE_CONNECT(signal_sweptsine_t);
+    QDATANODE_CONNECT(signal_multisine_t);
+    QDATANODE_CONNECT(signal_steppedsine_t);
+    QDATANODE_CONNECT(pose_t);
 }
 
 void QDataNode::receiveFrom(QDataNode *other)

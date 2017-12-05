@@ -9,11 +9,7 @@ class QDataNodeWidget : public QDataNode
     Q_OBJECT
 public:
     explicit QDataNodeWidget(QWidget *parent = 0);
-
-    QWidget *w();
-
-protected:
-    QWidget *_w;
+    virtual QWidget *w() = 0;
 
 };
 

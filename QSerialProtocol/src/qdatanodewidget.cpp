@@ -1,12 +1,7 @@
 #include "qdatanodewidget.h"
 
 QDataNodeWidget::QDataNodeWidget(QWidget *parent) :
-    QDataNode(parent), _w(NULL)
+    QDataNode(parent)
 {
     //do nothing
-}
-
-QWidget *QDataNodeWidget::w()
-{
-    return _w;
 }

@@ -1,7 +1,7 @@
 #ifndef QHEARTBEATDETECTOR_H
 #define QHEARTBEATDETECTOR_H
 
-#include <qdatanode.h>
+#include <qserialprotocol.h>
 #include <QTimer>
 #include <QDebug>
 
@@ -11,10 +11,10 @@ class QHeartbeatDetector : public QDataNode
 
 private:
     QTimer _timer;
-    QDataNode *_datanode;
+    QSerialProtocol *_datanode;
 
 public:
-    explicit QHeartbeatDetector(QDataNode *datanode);
+    explicit QHeartbeatDetector(QSerialProtocol *datanode);
 
 public slots:
     void receive(heartbeat_t heartbeat);
@@ -22,8 +22,8 @@ public slots:
     void start();
 
 signals:
-    void alive(QDataNode *datanode);
-    void dead(QDataNode *datanode);
+    void alive(QSerialProtocol *datanode);
+    void dead(QSerialProtocol *datanode);
 };
 
 #endif // QHEARTBEATDETECTOR_H

@@ -1,6 +1,6 @@
 #include "qheartbeatdetector.h"
 
-QHeartbeatDetector::QHeartbeatDetector(QDataNode *datanode) :
+QHeartbeatDetector::QHeartbeatDetector(QSerialProtocol *datanode) :
     _datanode(datanode)
 {
     connectTo(_datanode);
@@ -10,9 +10,10 @@ QHeartbeatDetector::QHeartbeatDetector(QDataNode *datanode) :
     QObject::connect(&_timer, SIGNAL(timeout()), this, SLOT(timeout()));
 }
 
-void QHeartbeatDetector::receive(heartbeat_t)
+void QHeartbeatDetector::receive(heartbeat_t heartbeat)
 {
     _timer.stop();
+    _datanode->setTransmitterType(heartbeat.type);
     emit alive(_datanode);
     deleteLater();
 }
