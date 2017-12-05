@@ -57,7 +57,7 @@ void QAxisDialog::setEditable()
     }
 }
 
-void QAxisDialog::closeEvent(QCloseEvent *e)
+void QAxisDialog::closeEvent(QCloseEvent *)
 {
     if(result()==QDialog::Accepted){
         // set the autoscaling field
