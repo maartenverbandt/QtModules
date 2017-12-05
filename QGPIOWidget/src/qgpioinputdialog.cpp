@@ -106,12 +106,12 @@ void QGPIOInputDialog::loadSettings()
     settings.endGroup();
 }
 
-void QGPIOInputDialog::timerEvent(QTimerEvent *e)
+void QGPIOInputDialog::timerEvent(QTimerEvent*)
 {
     readCsvLine();
 }
 
-void QGPIOInputDialog::closeEvent(QCloseEvent *e)
+void QGPIOInputDialog::closeEvent(QCloseEvent*)
 {
     saveSettings();
 }

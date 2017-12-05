@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <qgpiowidget.h>
+#include <qgpiodatanodewidget.h>
+#include <qgpiosignalgenerator.h>
 
 namespace Ui {
 class MainWindow;
@@ -18,7 +19,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QGPIOWidget *gpio;
+    QGPIODataNodeWidget *gpio;
+    QGPIOSignalGenerator *sig;
 };
 
 #endif // MAINWINDOW_H

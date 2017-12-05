@@ -4,10 +4,12 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    gpio(new QGPIOWidget(0))
+    gpio(new QGPIODataNodeWidget(0)),
+    sig(new QGPIOSignalGenerator(0))
 {
     ui->setupUi(this);
-    setCentralWidget(gpio);
+    setCentralWidget(gpio->w());
+    sig->connectTo(gpio);
 }
 
 MainWindow::~MainWindow()

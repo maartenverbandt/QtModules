@@ -10,14 +10,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = gpio
 TEMPLATE = app
+PROTOCOL = mavlink
+DEFINES += QT_NO_PRINTER
 
 INCLUDEPATH += $$PWD
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    qgpiosignalgenerator.cpp
 
 HEADERS  += mainwindow.h \
-            $$PWD/mavlink.h
+    qgpiosignalgenerator.h
 
 FORMS    += mainwindow.ui
 

@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QLayout>
 #include <QAction>
-#include <qthreadingwidget.h>
+#include <qthreadinfowidget.h>
 
 class QThreadingDialog : public QDialog
 {
@@ -13,7 +13,7 @@ public:
     QAction *getPopupAction();
 
 private:
-    QThreadingWidget *_widget;
+    QThreadInfoWidget *_widget;
     QAction *_popup;
 
 

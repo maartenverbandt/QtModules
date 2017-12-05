@@ -7,7 +7,6 @@
     INCLUDEPATH += $$PWD
 
     SOURCES +=  $$PWD/qgpiowidget.cpp \
-                $$PWD/qthreadingwidget.cpp\
                 $$PWD/qgeneraloutput.cpp \
                 $$PWD/qgeneraloutputfloat.cpp \
                 $$PWD/qgeneraloutputint.cpp \
@@ -18,7 +17,6 @@
                 $$PWD/qgpioinputdialog.cpp
 
     HEADERS +=  $$PWD/qgpiowidget.h \
-                $$PWD/qthreadingwidget.h\
                 $$PWD/qgeneraloutput.h \
                 $$PWD/qgeneraloutputfloat.h \
                 $$PWD/qgeneraloutputint.h\
@@ -32,14 +30,21 @@
     $$PWD/qgpioinputdialog.ui
 
     include(../../QCustomPlot/src/qcustomplot.pri)
+    include(../../QSerialProtocol/src/qserialprotocol.pri)
 } else {
     message( "Skipping $$PWD: already included" )
 }
 
 HEADERS += \
-    $$PWD/thread.h \
-    $$PWD/qthreadingdialog.h
+    #$$PWD/thread.h \
+    #$$PWD/qthreadingdialog.h \
+    $$PWD/qgpiodatanodewidget.h \
+    $$PWD/qthreadinfodatanodewidget.h \
+    $$PWD/qthreadinfowidget.h
 
 SOURCES += \
-    $$PWD/thread.cpp \
-    $$PWD/qthreadingdialog.cpp
+    #$$PWD/thread.cpp \
+    #$$PWD/qthreadingdialog.cpp \
+    $$PWD/qgpiodatanodewidget.cpp \
+    $$PWD/qthreadinfodatanodewidget.cpp \
+    $$PWD/qthreadinfowidget.cpp

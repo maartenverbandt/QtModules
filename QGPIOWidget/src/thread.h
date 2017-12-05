@@ -2,7 +2,7 @@
 #define THREAD_H
 
 #include <QtCore>
-#include <mavlink.h>
+#include <qserialprotocol.h>
 
 class Thread
 {

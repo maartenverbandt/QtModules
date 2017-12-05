@@ -2,7 +2,7 @@
 
 QThreadingDialog::QThreadingDialog(QWidget *parent) :
     QDialog(parent),
-    _widget(new QThreadingWidget(this)),
+    _widget(new QThreadInfoWidget(this)),
     _popup(new QAction("Thread info", this))
 {
     setLayout(new QVBoxLayout);

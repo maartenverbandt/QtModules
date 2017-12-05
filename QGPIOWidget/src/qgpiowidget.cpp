@@ -254,7 +254,7 @@ void QGPIOWidget::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void QGPIOWidget::setInput(mavlink_gpio_t gpio)
+void QGPIOWidget::setInput(gpio_t gpio)
 {
     int k;
     for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++)
@@ -281,7 +281,7 @@ void QGPIOWidget::inputLabelsSend()
 void QGPIOWidget::sendGPIO()
 {
     int k;
-    mavlink_gpio_t gpio;
+    gpio_t gpio;
 
     gpio.time = 0;
     for(k=0;k<QGPIOWIDGET_FLOAT_COUNT;k++)

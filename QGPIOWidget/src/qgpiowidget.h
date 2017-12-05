@@ -16,7 +16,7 @@
 #include <qgeneralinputint.h>
 #include <qgeneralinputfloat.h>
 
-#include <mavlink.h>
+#include <qserialprotocol.h>
 
 #define QGPIOWIDGET_FLOAT_COUNT 8
 #define QGPIOWIDGET_INT_COUNT   4
@@ -38,13 +38,6 @@ public:
     void restoreState(QString group);
     void saveState(QString group);
     QStringList getLabels();
-
-    //OBSOLETE
-    typedef struct gpio_t{
-        float floats[8];
-        int ints[4];
-        unsigned int time;
-    } gpio_t;
 
 private:
     Ui::QGPIOWidget *ui;
@@ -78,7 +71,7 @@ private:
     bool paused();
 
 public slots:
-    void setInput(mavlink_gpio_t gpio);
+    void setInput(gpio_t gpio);
     void sendButtonEvent(int id);
     void inputLabelsSend();
 
@@ -91,10 +84,8 @@ private slots:
 
 signals:
     void eventButtonPressed(int b);
-    void setOutput(mavlink_gpio_t gpio);
+    void setOutput(gpio_t gpio);
     void inputLabelsSet(QStringList labels);
 };
-
-//Q_DECLARE_METATYPE(mavlink_gpio_t)
 
 #endif // QGPIOWIDGET_H
