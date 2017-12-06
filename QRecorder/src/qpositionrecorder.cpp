@@ -21,7 +21,7 @@ QString QPositionRecorder::createHeader()
     header += "\t</time>\n";
 
     // Version
-    header += "\t<version>2.0</version>\n";
+    header += "\t<version>2.1</version>\n";
 
     // Comment
     header += "\t<comment>none</comment>\n";
@@ -48,6 +48,9 @@ QString QPositionRecorder::createHeader()
     header += "\t\t<value>xact</value>\n";
     header += "\t\t<value>yact</value>\n";
     header += "\t\t<value>zact</value>\n";
+    header += "\t\t<value>xcont</value>\n";
+    header += "\t\t<value>ycont</value>\n";
+    header += "\t\t<value>zcont</value>\n";
     header += "\t</labels>\n";
 
     // Data
@@ -79,6 +82,9 @@ void QPositionRecorder::positionReceived(mavlink_position_t position)
         line += "\t" + QString::number(position.x_act);
         line += "\t" + QString::number(position.y_act);
         line += "\t" + QString::number(position.z_act);
+        line += "\t" + QString::number(position.x_cont);
+        line += "\t" + QString::number(position.y_cont);
+        line += "\t" + QString::number(position.z_cont);
         line += "</row>\n";
 
         _log->write(line.toLocal8Bit());

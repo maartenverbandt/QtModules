@@ -21,7 +21,7 @@ QString QAttitudeRecorder::createHeader()
     header += "\t</time>\n";
 
     // Version
-    header += "\t<version>2.0</version>\n";
+    header += "\t<version>2.1</version>\n";
 
     // Comment
     header += "\t<comment>none</comment>\n";
@@ -48,6 +48,9 @@ QString QAttitudeRecorder::createHeader()
     header += "\t\t<value>rollact</value>\n";
     header += "\t\t<value>pitchact</value>\n";
     header += "\t\t<value>yawact</value>\n";
+    header += "\t\t<value>rollcont</value>\n";
+    header += "\t\t<value>pitchcont</value>\n";
+    header += "\t\t<value>yawcont</value>\n";
     header += "\t</labels>\n";
 
     // Data
@@ -79,6 +82,9 @@ void QAttitudeRecorder::attitudeReceived(mavlink_attitude_t attitude)
         line += "\t" + QString::number(attitude.roll_act);
         line += "\t" + QString::number(attitude.pitch_act);
         line += "\t" + QString::number(attitude.yaw_act);
+        line += "\t" + QString::number(attitude.roll_cont);
+        line += "\t" + QString::number(attitude.pitch_cont);
+        line += "\t" + QString::number(attitude.yaw_cont);
         line += "</row>\n";
 
         _log->write(line.toLocal8Bit());

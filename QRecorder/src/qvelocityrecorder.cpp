@@ -21,7 +21,7 @@ QString QVelocityRecorder::createHeader()
     header += "\t</time>\n";
 
     // Version
-    header += "\t<version>2.0</version>\n";
+    header += "\t<version>2.1</version>\n";
 
     // Comment
     header += "\t<comment>none</comment>\n";
@@ -48,6 +48,9 @@ QString QVelocityRecorder::createHeader()
     header += "\t\t<value>vxact</value>\n";
     header += "\t\t<value>vyact</value>\n";
     header += "\t\t<value>vzact</value>\n";
+    header += "\t\t<value>vxcont</value>\n";
+    header += "\t\t<value>vycont</value>\n";
+    header += "\t\t<value>vzcont</value>\n";
     header += "\t</labels>\n";
 
     // Data
@@ -79,6 +82,9 @@ void QVelocityRecorder::velocityReceived(mavlink_velocity_t velocity)
         line += "\t" + QString::number(velocity.vx_act);
         line += "\t" + QString::number(velocity.vy_act);
         line += "\t" + QString::number(velocity.vz_act);
+        line += "\t" + QString::number(velocity.vx_cont);
+        line += "\t" + QString::number(velocity.vy_cont);
+        line += "\t" + QString::number(velocity.vz_cont);
         line += "</row>\n";
 
         _log->write(line.toLocal8Bit());
