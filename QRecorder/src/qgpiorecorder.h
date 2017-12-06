@@ -20,18 +20,4 @@ public slots:
 
 };
 
-/*class QGPIORecordAction : public QAction
-{
-    Q_OBJECT
-
-public:
-    explicit QGPIORecordAction(QRobotWindow *window, QObject *parent = 0);
-
-private:
-    QRobotWindow *_window;
-    QGPIORecorder *_recorder = NULL;
-
-
-};*/
-
 #endif // QGPIORECORDER_H

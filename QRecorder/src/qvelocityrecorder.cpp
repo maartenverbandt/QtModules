@@ -1,71 +1,45 @@
 #include "qvelocityrecorder.h"
 
-QVelocityRecorder::QVelocityRecorder(QObject *parent) : QAbstractRecorder(parent), _log(NULL)
+QVelocityRecorder::QVelocityRecorder(QObject *parent) :
+    QAbstractRecorder("Velocity",parent)
 {
-    _record.setText("Velocity");
+    //do nothing
 }
 
-QString QVelocityRecorder::createHeader()
+QString QVelocityRecorder::insertHeader()
 {
-    QString header;
-    header = "<QVelocityRecord>\n";
-
-    // Time
-    QDateTime now = QDateTime::currentDateTime();
-    header += "\t<time>\n";
-    header += "\t\t<year>" + now.toString("yyyy") + "</year>\n";
-    header += "\t\t<month>" + now.toString("MM") + "</month>\n";
-    header += "\t\t<day>" + now.toString("dd") + "</day>\n";
-    header += "\t\t<hour>" + now.toString("HH") + "</hour>\n";
-    header += "\t\t<minute>" + now.toString("mm") + "</minute>\n";
-    header += "\t</time>\n";
-
-    // Version
-    header += "\t<version>2.0</version>\n";
-
-    // Comment
-    header += "\t<comment>none</comment>\n";
-    header += "\n";
+    QString insert;
 
     // Excitation
-    header += "\t<excitation>\n";
-    header += "\t\t<type>unknown</type>\n";
-    header += "\t\t<fmin>0</fmin>\n";
-    header += "\t\t<fmax>inf</fmax>\n";
-    header += "\t\t<fs>0</fs>\n";
-    header += "\t\t<period>inf</period>\n";
-    header += "\t</excitation>\n";
+    insert += "\t<excitation>\n";
+    insert += "\t\t<type>unknown</type>\n";
+    insert += "\t\t<fmin>0</fmin>\n";
+    insert += "\t\t<fmax>inf</fmax>\n";
+    insert += "\t\t<fs>0</fs>\n";
+    insert += "\t\t<period>inf</period>\n";
+    insert += "\t</excitation>\n";
 
     // Labels
-    header += "\t<labels>\n";
-    header += "\t\t<value>time</value>\n";
-    header += "\t\t<value>vx</value>\n";
-    header += "\t\t<value>vy</value>\n";
-    header += "\t\t<value>vz</value>\n";
-    header += "\t\t<value>vxcmd</value>\n";
-    header += "\t\t<value>vycmd</value>\n";
-    header += "\t\t<value>vzcmd</value>\n";
-    header += "\t\t<value>vxact</value>\n";
-    header += "\t\t<value>vyact</value>\n";
-    header += "\t\t<value>vzact</value>\n";
-    header += "\t</labels>\n";
+    insert += "\t<labels>\n";
+    insert += "\t\t<value>time</value>\n";
+    insert += "\t\t<value>vx</value>\n";
+    insert += "\t\t<value>vy</value>\n";
+    insert += "\t\t<value>vz</value>\n";
+    insert += "\t\t<value>vxcmd</value>\n";
+    insert += "\t\t<value>vycmd</value>\n";
+    insert += "\t\t<value>vzcmd</value>\n";
+    insert += "\t\t<value>vxact</value>\n";
+    insert += "\t\t<value>vyact</value>\n";
+    insert += "\t\t<value>vzact</value>\n";
+    insert += "\t\t<value>vxcont</value>\n";
+    insert += "\t\t<value>vycont</value>\n";
+    insert += "\t\t<value>vzcont</value>\n";
+    insert += "\t</labels>\n";
 
-    // Data
-    header += "\t<data>\n";
-
-    return header;
+    return insert;
 }
 
-QString QVelocityRecorder::createFooter()
-{
-    QString footer;
-    footer += "\t</data>\n";
-    footer += "</QVelocityRecord>";
-
-    return footer;
-}
-
-void QVelocityRecorder::velocityReceived(mavlink_velocity_t velocity)
+void QVelocityRecorder::receive(velocity_t velocity)
 {
     if(isRecording()){
         QString line = "\t\t<row>";
@@ -79,28 +53,11 @@ void QVelocityRecorder::velocityReceived(mavlink_velocity_t velocity)
         line += "\t" + QString::number(velocity.vx_act);
         line += "\t" + QString::number(velocity.vy_act);
         line += "\t" + QString::number(velocity.vz_act);
+        line += "\t" + QString::number(velocity.vx_cont);
+        line += "\t" + QString::number(velocity.vy_cont);
+        line += "\t" + QString::number(velocity.vz_cont);
         line += "</row>\n";
 
         _log->write(line.toLocal8Bit());
     }
-}
-
-void QVelocityRecorder::startRecording()
-{
-    QAbstractRecorder::startRecording(); //emit signals
-
-    _log = openDateFile("log_velocity");
-    _log->open(QIODevice::ReadWrite);
-
-    //make header
-    _log->write(createHeader().toLocal8Bit());
-}
-
-void QVelocityRecorder::stopRecording()
-{
-    QAbstractRecorder::stopRecording(); //emit signals
-
-    //make footer
-    _log->write(createFooter().toLocal8Bit());
-    _log->close();
 }

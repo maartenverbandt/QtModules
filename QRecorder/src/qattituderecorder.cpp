@@ -1,73 +1,47 @@
 #include "qattituderecorder.h"
 
-QAttitudeRecorder::QAttitudeRecorder(QObject *parent) : QAbstractRecorder(parent), _log(NULL)
+QAttitudeRecorder::QAttitudeRecorder(QObject *parent) :
+    QAbstractRecorder("Attitude",parent)
 {
-    _record.setText("Attitude");
+    //do nothing
 }
 
-QString QAttitudeRecorder::createHeader()
+QString QAttitudeRecorder::insertHeader()
 {
-    QString header;
-    header = "<QAttitudeRecord>\n";
-
-    // Time
-    QDateTime now = QDateTime::currentDateTime();
-    header += "\t<time>\n";
-    header += "\t\t<year>" + now.toString("yyyy") + "</year>\n";
-    header += "\t\t<month>" + now.toString("MM") + "</month>\n";
-    header += "\t\t<day>" + now.toString("dd") + "</day>\n";
-    header += "\t\t<hour>" + now.toString("HH") + "</hour>\n";
-    header += "\t\t<minute>" + now.toString("mm") + "</minute>\n";
-    header += "\t</time>\n";
-
-    // Version
-    header += "\t<version>2.0</version>\n";
-
-    // Comment
-    header += "\t<comment>none</comment>\n";
-    header += "\n";
+    QString insert;
 
     // Excitation
-    header += "\t<excitation>\n";
-    header += "\t\t<type>unknown</type>\n";
-    header += "\t\t<fmin>0</fmin>\n";
-    header += "\t\t<fmax>inf</fmax>\n";
-    header += "\t\t<fs>0</fs>\n";
-    header += "\t\t<period>inf</period>\n";
-    header += "\t</excitation>\n";
+    insert += "\t<excitation>\n";
+    insert += "\t\t<type>unknown</type>\n";
+    insert += "\t\t<fmin>0</fmin>\n";
+    insert += "\t\t<fmax>inf</fmax>\n";
+    insert += "\t\t<fs>0</fs>\n";
+    insert += "\t\t<period>inf</period>\n";
+    insert += "\t</excitation>\n";
 
     // Labels
-    header += "\t<labels>\n";
-    header += "\t\t<value>time</value>\n";
-    header += "\t\t<value>roll</value>\n";
-    header += "\t\t<value>pitch</value>\n";
-    header += "\t\t<value>yaw</value>\n";
-    header += "\t\t<value>rollcmd</value>\n";
-    header += "\t\t<value>pitchcmd</value>\n";
-    header += "\t\t<value>yawcmd</value>\n";
-    header += "\t\t<value>rollact</value>\n";
-    header += "\t\t<value>pitchact</value>\n";
-    header += "\t\t<value>yawact</value>\n";
-    header += "\t</labels>\n";
+    insert += "\t<labels>\n";
+    insert += "\t\t<value>time</value>\n";
+    insert += "\t\t<value>roll</value>\n";
+    insert += "\t\t<value>pitch</value>\n";
+    insert += "\t\t<value>yaw</value>\n";
+    insert += "\t\t<value>rollcmd</value>\n";
+    insert += "\t\t<value>pitchcmd</value>\n";
+    insert += "\t\t<value>yawcmd</value>\n";
+    insert += "\t\t<value>rollact</value>\n";
+    insert += "\t\t<value>pitchact</value>\n";
+    insert += "\t\t<value>yawact</value>\n";
+    insert += "\t\t<value>rollcont</value>\n";
+    insert += "\t\t<value>pitchcont</value>\n";
+    insert += "\t\t<value>yawcont</value>\n";
+    insert += "\t</labels>";
 
-    // Data
-    header += "\t<data>\n";
-
-    return header;
+    return insert;
 }
 
-QString QAttitudeRecorder::createFooter()
+void QAttitudeRecorder::receive(attitude_t attitude)
 {
-    QString footer;
-    footer += "\t</data>\n";
-    footer += "</QAttitudeRecord>";
-
-    return footer;
-}
-
-void QAttitudeRecorder::attitudeReceived(mavlink_attitude_t attitude)
-{
-    if(isRecording()){
+    if (isRecording()) {
         QString line = "\t\t<row>";
         line += QString::number(attitude.time);
         line += "\t" + QString::number(attitude.roll);
@@ -79,28 +53,11 @@ void QAttitudeRecorder::attitudeReceived(mavlink_attitude_t attitude)
         line += "\t" + QString::number(attitude.roll_act);
         line += "\t" + QString::number(attitude.pitch_act);
         line += "\t" + QString::number(attitude.yaw_act);
+        line += "\t" + QString::number(attitude.roll_cont);
+        line += "\t" + QString::number(attitude.pitch_cont);
+        line += "\t" + QString::number(attitude.yaw_cont);
         line += "</row>\n";
 
         _log->write(line.toLocal8Bit());
     }
-}
-
-void QAttitudeRecorder::startRecording()
-{
-    QAbstractRecorder::startRecording(); //emit signals
-
-    _log = openDateFile("log_attitude");
-    _log->open(QIODevice::ReadWrite);
-
-    //make header
-    _log->write(createHeader().toLocal8Bit());
-}
-
-void QAttitudeRecorder::stopRecording()
-{
-    QAbstractRecorder::stopRecording(); //emit signals
-
-    //make footer
-    _log->write(createFooter().toLocal8Bit());
-    _log->close();
 }

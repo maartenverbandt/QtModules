@@ -2,7 +2,6 @@
 #define QATTITUDERECORDER_H
 
 #include <qabstractrecorder.h>
-#include <mavlink.h>
 
 class QAttitudeRecorder : public QAbstractRecorder
 {
@@ -11,14 +10,10 @@ public:
     QAttitudeRecorder(QObject* parent = 0);
 
 private:
-    QFile* _log;
-    QString createHeader();
-    QString createFooter();
+    virtual QString insertHeader();
 
 public slots:
-    void attitudeReceived(mavlink_attitude_t attitude);
-    void startRecording();
-    void stopRecording();
+    virtual void receive(attitude_t attitude);
 
 };
 

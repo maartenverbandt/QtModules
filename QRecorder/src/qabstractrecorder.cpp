@@ -52,7 +52,7 @@ void QAbstractRecorder::createHeader()
     header += "\t</time>\n";
 
     // Version
-    header += "\t<version>2.0</version>\n";
+    header += "\t<version>2.1</version>\n";
 
     // Comment
     header += "\t<comment></comment>\n";

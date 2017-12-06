@@ -2,7 +2,6 @@
 #define QPOSITIONRECORDER_H
 
 #include <qabstractrecorder.h>
-#include <mavlink.h>
 
 class QPositionRecorder : public QAbstractRecorder
 {
@@ -11,14 +10,10 @@ public:
     QPositionRecorder(QObject* parent = 0);
 
 private:
-    QFile* _log;
-    QString createHeader();
-    QString createFooter();
+    virtual QString insertHeader();
 
 public slots:
-    void positionReceived(mavlink_position_t position);
-    void startRecording();
-    void stopRecording();
+    virtual void receive(position_t position);
 
 };
 

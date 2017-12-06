@@ -29,7 +29,6 @@ void QRecorderWidget::setQuickRecord(QAbstractRecorder *rec)
 void QRecorderWidget::connectTo(QDataNode *n)
 {
     QListIterator<QAbstractRecorder*> i(_recorders);
-    qDebug() << "Connecting" << _recorders.size() << "recorders";
     while(i.hasNext())
         i.next()->connectTo(n);
 }
