@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    QCommandTypeWidget *csv = new QCommandTypeWidget("CSV",0);
+    QTypeCommandWidget *csv = new QTypeCommandWidget("CSV",0);
     csv->add(new QGpioCsvReader(csv));
     csv->add(new QPositionCmdCsvReader(csv));
 
-    QCommandTypeWidget *udp = new QCommandTypeWidget("UDP",0);
+    QTypeCommandWidget *udp = new QTypeCommandWidget("UDP",0);
     udp->add(new QGpioUdpReader(udp));
     udp->add(new QPositionCmdUdpReader(udp));
 

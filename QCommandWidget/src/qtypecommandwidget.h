@@ -6,12 +6,12 @@
 #include <QDebug>
 #include <qtypecommandinterface.h>
 
-class QCommandTypeWidget : public QWidget
+class QTypeCommandWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit QCommandTypeWidget(QString name, QWidget *parent = 0);
+    explicit QTypeCommandWidget(QString name, QWidget *parent = 0);
 
     void add(QDataPortInterface *port);
     virtual void transmitTo(QDataNode *other);

@@ -8,7 +8,7 @@
 #include <qgamepadbutton.h>
 #include <qgamepadcommand.h>
 
-class QCommandGamepadWidget : public QCommandTypeWidget
+class QCommandGamepadWidget : public QTypeCommandWidget
 {
 public:
     QCommandGamepadWidget(QString name, QWidget *parent = 0);

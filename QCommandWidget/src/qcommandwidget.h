@@ -16,8 +16,8 @@ class QCommandWidget : public QWidget
 public:
     explicit QCommandWidget(QWidget *parent = 0);
 
-    void add(QCommandTypeWidget *w);
-    QCommandTypeWidget *currentInputWidget();
+    void add(QTypeCommandWidget *w);
+    QTypeCommandWidget *currentInputWidget();
     void setCurrentInputWidget(int index);
 
     void transmitTo(QDataNode *other);
@@ -26,7 +26,7 @@ protected:
     void timerEvent(QTimerEvent *);
 
 private:
-    QList<QCommandTypeWidget*> _ports;
+    QList<QTypeCommandWidget*> _ports;
 
     int _timer_id;
 

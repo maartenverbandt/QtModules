@@ -5,10 +5,10 @@ const QMap<QGamepadManager::GamepadAxis,QString> QGamepadButton::_axis_map{{QGam
                                                                            {QGamepadManager::AxisRightX,"Right X"},
                                                                            {QGamepadManager::AxisRightY,"Right Y"}};
 
-const QMap<QGamepadManager::GamepadButton,QString> QGamepadButton::_button_map   {{QGamepadManager::ButtonA,"Button A"},
-                                                                                        {QGamepadManager::ButtonB,"Button B"},
-                                                                                        {QGamepadManager::ButtonX,"Button X"},
-                                                                                        {QGamepadManager::ButtonY,"Button Y"}};
+const QMap<QGamepadManager::GamepadButton,QString> QGamepadButton::_button_map {{QGamepadManager::ButtonA,"Button A"},
+                                                                                {QGamepadManager::ButtonB,"Button B"},
+                                                                                {QGamepadManager::ButtonX,"Button X"},
+                                                                                {QGamepadManager::ButtonY,"Button Y"}};
 
 const QString QGamepadButton::name(QGamepadManager::GamepadAxis axis)
 {
