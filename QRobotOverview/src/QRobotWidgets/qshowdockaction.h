@@ -5,8 +5,6 @@
 #include <QDockWidget>
 #include <qrobotwindow.h>
 
-//class QRobotWindow;
-
 class QShowDockAction : public QAction
 {
 public:

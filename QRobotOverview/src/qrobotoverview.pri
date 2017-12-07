@@ -27,6 +27,7 @@
         $$PWD/QRobotWidgets/qbalancingwidget.h \
         $$PWD/QRobotWidgets/qbalancingdatanodewidget.h \
         $$PWD/QRobotWidgets/qshowexcitationwindowaction.h
+        $$PWD/QRobotWidgets/qshowcommandwidgetaction.h \
 
     SOURCES += \
         $$PWD/qrobotoverview.cpp \
@@ -47,6 +48,7 @@
         $$PWD/QRobotWidgets/qbalancingwidget.cpp \
         $$PWD/QRobotWidgets/qbalancingdatanodewidget.cpp \
         $$PWD/QRobotWidgets/qshowexcitationwindowaction.cpp
+        $$PWD/QRobotWidgets/qshowcommandwidgetaction.cpp \
 
     RESOURCES += \
         $$PWD/QRobots/robot_icons.qrc
@@ -60,6 +62,7 @@ include(../../QRecorder/src/qrecorder.pri)
 include(../../QMapWidget/src/qmapwidget.pri)
 include(../../QPolarPlot/src/qpolarplot.pri)
 include(../../QExcitationWidget/src/qexcitationwidget.pri)
+include(../../QCommandWidget/src/qcommandwidget.pri)
 
 } else {
     message( "Skipping $$PWD: already included" )

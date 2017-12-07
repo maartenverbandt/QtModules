@@ -11,6 +11,7 @@
 #include <qthreadinfodatanodewidget.h>
 #include <qconnectioninfodatanodewidget.h>
 #include <qabstractrobot.h>
+#include <qrobotcommandwidget.h>
 
 class QAbstractRobot;
 
@@ -22,6 +23,7 @@ public:
     explicit QRobotWindow(QAbstractRobot *robot, QWidget *parent = 0);
 
     QGPIODataNodeWidget *gpio();
+    virtual QCommandWidget *command(QWidget *parent = 0);
     QAbstractRobot *robot();
 
     virtual void handleNewConnection(QSerialProtocol *connection);

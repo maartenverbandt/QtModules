@@ -2,6 +2,7 @@
 
 #include <qshowthreadinginfoaction.h>
 #include <qshowconnectioninfoaction.h>
+#include <qshowcommandwidgetaction.h>
 #include <qgpiorecorder.h>
 
 QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
@@ -27,6 +28,9 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     QGPIORecorder *rec = new QGPIORecorder(_gpio->gpiow(), this);
     _recorder->add(rec);
     _recorder->setQuickRecord(rec);
+
+    // Add command action
+    menuBar()->addAction(new QShowCommandWidgetAction(this, this));
 
     // Add activate action
     QAction *activate = new QAction("activate",this);
@@ -57,6 +61,11 @@ void QRobotWindow::activate(bool checked)
 QGPIODataNodeWidget *QRobotWindow::gpio()
 {
     return _gpio;
+}
+
+QCommandWidget *QRobotWindow::command(QWidget *parent)
+{
+    return new QRobotCommandWidget(parent);
 }
 
 QAbstractRobot *QRobotWindow::robot()
