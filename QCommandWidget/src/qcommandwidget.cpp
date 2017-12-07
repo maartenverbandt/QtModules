@@ -48,7 +48,7 @@ void QCommandWidget::setCurrentInputWidget(int index)
     }
 }
 
-void QCommandWidget::add(QCommandTypeWidget *w)
+void QCommandWidget::add(QTypeCommandWidget *w)
 {
     _ports.append(w);
     QPushButton* button = new QPushButton(w->objectName(),this);
@@ -63,7 +63,7 @@ void QCommandWidget::add(QCommandTypeWidget *w)
     setCurrentInputWidget(_stack->count()-1);
 }
 
-QCommandTypeWidget *QCommandWidget::currentInputWidget()
+QTypeCommandWidget *QCommandWidget::currentInputWidget()
 {
     return _ports.value(_stack->currentIndex());
 }
@@ -102,7 +102,7 @@ void QCommandWidget::reset()
 
 void QCommandWidget::transmitTo(QDataNode *other)
 {
-    QListIterator<QCommandTypeWidget *> i(_ports);
+    QListIterator<QTypeCommandWidget *> i(_ports);
     while(i.hasNext())
         i.next()->transmitTo(other);
 }

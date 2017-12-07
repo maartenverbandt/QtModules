@@ -1,7 +1,7 @@
 #include "qcommandgamepadwidget.h"
 
 QCommandGamepadWidget::QCommandGamepadWidget(QString name, QWidget *parent) :
-    QCommandTypeWidget(name,parent),
+    QTypeCommandWidget(name,parent),
     _gamepads(new QComboBox())
 {
     layout()->addWidget(_gamepads);

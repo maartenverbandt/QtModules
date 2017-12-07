@@ -20,6 +20,7 @@ public:
     void reset();
 
 protected:
+    QVBoxLayout *_layout = new QVBoxLayout(this);
     QList<QDataPortInterface *> _ports;
 
 };

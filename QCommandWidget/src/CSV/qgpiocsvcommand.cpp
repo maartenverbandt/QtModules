@@ -1,12 +1,12 @@
 #include "qgpiocsvcommand.h"
 
-QGpioCsvReader::QGpioCsvReader(QWidget *parent) :
+QGpioCsvCommand::QGpioCsvCommand(QWidget *parent) :
     QCsvReaderDataNodeWidget("gpio",parent)
 {
 
 }
 
-void QGpioCsvReader::transmit_packet()
+void QGpioCsvCommand::transmit_packet()
 {
     int k = 0;
     gpio_t gpio;

@@ -3,11 +3,11 @@
 
 #include <qcsvcommanddatanodewidget.h>
 
-class QPositionCmdCsvReader : public QCsvReaderDataNodeWidget
+class QPositionCmdCsvCommand : public QCsvReaderDataNodeWidget
 {
     Q_OBJECT
 public:
-    QPositionCmdCsvReader(QWidget *parent = 0);
+    QPositionCmdCsvCommand(QWidget *parent = 0);
     virtual void transmit_packet();
 
 };

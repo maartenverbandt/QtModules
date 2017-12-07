@@ -1,12 +1,12 @@
 #include "qpositioncmdcsvcommand.h"
 
-QPositionCmdCsvReader::QPositionCmdCsvReader(QWidget *parent) :
+QPositionCmdCsvCommand::QPositionCmdCsvCommand(QWidget *parent) :
     QCsvReaderDataNodeWidget("position cmd",parent)
 {
 
 }
 
-void QPositionCmdCsvReader::transmit_packet()
+void QPositionCmdCsvCommand::transmit_packet()
 {
     position_cmd_t position_cmd;
 

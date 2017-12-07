@@ -4,10 +4,10 @@
 #include <qtypecommandinterface.h>
 #include <qudpreaderwidget.h>
 
-template <typename T> class QTUdpReader : public QDataPortInterface
+template <typename T> class QTypeUdpCommand : public QDataPortInterface
 {
 public:
-    QTUdpReader(const QString& name, QWidget* parent = 0):
+    QTypeUdpCommand(const QString& name, QWidget* parent = 0):
         QDataPortInterface(parent),
         _udp_reader(new QUdpReaderWidget(sizeof(T), name, parent))
     {
@@ -41,17 +41,17 @@ private:
 
 };
 
-class QGpioUdpReader: public QTUdpReader<gpio_t>{
+class QGpioUdpCommand: public QTypeUdpCommand<gpio_t>{
 public:
-    QGpioUdpReader(QWidget *parent) :
-        QTUdpReader<gpio_t>("gpio",parent)
+    QGpioUdpCommand(QWidget *parent) :
+        QTypeUdpCommand<gpio_t>("gpio",parent)
     {}
 };
 
-class QPositionCmdUdpReader: public QTUdpReader<position_cmd_t>{
+class QPositionCmdUdpCommand: public QTypeUdpCommand<position_cmd_t>{
 public:
-    QPositionCmdUdpReader(QWidget *parent) :
-        QTUdpReader<position_cmd_t>("position cmd",parent)
+    QPositionCmdUdpCommand(QWidget *parent) :
+        QTypeUdpCommand<position_cmd_t>("position cmd",parent)
     {}
 };
 
