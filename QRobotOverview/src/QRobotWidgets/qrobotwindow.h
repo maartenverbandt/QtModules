@@ -42,6 +42,7 @@ protected:
 
 private slots:
     virtual void activate(bool checked);
+    void statusText(QString text);
 
 };
 

@@ -1,6 +1,7 @@
 #include "qprintlog.h"
 
-QPrintLog::QPrintLog(QObject *parent) : QDataNode(parent)
+QPrintLog::QPrintLog(QObject *parent) :
+    QDataNode(parent), _stitcher(new QPrintStitcher(this))
 {
     //do nothing
 }
@@ -25,11 +26,11 @@ void QPrintLog::write(QString line)
 
 void QPrintLog::receive(print_t print)
 {
+    QString line;
     _stitcher->stitch(QString(print.text),32);
     while(_stitcher->hasLine()) {
-        QString line = _stitcher->getLine();
+        line = _stitcher->getLine();
         write(line + '\n');
-        qDebug() << "stitchreveive: " << line;
         emit newline(line);
     }
 }

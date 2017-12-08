@@ -17,9 +17,8 @@ public:
     void open(QString filename);
 
 private:
-    QPrintStitcher *_stitcher = new QPrintStitcher(this);
+    QPrintStitcher *_stitcher;
     QFile *_log;
-
     void write(QString line);
 
 public slots:

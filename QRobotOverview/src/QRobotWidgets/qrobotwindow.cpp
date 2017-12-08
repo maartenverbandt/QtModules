@@ -41,6 +41,9 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     this->addAction(activate);
     QObject::connect(activate, &QAction::toggled, this, &QRobotWindow::activate);
     activate->setChecked(true);
+
+    // String stitcher
+    QObject::connect(_robot->getLog(), &QPrintLog::newline, this, &QRobotWindow::statusText);
 }
 
 void QRobotWindow::handleNewConnection(QSerialProtocol *connection)
@@ -58,6 +61,11 @@ void QRobotWindow::activate(bool checked)
     QListIterator<QSerialProtocol*> i(_robot->connections());
     while(i.hasNext())
         i.next()->getActivateAction()->setChecked(checked);
+}
+
+void QRobotWindow::statusText(QString text)
+{
+    statusBar()->showMessage(text, 5000);
 }
 
 QGPIODataNodeWidget *QRobotWindow::gpio()
