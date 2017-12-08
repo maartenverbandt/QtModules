@@ -12,8 +12,9 @@ class QPrintLog : public QDataNode
     Q_OBJECT
 
 public:
-    explicit QPrintLog(QObject *parent = 0, bool opennow = true);
-    void open(QString robot);
+    explicit QPrintLog(QObject *parent = 0);
+    void open();
+    void open(QString filename);
 
 private:
     QPrintStitcher *_stitcher = new QPrintStitcher(this);
@@ -23,6 +24,9 @@ private:
 
 public slots:
     virtual void receive(print_t);
+
+signals:
+    void newline(QString);
 
 };
 

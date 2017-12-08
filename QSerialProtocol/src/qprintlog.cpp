@@ -1,14 +1,18 @@
 #include "qprintlog.h"
 
-QPrintLog::QPrintLog(QObject *parent, bool opennow) : QDataNode(parent)
+QPrintLog::QPrintLog(QObject *parent) : QDataNode(parent)
 {
-    if(opennow)
-        open(parent->objectName());
+    //do nothing
 }
 
-void QPrintLog::open(QString robot)
+void QPrintLog::open()
 {
-    _log = new QFile(QDir::tempPath() + QDir::separator() + robot + ".txt",this);
+    open(parent()->objectName());
+}
+
+void QPrintLog::open(QString filename)
+{
+    _log = new QFile(QDir::tempPath() + QDir::separator() + filename + ".txt",this);
     if(!_log->open(QIODevice::WriteOnly | QIODevice::Text))
         qDebug() << "Error opening robot log file";
 }
@@ -21,7 +25,11 @@ void QPrintLog::write(QString line)
 
 void QPrintLog::receive(print_t print)
 {
-    if(_stitcher->stitch(QString(print.text),32)){
-        write(_stitcher->getLine());
+    _stitcher->stitch(QString(print.text),32);
+    while(_stitcher->hasLine()) {
+        QString line = _stitcher->getLine();
+        write(line + '\n');
+        qDebug() << "stitchreveive: " << line;
+        emit newline(line);
     }
 }
