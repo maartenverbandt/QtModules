@@ -2,6 +2,7 @@
 
 QConnectionInfoWidget::QConnectionInfoWidget(QWidget *parent) :
     QWidget(parent),
+    _labels(new QCPAxisTickerText),
     _timer()
 {
     setup();
@@ -17,9 +18,12 @@ QConnectionInfoWidget::QConnectionInfoWidget(QWidget *parent) :
     //ui->barPlot->xAxis->setAutoTicks(false);
     //ui->barPlot->xAxis->setAutoTickLabels(false);
 
+
     _bars_count->setBrush(QBrush(QColor(124, 252, 0, 100)));
     _bars_count->setPen(QPen(QColor(30, 130, 30), 1.0));
-    _plot->yAxis->setRange(0,200);
+    _plot->xAxis->setTicker(_labels);
+    _plot->xAxis->setTickLabelRotation(-90);
+    _plot->yAxis->setRange(0,100);
     _plot->yAxis2->setVisible(true);
 
     this->reset();
@@ -45,86 +49,69 @@ void QConnectionInfoWidget::setup()
     vlayout->addLayout(hlayout, 0);
 }
 
-void QConnectionInfoWidget::addMsgID(int msgid)
-{
-    int k = 0;
-    while((k<_sort_id.length())&&((_message_id[_sort_id[k]]) <= msgid)){
-        k++;
-    }
-    _sort_id.insert(k,_sort_id.length());
-    _message_id.append(msgid);
-    _message_counter.append(1);
-}
 
 void QConnectionInfoWidget::updateAxis()
 {
-    _tick_pos.resize(_message_id.length());
-    _tick_label.resize(_message_id.length());
-    _bar_pos.resize(_message_id.length());
+    // set range
+    _plot->xAxis->setRange(-0.5, _msg_map.count()-0.5);
 
-    for(int k=0;k<_message_id.length();k++){
-        _tick_pos.replace(k,k);
-        _tick_label.replace(k, QString("%1").arg(_message_id[_sort_id[k]]));
-        _bar_pos.replace(k,k);
-    }
+    // construct ticks
+    QVector<double> pos(_msg_map.count());
+    for (int k=0; k<_msg_map.count(); k++) { pos[k] = k; }
+    _labels->setTicks(pos, QVector<QString>::fromList(_msg_map.keys()));
 
-    //ui->barPlot->xAxis->ticker()->setTickCount(_message_id.length()); //  setTickVector (_tick_pos);
-    //ui->barPlot->xAxis->setTickVectorLabels(_tick_label);
-    _plot->xAxis->setRange(-0.5, _message_id.length()-0.5);
+    // replot data
+    updateData();
 }
 
 void QConnectionInfoWidget::updateData()
 {
+    qDebug() << _msg_map;
+
+    _msg_received = 0; // refreshed
     double rate;
 
-    _bar_rate_val.resize(_message_id.length());
-    _bar_count_val.resize(_message_id.length());
+    QList<unsigned int> msg_counts = _msg_map.values();
+    QVector<double> rate_bar_pos; rate_bar_pos.reserve(_msg_map.count());
+    QVector<double> rate_bar_val; rate_bar_val.reserve(_msg_map.count());
+    QVector<double> count_bar_pos; count_bar_pos.reserve(_msg_map.count());
+    QVector<double> count_bar_val; count_bar_val.reserve(_msg_map.count());
 
-    for(int k=0;k<_message_id.length();k++){
-        rate = 1000.0*_message_counter[_sort_id[k]]/_timer.elapsed();
+    for(int k=0;k<_msg_map.count();k++){
+        rate = (1000.0*msg_counts[k])/_timer.elapsed();
         if(rate>RATE_THRESHOLD){
-            _bar_rate_val.replace(k,rate);
-            _bar_count_val.replace(k,0);
+            rate_bar_pos.append(k);
+            rate_bar_val.append(rate);
+            qDebug() << k << rate;
         }
         else{
-            _bar_rate_val.replace(k,0);
-            _bar_count_val.replace(k,_message_counter[_sort_id[k]]);
+            count_bar_pos.append(k);
+            count_bar_val.append(msg_counts[k]);
+            qDebug() << k << msg_counts[k];
         }
     }
 
-    _bars_rate->setData(_bar_pos, _bar_rate_val);
-    _bars_count->setData(_bar_pos, _bar_count_val);
+    _bars_rate->setData(rate_bar_pos, rate_bar_val ,true);
+    _bars_count->setData(count_bar_pos, count_bar_val, true);
     _plot->yAxis2->rescale();
-
     _plot->replot();
 }
 
-void QConnectionInfoWidget::msgReceived(int id)
+void QConnectionInfoWidget::receive(QString msg)
 {
-    _msg_received++;
-    int k = _message_id.indexOf(id);
-    if(k>=0){
-        //qDebug() << "Message found, added to counting vector.";
-        _message_counter[k]++;
-    }
-    else{
-        addMsgID(id);
+    // Add data to the message map
+    if(_msg_map.contains(msg)) {
+        _msg_map[msg]++;
+        _msg_received++;
+        if(_msg_received > REFRESH_COUNT){ updateData(); }
+    } else {
+        _msg_map[msg] = 1;
         updateAxis();
-    }
-
-    if(_msg_received > REFRESH_COUNT){
-        _msg_received = 0;
-        updateData();
     }
 }
 
 void QConnectionInfoWidget::reset()
 {
     _timer.restart();
-
-    _message_counter.clear();
-    _message_id.clear();
-    _sort_id.clear();
-
     _msg_received = 0;
 }

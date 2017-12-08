@@ -1,9 +1,10 @@
 #ifndef QCONNECTIONINFOWIDGET_H
 #define QCONNECTIONINFOWIDGET_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QBrush>
 #include <QString>
+#include <QMap>
 #include <QElapsedTimer>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -27,30 +28,20 @@ protected:
 
 private:
     QCustomPlot *_plot;
+    QSharedPointer<QCPAxisTickerText> _labels;
     QCPBars *_bars_count;
     QCPBars *_bars_rate;
 
-    QVector<int>    _message_id;
-    QVector<int>    _sort_id;
-    QVector<int>    _message_counter;
-
-    QVector<double> _tick_pos;
-    QVector<QString> _tick_label;
-    QVector<double> _bar_pos;
-    QVector<double> _bar_count_val;
-    QVector<double> _bar_rate_val;
-
+    QMap<QString,unsigned int> _msg_map;
     QElapsedTimer _timer;
     unsigned long _msg_received;
 
     void setup();
-
-    void addMsgID(int msgid);
     void updateAxis();
     void updateData();
 
 public slots:
-    void msgReceived(int id);
+    void receive(QString msg);
     void reset();
 
 };
