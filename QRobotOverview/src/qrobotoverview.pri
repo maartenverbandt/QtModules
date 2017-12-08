@@ -26,8 +26,10 @@
         $$PWD/QRobotWidgets/qbalancingwindow.h \
         $$PWD/QRobotWidgets/qbalancingwidget.h \
         $$PWD/QRobotWidgets/qbalancingdatanodewidget.h \
-        $$PWD/QRobotWidgets/qshowexcitationwindowaction.h
+        $$PWD/QRobotWidgets/qshowexcitationwindowaction.h \
+        $$PWD/QRobotWidgets/qshowparameterwidgetaction.h\
         $$PWD/QRobotWidgets/qshowcommandwidgetaction.h \
+        $$PWD/QRobotWidgets/qrobotcommandwidget.h
 
     SOURCES += \
         $$PWD/qrobotoverview.cpp \
@@ -47,8 +49,10 @@
         $$PWD/QRobotWidgets/qbalancingwindow.cpp \
         $$PWD/QRobotWidgets/qbalancingwidget.cpp \
         $$PWD/QRobotWidgets/qbalancingdatanodewidget.cpp \
-        $$PWD/QRobotWidgets/qshowexcitationwindowaction.cpp
+        $$PWD/QRobotWidgets/qshowexcitationwindowaction.cpp \
+        $$PWD/QRobotWidgets/qshowparameterwidgetaction.cpp \
         $$PWD/QRobotWidgets/qshowcommandwidgetaction.cpp \
+        $$PWD/QRobotWidgets/qrobotcommandwidget.cpp
 
     RESOURCES += \
         $$PWD/QRobots/robot_icons.qrc
@@ -62,6 +66,7 @@ include(../../QRecorder/src/qrecorder.pri)
 include(../../QMapWidget/src/qmapwidget.pri)
 include(../../QPolarPlot/src/qpolarplot.pri)
 include(../../QExcitationWidget/src/qexcitationwidget.pri)
+include(../../QParameterWidget/src/qparameterwidget.pri)
 include(../../QCommandWidget/src/qcommandwidget.pri)
 
 } else {

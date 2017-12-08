@@ -2,6 +2,7 @@
 
 #include <qshowthreadinginfoaction.h>
 #include <qshowconnectioninfoaction.h>
+#include <qshowparameterwidgetaction.h>
 #include <qshowcommandwidgetaction.h>
 #include <qgpiorecorder.h>
 
@@ -17,6 +18,7 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     // Setup threading
     _tools_menu = menuBar()->addMenu("Tools");
     _tools_menu->addAction(new QShowThreadingInfoAction(this, this));
+    _tools_menu->addAction(new QShowParameterWidgetAction(this, this));
 
     // Setup connections
     _connection_menu = menuBar()->addMenu("Connections");
