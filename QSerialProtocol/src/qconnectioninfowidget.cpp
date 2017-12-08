@@ -9,15 +9,9 @@ QConnectionInfoWidget::QConnectionInfoWidget(QWidget *parent) :
 
     _bars_rate = new QCPBars(_plot->xAxis, _plot->yAxis);
     _bars_rate->setWidth(BAR_WIDTH);
-    //ui->barPlot-> addPlottable(_bars_rate);
 
     _bars_count = new QCPBars(_plot->xAxis, _plot->yAxis2);
     _bars_count->setWidth(BAR_WIDTH);
-    //ui->barPlot->addPlottable(_bars_count);
-
-    //ui->barPlot->xAxis->setAutoTicks(false);
-    //ui->barPlot->xAxis->setAutoTickLabels(false);
-
 
     _bars_count->setBrush(QBrush(QColor(124, 252, 0, 100)));
     _bars_count->setPen(QPen(QColor(30, 130, 30), 1.0));
@@ -66,8 +60,6 @@ void QConnectionInfoWidget::updateAxis()
 
 void QConnectionInfoWidget::updateData()
 {
-    qDebug() << _msg_map;
-
     _msg_received = 0; // refreshed
     double rate;
 
@@ -82,12 +74,10 @@ void QConnectionInfoWidget::updateData()
         if(rate>RATE_THRESHOLD){
             rate_bar_pos.append(k);
             rate_bar_val.append(rate);
-            qDebug() << k << rate;
         }
         else{
             count_bar_pos.append(k);
             count_bar_val.append(msg_counts[k]);
-            qDebug() << k << msg_counts[k];
         }
     }
 
