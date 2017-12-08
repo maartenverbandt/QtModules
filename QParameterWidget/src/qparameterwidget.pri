@@ -8,9 +8,21 @@ include(../../QSerialProtocol/src/qserialprotocol.pri)
 
     INCLUDEPATH += $$PWD \
 
-        HEADERS += \
+    HEADERS += \
+        $$PWD/qintegerparameter.h \
+        $$PWD/qfloatparameter.h \
+        $$PWD/qstringparameter.h \
+        $$PWD/qparametertablewidget.h \
+        $$PWD/qabstractparameter.h \
+        $$PWD/qparameterdatanodewidget.h
 
-        SOURCES += \
+    SOURCES += \
+        $$PWD/qintegerparameter.cpp \
+        $$PWD/qfloatparameter.cpp \
+        $$PWD/qstringparameter.cpp \
+        $$PWD/qparametertablewidget.cpp \
+        $$PWD/qabstractparameter.cpp \
+        $$PWD/qparameterdatanodewidget.cpp
                         
 
     FORMS += \
@@ -18,21 +30,3 @@ include(../../QSerialProtocol/src/qserialprotocol.pri)
 } else {
     message( "Skipping $$PWD: already included" )
 }
-
-HEADERS += \
-    $$PWD/qdatanode.h \
-    $$PWD/qparametermanager.h \
-    $$PWD/qparameter.h \
-    $$PWD/qintegerparameter.h \
-    $$PWD/qfloatparameter.h \
-    $$PWD/qstringparameter.h \
-    $$PWD/qparametertablewidget.h
-
-SOURCES += \
-    $$PWD/qdatanode.cpp \
-    $$PWD/qparametermanager.cpp \
-    $$PWD/qparameter.cpp \
-    $$PWD/qintegerparameter.cpp \
-    $$PWD/qfloatparameter.cpp \
-    $$PWD/qstringparameter.cpp \
-    $$PWD/qparametertablewidget.cpp

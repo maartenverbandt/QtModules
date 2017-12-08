@@ -1,17 +1,17 @@
 #ifndef QFLOATPARAMETER_H
 #define QFLOATPARAMETER_H
 
-#include <qparameter.h>
+#include <qabstractparameter.h>
 #include <QDebug>
 
-class QFloatParameter : public QParameter
+class QFloatParameter : public QAbstractParameter
 {
 public:
-    QFloatParameter(QString name, int offset, float value, QObject *parent = 0);
+    QFloatParameter();
+    QFloatParameter(QString name, int offset, float value);
 
-    virtual const QString valueString();
-    virtual void setValue(const QString value);
-    virtual int type();
+    virtual QString valueString();
+    virtual void setValueString(QString value);
 
     void setValue(double value);
     float value();

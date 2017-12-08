@@ -7,31 +7,24 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <qdebug.h>
-#include <qparametermanager.h>
 
 class QParameterTableWidget : public QWidget
 {
     Q_OBJECT
-
 public:
-    QParameterTableWidget(QParameterManager *manager, QWidget *parent = 0);
+    QParameterTableWidget(QWidget *parent = 0);
+    int setParameter(QString name, QString value);
 
-    int addParameter(QString name, QString value);
+    QTableWidget *table();
+    QPushButton *load();
+    QPushButton *send();
+    QPushButton *store();
 
 private:
     QTableWidget *_table;
     QPushButton *_load;
     QPushButton *_send;
     QPushButton *_store;
-
-    void setup();
-
-public slots:
-    void handleCellChanged(int row, int column);
-    void updateParameter(QString name, QString value);
-
-signals:
-    void parameterChanged(QString name, QString value);
 
 };
 

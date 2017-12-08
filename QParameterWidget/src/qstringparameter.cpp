@@ -1,27 +1,33 @@
 #include "qstringparameter.h"
 
-QStringParameter::QStringParameter(QString name, int offset, QString value, QObject *parent) :
-    QParameter(name, offset, parent), _value(value)
+QStringParameter::QStringParameter() :
+    QAbstractParameter()
 {
 
 }
 
-const QString QStringParameter::valueString()
+QStringParameter::QStringParameter(QString name, int offset, QString value) :
+    QAbstractParameter(name, offset), _value(value)
+{
+
+}
+
+QString QStringParameter::valueString()
 {
     return _value;
 }
 
-void QStringParameter::setValue(const QString value)
+void QStringParameter::setValueString(QString value)
 {
     _value = value;
-}
-
-int QStringParameter::type()
-{
-    return QParameter::STRING;
 }
 
 QString QStringParameter::value()
 {
     return _value;
+}
+
+void QStringParameter::setValue(QString value)
+{
+    _value = value;
 }

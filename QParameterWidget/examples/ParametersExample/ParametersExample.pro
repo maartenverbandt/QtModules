@@ -1,7 +1,8 @@
 QT       += core gui gamepad
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += mavlink
+PROTOCOL += mavlink
+DEFINES += QT_NO_PRINTER
 INCLUDEPATH += $$PWD
 
 HEADERS += \

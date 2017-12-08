@@ -1,17 +1,23 @@
 #include "qintegerparameter.h"
 
-QIntegerParameter::QIntegerParameter(QString name, int offset, int value, QObject *parent) :
-    QParameter(name, offset, parent), _value(value)
+QIntegerParameter::QIntegerParameter() :
+    QAbstractParameter()
 {
 
 }
 
-const QString QIntegerParameter::valueString()
+QIntegerParameter::QIntegerParameter(QString name, int offset, int value) :
+    QAbstractParameter(name, offset), _value(value)
+{
+
+}
+
+QString QIntegerParameter::valueString()
 {
     return QString::number(_value);
 }
 
-void QIntegerParameter::setValue(const QString value)
+void QIntegerParameter::setValueString(QString value)
 {
     bool ok;
     int newvalue = value.toInt(&ok);
@@ -30,9 +36,4 @@ void QIntegerParameter::setValue(int value)
 int QIntegerParameter::value()
 {
     return _value;
-}
-
-int QIntegerParameter::type()
-{
-    return QParameter::INTEGER;
 }

@@ -1,17 +1,17 @@
 #ifndef QINTEGERPARAMETER_H
 #define QINTEGERPARAMETER_H
 
-#include <qparameter.h>
+#include <qabstractparameter.h>
 #include <QDebug>
 
-class QIntegerParameter : public QParameter
+class QIntegerParameter : public QAbstractParameter
 {
 public:
-    QIntegerParameter(QString name, int offset, int value, QObject *parent = 0);
+    QIntegerParameter();
+    QIntegerParameter(QString name, int offset, int value);
 
-    virtual const QString valueString();
-    virtual void setValue(const QString value);
-    virtual int type();
+    virtual QString valueString();
+    virtual void setValueString(QString value);
 
     void setValue(int value);
     int value();

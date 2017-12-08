@@ -1,19 +1,20 @@
 #ifndef QSTRINGPARAMETER_H
 #define QSTRINGPARAMETER_H
 
-#include <qparameter.h>
+#include <qabstractparameter.h>
 #include <QDebug>
 
-class QStringParameter : public QParameter
+class QStringParameter : public QAbstractParameter
 {
 public:
-    QStringParameter(QString name, int offset, QString value, QObject *parent = 0);
+    QStringParameter();
+    QStringParameter(QString name, int offset, QString value);
 
-    virtual const QString valueString();
-    virtual void setValue(const QString value);
-    virtual int type();
+    virtual QString valueString();
+    virtual void setValueString(QString value);
 
     QString value();
+    void setValue(QString value);
 
 private:
     QString _value;
