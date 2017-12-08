@@ -6,10 +6,6 @@
 #include <qdatanode.h>
 #include <qrobotwindow.h>
 #include <qprintlog.h>
-/*#include <qrobotconnectionmanager.h>
-#include <qrobotrecordermanager.h>
-#include <qrobotcommandmanager.h>
-#include <qrobotmeasurementmanager.h>*/
 
 class QRobotWindow;
 
@@ -23,19 +19,13 @@ public:
     virtual QIcon icon() = 0;
     virtual QRobotWindow *window() = 0;
 
-    /*virtual void setup();
-    virtual QRobotConnectionManager* getConnectionManager() = 0;
-    virtual QRobotRecorderManager* getRecorderManager() = 0;
-    virtual QRobotCommandManager* getCommandManager() = 0;
-    virtual QRobotMeasurementManager* getMeasurementManager() = 0;*/
-
     int id();
     QString type();
     QList<QSerialProtocol *> connections();
     QPrintLog *getLog();
 
-    //virtual void saveState();
-    //virtual void restoreState();
+    virtual void saveState();
+    virtual void restoreState();
 
     void connectTo(QDataNode *datanode);
 

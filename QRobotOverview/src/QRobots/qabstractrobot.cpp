@@ -9,20 +9,8 @@ QAbstractRobot::QAbstractRobot(const int id, const QString type, QObject *parent
     setObjectName(_type + QString::number(_id));
 
     // setup log
-    _log->open();
+    _log->open(objectName());
 }
-
-/*void QAbstractRobot::setup()
-{
-    //setup robot log
-    _log->open(getName());
-    QObject::connect(getConnectionManager(),&QRobotConnectionManager::printReceived,_log,&QRobotLog::write);
-    //setup window
-    getWindow()->setWindowTitle(getName());
-    getWindow()->setWindowIcon(getIcon());
-    //restore state
-    restoreState();
-}*/
 
 int QAbstractRobot::id()
 {
@@ -59,12 +47,12 @@ QPrintLog *QAbstractRobot::getLog()
     return _log;
 }
 
-/*void QAbstractRobot::saveState()
+void QAbstractRobot::saveState()
 {
-    getWindow()->saveState(getName());
+    window()->saveState(objectName());
 }
 
 void QAbstractRobot::restoreState()
 {
-    getWindow()->restoreState(getName());
-}*/
+    window()->restoreState(objectName());
+}

@@ -18,6 +18,16 @@ QGPIOWidget *QGPIODataNodeWidget::gpiow()
     return _gpio;
 }
 
+void QGPIODataNodeWidget::saveState(QString group)
+{
+    _gpio->saveState(group);
+}
+
+void QGPIODataNodeWidget::restoreState(QString group)
+{
+    _gpio->restoreState(group);
+}
+
 void QGPIODataNodeWidget::receive(gpio_t gpio)
 {
     _gpio->setInput(gpio);

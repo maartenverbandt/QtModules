@@ -27,9 +27,8 @@ public:
     QAbstractRobot *robot();
 
     virtual void handleNewConnection(QSerialProtocol *connection);
-
-    //virtual void saveState(QString group);
-    //virtual void restoreState(QString group);
+    virtual void saveState(QString group);
+    virtual void restoreState(QString group);
 
 protected:
     QAbstractRobot *_robot;

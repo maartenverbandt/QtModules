@@ -85,7 +85,7 @@ QAbstractRobot *QRobotWindow::robot()
     return _robot;
 }
 
-/*void QRobotWindow::saveState(QString group)
+void QRobotWindow::saveState(QString group)
 {
     _gpio->saveState(group);
 }
@@ -94,4 +94,3 @@ void QRobotWindow::restoreState(QString group)
 {
     _gpio->restoreState(group);
 }
-*/

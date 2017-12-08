@@ -13,6 +13,9 @@ public:
     virtual QWidget *w();
     virtual QGPIOWidget *gpiow();
 
+    void saveState(QString group);
+    void restoreState(QString group);
+
 private:
     QGPIOWidget *_gpio;
 
