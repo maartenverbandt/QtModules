@@ -5,6 +5,12 @@ void QSerialProtocol::setTransmitterType(int type)
     _transmitter_type = type;
 }
 
+void QSerialProtocol::timerEvent(QTimerEvent *)
+{
+    _io->write(_io_buffer.left(32));
+    _io_buffer.remove(0,32);
+}
+
 QSerialProtocol::QSerialProtocol(QIODevice *io, QObject *parent) :
     QDataNode(parent), _io(io)
 {
@@ -13,6 +19,8 @@ QSerialProtocol::QSerialProtocol(QIODevice *io, QObject *parent) :
     _activate->setCheckable(true);
     _activate->setChecked(true);
     QObject::connect(_activate, &QAction::toggled, this, &QSerialProtocol::on_activate_toggled);
+
+    startTimer(10);
 }
 
 void QSerialProtocol::decode()
@@ -68,7 +76,7 @@ void QSerialProtocol::encode(mavlink_message_t msg)
     QByteArray b(128,0);
     int bytes = mavlink_msg_to_send_buffer((uint8_t*)(b.data()), &msg);
     b.truncate(bytes);
-    _io->write(b);
+    _io_buffer.append(b);
 }
 
 void QSerialProtocol::on_activate_toggled()

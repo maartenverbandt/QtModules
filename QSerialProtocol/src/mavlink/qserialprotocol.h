@@ -22,8 +22,12 @@ private:
     void setTransmitterType(int type);
 
     QIODevice* _io;
+    QByteArray _io_buffer;
 
     QAction *_activate = new QAction("active",this);
+
+protected:
+    virtual void timerEvent(QTimerEvent *);
 
 public:
     QSerialProtocol(QIODevice *io, QObject *parent = 0);
