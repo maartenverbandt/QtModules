@@ -7,6 +7,9 @@ QAbstractRobot::QAbstractRobot(const int id, const QString type, QObject *parent
     _log(new QPrintLog(this))
 {
     setObjectName(_type + QString::number(_id));
+
+    // setup log
+    _log->open();
 }
 
 /*void QAbstractRobot::setup()
@@ -48,6 +51,7 @@ void QAbstractRobot::addConnection(QSerialProtocol *connection)
     _connections.append(connection);
     window()->handleNewConnection(connection);
     //connect what needs to be connected!
+    connection->transmitTo(_log);
 }
 
 QPrintLog *QAbstractRobot::getLog()
