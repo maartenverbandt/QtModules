@@ -2,6 +2,7 @@
 #define QPRINTSTITCHER_H
 
 #include <QObject>
+#include <QDebug>
 
 class QPrintStitcher : public QObject
 {
@@ -11,13 +12,13 @@ public:
     explicit QPrintStitcher(QObject *parent = 0);
 
     bool stitch(QString part, int size);
+    bool hasLine();
     QString getLine();
 
 private:
-    QString _line;
+    QStringList _lines;
+    QString _stream;
 
-signals:
-    void complete(QString line);
 };
 
 #endif // QPRINTSTITCHER_H
