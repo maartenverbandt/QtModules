@@ -17,6 +17,7 @@ QConnectionInfoWidget::QConnectionInfoWidget(QWidget *parent) :
     _bars_count->setPen(QPen(QColor(30, 130, 30), 1.0));
     _plot->xAxis->setTicker(_labels);
     _plot->xAxis->setTickLabelRotation(-90);
+    _plot->xAxis->setTickLabelSide(QCPAxis::lsInside);
     _plot->yAxis->setRange(0,100);
     _plot->yAxis2->setVisible(true);
 
