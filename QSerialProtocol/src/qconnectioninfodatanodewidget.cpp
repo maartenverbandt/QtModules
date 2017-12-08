@@ -13,15 +13,40 @@ QWidget *QConnectionInfoDataNodeWidget::w()
 
 void QConnectionInfoDataNodeWidget::receive(heartbeat_t)
 {
-    _widget->msgReceived(0);
+    _widget->receive("heartbeat");
 }
 
 void QConnectionInfoDataNodeWidget::receive(gpio_t)
 {
-    _widget->msgReceived(1);
+    _widget->receive("gpio");
+}
+
+void QConnectionInfoDataNodeWidget::receive(print_t)
+{
+    _widget->receive("print");
+}
+
+void QConnectionInfoDataNodeWidget::receive(event_t)
+{
+    _widget->receive("event");
 }
 
 void QConnectionInfoDataNodeWidget::receive(pose_t)
 {
-    _widget->msgReceived(50);
+    _widget->receive("pose");
+}
+
+void QConnectionInfoDataNodeWidget::receive(attitude_t)
+{
+    _widget->receive("attitude");
+}
+
+void QConnectionInfoDataNodeWidget::receive(velocity_t)
+{
+    _widget->receive("velocity");
+}
+
+void QConnectionInfoDataNodeWidget::receive(position_t)
+{
+    _widget->receive("position");
 }
