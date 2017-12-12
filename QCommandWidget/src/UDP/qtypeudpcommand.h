@@ -36,6 +36,14 @@ public:
         _udp_reader->getUdpReader()->reset();
     }
 
+    virtual void saveState(QString group) {
+        _udp_reader->saveState(group);
+    }
+
+    virtual void restoreState(QString group) {
+        _udp_reader->restoreState(group);
+    }
+
 private:
     QUdpReaderWidget* _udp_reader;
 

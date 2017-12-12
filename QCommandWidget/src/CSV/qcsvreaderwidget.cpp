@@ -7,6 +7,7 @@ QCsvReaderWidget::QCsvReaderWidget(QString name, QWidget *parent) :
     ui(new Ui::QCsvReaderWidget),
     _csv_reader(new QCsvReader(this))
 {
+    setObjectName(name);
     ui->setupUi(this);
     ui->groupBox->setTitle(name);
 }
@@ -49,6 +50,7 @@ void QCsvReaderWidget::saveState(QString group)
 {
     QSettings settings;
 
+    settings.beginGroup(group + "/" + objectName());
     settings.beginGroup(group);
     settings.setValue("filename", QVariant(_csv_reader->fileName()));
     settings.setValue("repeat",QVariant(ui->repeat->isChecked()));
@@ -59,6 +61,7 @@ void QCsvReaderWidget::restoreState(QString group)
 {
     QSettings settings;
 
+    settings.beginGroup(group + "/" + objectName());
     settings.beginGroup(group);
     if(!_csv_reader->setFile(settings.value("filename").toString())) {
         qWarning() << "Unable to restore" << settings.value("filename").toString();

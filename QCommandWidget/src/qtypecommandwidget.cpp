@@ -15,16 +15,34 @@ void QTypeCommandWidget::add(QTypeCommandInterface *port)
 
 void QTypeCommandWidget::transmitTo(QDataNode *other)
 {
-    QListIterator<QDataPortInterface *> i(_ports);
-    while(i.hasNext())
+    QListIterator<QTypeCommandInterface *> i(_ports);
+    while(i.hasNext()) {
         i.next()->transmitTo(other);
+    }
+}
+
+void QTypeCommandWidget::saveState(QString group)
+{
+    QListIterator<QTypeCommandInterface *> i(_ports);
+    while(i.hasNext()) {
+        i.next()->saveState(group + "/" + objectName());
+    }
+}
+
+void QTypeCommandWidget::restoreState(QString group)
+{
+    QListIterator<QTypeCommandInterface *> i(_ports);
+    while(i.hasNext()) {
+        i.next()->restoreState(group + "/" + objectName());
+    }
 }
 
 void QTypeCommandWidget::transmit()
 {
     for(int i=0; i<_ports.size(); i++){
-        if(_ports[i]->enabled())
+        if(_ports[i]->enabled()) {
             _ports[i]->transmit_packet();
+        }
     }
 }
 

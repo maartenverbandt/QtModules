@@ -16,12 +16,15 @@ public:
     void add(QTypeCommandInterface *port);
     virtual void transmitTo(QDataNode *other);
 
+    virtual void saveState(QString group);
+    virtual void restoreState(QString group);
+
     virtual void transmit();
     void reset();
 
 protected:
     QVBoxLayout *_layout = new QVBoxLayout(this);
-    QList<QDataPortInterface *> _ports;
+    QList<QTypeCommandInterface *> _ports;
 
 };
 

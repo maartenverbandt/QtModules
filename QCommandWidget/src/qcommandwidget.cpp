@@ -3,6 +3,8 @@
 QCommandWidget::QCommandWidget(QWidget *parent) :
     QWidget(parent)
 {
+    setObjectName("command_widget");
+
     _layout = new QHBoxLayout();
     _button_layout = new QVBoxLayout();
     _button_layout->addStretch();
@@ -45,6 +47,22 @@ void QCommandWidget::setCurrentInputWidget(int index)
 {
     if(index<_stack->count()){
         _buttons->button(index)->setChecked(true);
+    }
+}
+
+void QCommandWidget::saveState(QString group)
+{
+    QListIterator<QTypeCommandWidget *> i(_ports);
+    while(i.hasNext()) {
+        i.next()->saveState(group + "/" + objectName());
+    }
+}
+
+void QCommandWidget::restoreState(QString group)
+{
+    QListIterator<QTypeCommandWidget *> i(_ports);
+    while(i.hasNext()) {
+        i.next()->restoreState(group + "/" + objectName());
     }
 }
 
