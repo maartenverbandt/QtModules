@@ -13,3 +13,13 @@ QCommandDock::QCommandDock(QRobotWindow *window) :
     setWidget(_command_widget);
     window->addDockWidget(Qt::RightDockWidgetArea, this);
 }
+
+void QCommandDock::on_show()
+{
+    _command_widget->restoreState(_window->group());
+}
+
+void QCommandDock::on_close()
+{
+    _command_widget->saveState(_window->group());
+}

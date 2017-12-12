@@ -13,6 +13,10 @@ public:
 private:
     QCommandWidget *_command_widget;
 
+protected slots:
+    virtual void on_show();
+    virtual void on_close();
+
 };
 
 #endif // QCOMMANDDOCK_H
