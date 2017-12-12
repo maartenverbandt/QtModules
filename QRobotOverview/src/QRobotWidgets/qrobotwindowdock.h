@@ -5,14 +5,15 @@
 #include <QDockWidget>
 #include <qrobotwindow.h>
 
-//class QRobotWindow;
-
 class QRobotWindowDock : public QDockWidget
 {
     Q_OBJECT
 public:
     explicit QRobotWindowDock(const QString& text, QRobotWindow *window);
     QAction *showAction();
+
+protected:
+    QRobotWindow *_window;
 
 private:
     QAction *_show;
