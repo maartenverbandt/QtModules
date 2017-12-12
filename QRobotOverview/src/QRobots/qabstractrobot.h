@@ -24,9 +24,6 @@ public:
     QList<QSerialProtocol *> connections();
     QPrintLog *getLog();
 
-    virtual void saveState();
-    virtual void restoreState();
-
     void connectTo(QDataNode *datanode);
 
 private:

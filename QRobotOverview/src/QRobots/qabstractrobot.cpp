@@ -46,13 +46,3 @@ QPrintLog *QAbstractRobot::getLog()
 {
     return _log;
 }
-
-void QAbstractRobot::saveState()
-{
-    window()->saveState(objectName());
-}
-
-void QAbstractRobot::restoreState()
-{
-    window()->restoreState(objectName());
-}
