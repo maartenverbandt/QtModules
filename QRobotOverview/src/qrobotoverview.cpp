@@ -6,13 +6,6 @@ QRobotOverview::QRobotOverview(QWidget *parent) : QWidget(parent)
     setMinimumWidth(250);
 }
 
-QRobotOverview::~QRobotOverview()
-{
-    QListIterator<QAbstractRobot *> i(_robots);
-    while(i.hasNext())
-        i.next()->saveState();
-}
-
 int QRobotOverview::findRobot(int id) const
 {
     int index;
@@ -23,6 +16,13 @@ int QRobotOverview::findRobot(int id) const
     }
 
     return -1;
+}
+
+void QRobotOverview::closeEvent(QCloseEvent *)
+{
+    QListIterator<QAbstractRobot *> i(_robots);
+    while(i.hasNext())
+        i.next()->window()->close();
 }
 
 QAbstractRobot *QRobotOverview::addRobot(QAbstractRobot *robot)

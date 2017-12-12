@@ -14,9 +14,11 @@ class QRobotOverview : public QWidget
 
 public:
     explicit QRobotOverview(QWidget *parent = 0);
-    ~QRobotOverview();
 
     int findRobot(int id) const;
+
+protected:
+    virtual void closeEvent(QCloseEvent *);
 
 private:
     QList<QAbstractRobot*> _robots;
