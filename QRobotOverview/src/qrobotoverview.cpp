@@ -31,7 +31,6 @@ QAbstractRobot *QRobotOverview::addRobot(QAbstractRobot *robot)
     if(index < 0) {
         _robots.append(robot);
         robot->setParent(this);
-        robot->restoreState();
         QRobotButton *b = new QRobotButton(robot, this);
         layout()->addWidget(b);
         QObject::connect(b,&QRobotButton::clicked,robot->window(), &QRobotWindow::show);
