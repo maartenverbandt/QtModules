@@ -89,12 +89,33 @@ QAbstractRobot *QRobotWindow::robot()
     return _robot;
 }
 
-void QRobotWindow::saveState(QString group)
+QString QRobotWindow::group()
 {
-    _gpio->saveState(group);
+    return _robot->objectName();
 }
 
-void QRobotWindow::restoreState(QString group)
+void QRobotWindow::showEvent(QShowEvent *)
 {
-    _gpio->restoreState(group);
+    QSettings settings;
+    settings.beginGroup(group());
+    restoreGeometry(settings.value("geometry").toByteArray());
+    QMainWindow::restoreState(settings.value("windowState").toByteArray());
+    settings.endGroup();
+
+    _gpio->restoreState(group());
+}
+
+void QRobotWindow::closeEvent(QCloseEvent *)
+{
+    if(isVisible()) {
+        QSettings settings;
+        settings.beginGroup(group());
+        settings.setValue("geometry", saveGeometry());
+        settings.setValue("windowState", saveState());
+        settings.endGroup();
+
+        _gpio->saveState(group());
+
+        emit closing();
+    }
 }

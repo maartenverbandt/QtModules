@@ -13,6 +13,7 @@
 #include <qabstractrobot.h>
 #include <qrobotcommandwidget.h>
 
+
 class QAbstractRobot;
 
 class QRobotWindow : public QStackedWindow
@@ -25,10 +26,9 @@ public:
     QGPIODataNodeWidget *gpio();
     virtual QCommandWidget *command(QWidget *parent = 0);
     QAbstractRobot *robot();
+    QString group();
 
     virtual void handleNewConnection(QSerialProtocol *connection);
-    virtual void saveState(QString group);
-    virtual void restoreState(QString group);
 
 protected:
     QAbstractRobot *_robot;
@@ -39,9 +39,15 @@ protected:
     QMenu *_connection_menu;
     QMenu *_recorders_menu;
 
+    virtual void showEvent(QShowEvent *);
+    virtual void closeEvent(QCloseEvent *);
+
 private slots:
     virtual void activate(bool checked);
     void statusText(QString text);
+
+signals:
+    void closing();
 
 };
 
