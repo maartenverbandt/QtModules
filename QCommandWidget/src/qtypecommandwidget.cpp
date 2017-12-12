@@ -7,7 +7,7 @@ QTypeCommandWidget::QTypeCommandWidget(QString name, QWidget *parent) : QWidget(
     setLayout(_layout);
 }
 
-void QTypeCommandWidget::add(QDataPortInterface *port)
+void QTypeCommandWidget::add(QTypeCommandInterface *port)
 {
     _layout->insertWidget(_layout->count()-1, port->w());
     _ports.append(port);

@@ -3,7 +3,7 @@
 
 #include <qdatanodewidget.h>
 
-class QDataPortInterface : public QDataNodeWidget
+class QTypeCommandInterface : public QDataNodeWidget
 {
     Q_OBJECT
 public:

@@ -4,7 +4,7 @@
 #include <qtypecommandinterface.h>
 #include <qcommandmapwidget.h>
 
-class QGamepadCommand : public QDataPortInterface
+class QGamepadCommand : public QTypeCommandInterface
 {
 public:
     QGamepadCommand(QString name, QWidget *parent = 0);
