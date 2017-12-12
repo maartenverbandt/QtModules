@@ -12,7 +12,7 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     // Set object name
     setObjectName(robot->type() + QString::number(robot->id()) + "_window");
     setWindowTitle(robot->objectName());
-    setWindowIcon(robot->icon());
+    //setWindowIcon(robot->icon());
 
     addView(_gpio->w());
     menuBar()->setNativeMenuBar(false); // Set menubar not native as it causes command tab not to be displayed
