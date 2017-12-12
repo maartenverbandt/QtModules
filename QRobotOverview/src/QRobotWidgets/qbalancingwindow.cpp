@@ -9,7 +9,8 @@ QBalancingWindow::QBalancingWindow(QAbstractRobot *robot, QWidget *parent) :
 {
     addView(_balance->w());
 
-    _tools_menu->addAction(new QShowExcitationWindowAction(this, this));
+    QExcitationDock *excitation_dock = new QExcitationDock(this);
+    _tools_menu->addAction(excitation_dock->showAction());
     _recorder->add(new QAttitudeRecorder(this));
     _recorder->add(new QVelocityRecorder(this));
     _recorder->add(new QPositionRecorder(this));

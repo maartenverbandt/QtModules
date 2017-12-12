@@ -13,6 +13,7 @@ public:
     explicit QParameterDataNodeWidget(QWidget *parent = 0);
 
     virtual QWidget *w();
+    QParameterTableWidget *parameterTableWidget();
     virtual void receive(param_int_t);
     virtual void receive(param_float_t);
     void add(QIntegerParameter p);

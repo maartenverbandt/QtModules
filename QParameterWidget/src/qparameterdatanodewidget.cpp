@@ -14,6 +14,11 @@ QWidget *QParameterDataNodeWidget::w()
     return _w;
 }
 
+QParameterTableWidget *QParameterDataNodeWidget::parameterTableWidget()
+{
+    return _w;
+}
+
 void QParameterDataNodeWidget::receive(param_int_t i)
 {
     QString name = QString(QByteArray(i.name,10));

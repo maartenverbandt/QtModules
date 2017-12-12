@@ -1,9 +1,9 @@
 #include "qrobotwindow.h"
 
-#include <qshowthreadinginfoaction.h>
-#include <qshowconnectioninfoaction.h>
-#include <qshowparameterwidgetaction.h>
-#include <qshowcommandwidgetaction.h>
+#include <qthreadinginfodock.h>
+#include <qconnectioninfodock.h>
+#include <qparameterdock.h>
+#include <qcommanddock.h>
 #include <qgpiorecorder.h>
 
 QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
@@ -19,8 +19,10 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
 
     // Setup threading
     _tools_menu = menuBar()->addMenu("Tools");
-    _tools_menu->addAction(new QShowThreadingInfoAction(this, this));
-    _tools_menu->addAction(new QShowParameterWidgetAction(this, this));
+    QThreadingInfoDock *threading_info_dock = new QThreadingInfoDock(this);
+    _tools_menu->addAction(threading_info_dock->showAction());
+    QParameterDock *parameter_dock = new QParameterDock(this);
+    _tools_menu->addAction(parameter_dock->showAction());
 
     // Setup connections
     _connection_menu = menuBar()->addMenu("Connections");
@@ -34,7 +36,8 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     _recorder->setQuickRecord(rec);
 
     // Add command action
-    menuBar()->addAction(new QShowCommandWidgetAction(this, this));
+    QCommandDock *command_dock = new QCommandDock(this);
+    menuBar()->addAction(command_dock->showAction());
 
     // Add activate action
     QAction *activate = new QAction("activate",this);
@@ -53,7 +56,8 @@ void QRobotWindow::handleNewConnection(QSerialProtocol *connection)
     _gpio->connectTo(connection);
     _recorder->connectTo(connection);
     QMenu *m = _connection_menu->addMenu(connection->objectName());
-    m->addAction(new QShowConnectionInfoAction(connection, this, this));
+    QConnectionInfoDock *connection_info_dock = new QConnectionInfoDock(connection,this);
+    m->addAction(connection_info_dock->showAction());
     m->addAction(connection->getActivateAction());
 }
 

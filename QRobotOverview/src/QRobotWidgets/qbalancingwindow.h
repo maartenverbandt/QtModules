@@ -3,7 +3,7 @@
 
 #include <qrobotwindow.h>
 #include <qbalancingdatanodewidget.h>
-#include <qshowexcitationwindowaction.h>
+#include <qexcitationdock.h>
 
 class QBalancingWindow : public QRobotWindow
 {
