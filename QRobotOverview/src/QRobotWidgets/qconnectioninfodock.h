@@ -1,20 +1,17 @@
-#ifndef QSHOWCONNECTIONINFOACTION_H
-#define QSHOWCONNECTIONINFOACTION_H
+#ifndef QCONNECTIONINFODOCK_H
+#define QCONNECTIONINFODOCK_H
 
-#include <qshowdockaction.h>
+#include <qrobotwindowdock.h>
 #include <qconnectioninfodatanodewidget.h>
 
-class QShowConnectionInfoAction : public QShowDockAction
+class QConnectionInfoDock : public QRobotWindowDock
 {
 public:
-    explicit QShowConnectionInfoAction(QDataNode *connection, QRobotWindow *window, QObject *parent = 0);
+    explicit QConnectionInfoDock(QDataNode *connection, QRobotWindow *window);
 
 private:
-    QDataNode *_connection;
-
-protected:
-    virtual void showDock();
+    QConnectionInfoDataNodeWidget *_connection_info_datanode_widget;
 
 };
 
-#endif // QSHOWCONNECTIONINFOACTION_H
+#endif // QCONNECTIONINFODOCK_H

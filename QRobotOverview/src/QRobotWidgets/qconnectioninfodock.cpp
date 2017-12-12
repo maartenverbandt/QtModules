@@ -1,17 +1,11 @@
-#include "qshowconnectioninfoaction.h"
+#include "qconnectioninfodock.h"
 
-QShowConnectionInfoAction::QShowConnectionInfoAction(QDataNode* connection, QRobotWindow *window, QObject *parent) :
-    QShowDockAction("info", window, parent), _connection(connection)
+QConnectionInfoDock::QConnectionInfoDock(QDataNode* connection, QRobotWindow *window) :
+    QRobotWindowDock(connection->objectName() + " info", window),
+    _connection_info_datanode_widget(new QConnectionInfoDataNodeWidget(this))
 {
-    //do nothing
-}
-
-void QShowConnectionInfoAction::showDock()
-{
-    QDockWidget *dock = new QDockWidget(_connection->objectName() + " info", _window);
-    QConnectionInfoDataNodeWidget *w = new QConnectionInfoDataNodeWidget(dock);
-    _window->robot()->connectTo(w);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setWidget(w->w());
-    _window->addDockWidget(Qt::RightDockWidgetArea, dock);
+    _connection_info_datanode_widget->connectTo(connection);
+    setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    setWidget(_connection_info_datanode_widget->w());
+    window->addDockWidget(Qt::RightDockWidgetArea, this);
 }

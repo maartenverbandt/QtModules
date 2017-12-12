@@ -1,18 +1,22 @@
-#ifndef QSHOWPARAMETERWIDGETACTION_H
-#define QSHOWPARAMETERWIDGETACTION_H
+#ifndef QPARAMETERDOCK_H
+#define QPARAMETERDOCK_H
 
-#include <qshowdockaction.h>
+#include <qrobotwindowdock.h>
 #include <qparameterdatanodewidget.h>
 
-class QShowParameterWidgetAction : public QShowDockAction
+class QParameterDock : public QRobotWindowDock
 {
     Q_OBJECT
 public:
-    explicit QShowParameterWidgetAction(QRobotWindow *window, QObject *parent = 0);
+    explicit QParameterDock(QRobotWindow *window);
+    QParameterDataNodeWidget *dataNode();
 
-protected:
-    virtual void showDock();
+private:
+    QParameterDataNodeWidget *_parameter_datanode_widget;
+
+protected slots:
+    //virtual void on_show_widget();
 
 };
 
-#endif // QSHOWPARAMETERWIDGETACTION_H
+#endif // QPARAMETERDOCK_H

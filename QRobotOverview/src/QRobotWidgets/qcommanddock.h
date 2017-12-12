@@ -1,18 +1,18 @@
-#ifndef QSHOWCOMMANDWIDGETACTION_H
-#define QSHOWCOMMANDWIDGETACTION_H
+#ifndef QCOMMANDDOCK_H
+#define QCOMMANDDOCK_H
 
-#include <qshowdockaction.h>
+#include <qrobotwindowdock.h>
 #include <qcommandwidget.h>
 
-class QShowCommandWidgetAction : public QShowDockAction
+class QCommandDock : public QRobotWindowDock
 {
     Q_OBJECT
 public:
-    explicit QShowCommandWidgetAction(QRobotWindow *window, QObject *parent = 0);
+    explicit QCommandDock(QRobotWindow *window);
 
-protected:
-    virtual void showDock();
+private:
+    QCommandWidget *_command_widget;
 
 };
 
-#endif // QSHOWCOMMANDWIDGETACTION_H
+#endif // QCOMMANDDOCK_H

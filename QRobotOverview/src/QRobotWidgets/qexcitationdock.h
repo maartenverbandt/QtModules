@@ -1,16 +1,18 @@
-#ifndef QSHOWEXCITATIONWINDOWACTION_H
-#define QSHOWEXCITATIONWINDOWACTION_H
+#ifndef QEXCITATIONDOCK_H
+#define QEXCITATIONDOCK_H
 
-#include <qshowdockaction.h>
+#include <qrobotwindowdock.h>
 #include <qexcitationwidget.h>
 
-class QShowExcitationWindowAction : public QShowDockAction
+class QExcitationDock : public QRobotWindowDock
 {
     Q_OBJECT
 public:
-    explicit QShowExcitationWindowAction(QRobotWindow *window, QObject *parent = 0);
+    explicit QExcitationDock(QRobotWindow *window);
 
-    virtual void showDock();
+private:
+    QExcitationWidget *_excitation_widget;
+
 };
 
-#endif // QSHOWEXCITATIONWINDOWACTION_H
+#endif // QEXCITATIONDOCK_H

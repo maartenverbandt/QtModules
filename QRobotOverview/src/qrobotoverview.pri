@@ -20,15 +20,9 @@
         $$PWD/QRobots/qtiltingtable.h \
         $$PWD/QRobots/qballbot.h \
         $$PWD/QRobotWidgets/qrobotwindow.h \
-        $$PWD/QRobotWidgets/qshowdockaction.h \
-        $$PWD/QRobotWidgets/qshowconnectioninfoaction.h \
-        $$PWD/QRobotWidgets/qshowthreadinginfoaction.h \
         $$PWD/QRobotWidgets/qbalancingwindow.h \
         $$PWD/QRobotWidgets/qbalancingwidget.h \
         $$PWD/QRobotWidgets/qbalancingdatanodewidget.h \
-        $$PWD/QRobotWidgets/qshowexcitationwindowaction.h \
-        $$PWD/QRobotWidgets/qshowparameterwidgetaction.h\
-        $$PWD/QRobotWidgets/qshowcommandwidgetaction.h \
         $$PWD/QRobotWidgets/qrobotcommandwidget.h
 
     SOURCES += \
@@ -43,15 +37,9 @@
         $$PWD/QRobots/qtiltingtable.cpp \
         $$PWD/QRobots/qballbot.cpp \
         $$PWD/QRobotWidgets/qrobotwindow.cpp \
-        $$PWD/QRobotWidgets/qshowdockaction.cpp \
-        $$PWD/QRobotWidgets/qshowconnectioninfoaction.cpp \
-        $$PWD/QRobotWidgets/qshowthreadinginfoaction.cpp \
         $$PWD/QRobotWidgets/qbalancingwindow.cpp \
         $$PWD/QRobotWidgets/qbalancingwidget.cpp \
         $$PWD/QRobotWidgets/qbalancingdatanodewidget.cpp \
-        $$PWD/QRobotWidgets/qshowexcitationwindowaction.cpp \
-        $$PWD/QRobotWidgets/qshowparameterwidgetaction.cpp \
-        $$PWD/QRobotWidgets/qshowcommandwidgetaction.cpp \
         $$PWD/QRobotWidgets/qrobotcommandwidget.cpp
 
     RESOURCES += \
@@ -72,3 +60,19 @@ include(../../QCommandWidget/src/qcommandwidget.pri)
 } else {
     message( "Skipping $$PWD: already included" )
 }
+
+HEADERS += \
+    $$PWD/QRobotWidgets/qparameterdock.h \
+    $$PWD/QRobotWidgets/qrobotwindowdock.h \
+    $$PWD/QRobotWidgets/qthreadinginfodock.h \
+    $$PWD/QRobotWidgets/qconnectioninfodock.h \
+    $$PWD/QRobotWidgets/qcommanddock.h \
+    $$PWD/QRobotWidgets/qexcitationdock.h
+
+SOURCES += \
+    $$PWD/QRobotWidgets/qparameterdock.cpp \
+    $$PWD/QRobotWidgets/qrobotwindowdock.cpp \
+    $$PWD/QRobotWidgets/qthreadinginfodock.cpp \
+    $$PWD/QRobotWidgets/qconnectioninfodock.cpp \
+    $$PWD/QRobotWidgets/qcommanddock.cpp \
+    $$PWD/QRobotWidgets/qexcitationdock.cpp

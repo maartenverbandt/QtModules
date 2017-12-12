@@ -1,17 +1,18 @@
-#ifndef QSHOWTHREADINGINFOACTION_H
-#define QSHOWTHREADINGINFOACTION_H
+#ifndef QTHREADINGINFODOCK_H
+#define QTHREADINGINFODOCK_H
 
-#include <qshowdockaction.h>
+#include <qrobotwindowdock.h>
 #include <qthreadinfodatanodewidget.h>
 
-class QShowThreadingInfoAction : public QShowDockAction
+class QThreadingInfoDock : public QRobotWindowDock
 {
 public:
-    explicit QShowThreadingInfoAction(QRobotWindow *window, QObject *parent = 0);
+    explicit QThreadingInfoDock(QRobotWindow *window);
+    QThreadInfoDataNodeWidget *dataNode();
 
-protected:
-    virtual void showDock();
+private:
+    QThreadInfoDataNodeWidget *_thread_info_datanode_widget;
 
 };
 
-#endif // QSHOWTHREADINGINFOACTION_H
+#endif // QTHREADINGINFODOCK_H

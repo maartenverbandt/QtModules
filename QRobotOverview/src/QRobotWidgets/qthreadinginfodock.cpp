@@ -1,19 +1,15 @@
-#include "qshowthreadinginfoaction.h"
+#include "qthreadinginfodock.h"
 
-QShowThreadingInfoAction::QShowThreadingInfoAction(QRobotWindow *window, QObject *parent) :
-    QShowDockAction("threading info", window, parent)
+QThreadingInfoDock::QThreadingInfoDock(QRobotWindow *window) :
+    QRobotWindowDock("threading info", window),
+    _thread_info_datanode_widget(new QThreadInfoDataNodeWidget(this))
 {
-    // do nothing
+    setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
+    setWidget(_thread_info_datanode_widget->w());
+    window->addDockWidget(Qt::BottomDockWidgetArea, this);
 }
 
-void QShowThreadingInfoAction::showDock()
+QThreadInfoDataNodeWidget *QThreadingInfoDock::dataNode()
 {
-    QDockWidget *dock = new QDockWidget("threading info", _window);
-    QThreadInfoDataNodeWidget *w = new QThreadInfoDataNodeWidget(dock);
-    _window->robot()->connectTo(w);
-    dock->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
-    dock->setWidget(w->w());
-    _window->addDockWidget(Qt::BottomDockWidgetArea, dock);
+    return _thread_info_datanode_widget;
 }
-
-

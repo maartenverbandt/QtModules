@@ -1,17 +1,21 @@
-#include "qshowparameterwidgetaction.h"
+#include "qparameterdock.h"
 
-QShowParameterWidgetAction::QShowParameterWidgetAction(QRobotWindow *window, QObject *parent) :
-    QShowDockAction("parameters", window, parent)
+QParameterDock::QParameterDock(QRobotWindow *window) :
+    QRobotWindowDock("parameters", window),
+    _parameter_datanode_widget(new QParameterDataNodeWidget(this))
 {
-    // do nothing
+    setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    setWidget(_parameter_datanode_widget->w());
+    window->addDockWidget(Qt::RightDockWidgetArea, this);
+
 }
 
-void QShowParameterWidgetAction::showDock()
+QParameterDataNodeWidget *QParameterDock::dataNode()
 {
-    QDockWidget *dock = new QDockWidget("parameters", _window);
-    QParameterDataNodeWidget *w = new QParameterDataNodeWidget(dock);
-    _window->robot()->connectTo(w);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setWidget(w->w());
-    _window->addDockWidget(Qt::RightDockWidgetArea, dock);
+    return _parameter_datanode_widget;
 }
+
+/*void QShowParameterWidgetAction::on_show_widget()
+{
+    _parameter_datanode_widget->parameterTableWidget()->load()->click();
+}*/

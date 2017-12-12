@@ -1,21 +1,14 @@
-#include "qshowexcitationwindowaction.h"
+#include "qexcitationdock.h"
 
-QShowExcitationWindowAction::QShowExcitationWindowAction(QRobotWindow *window, QObject *parent) :
-    QShowDockAction("excitation", window, parent)
+QExcitationDock::QExcitationDock(QRobotWindow *window) :
+    QRobotWindowDock("excitation", window), _excitation_widget(new QExcitationWidget(this))
 {
-    //do nothing
-}
-
-void QShowExcitationWindowAction::showDock()
-{
-    QDockWidget *dock = new QDockWidget("excitation", _window);
-    QExcitationWidget *w = new QExcitationWidget(dock);
-
-    QListIterator<QSerialProtocol *> i(_window->robot()->connections());
+    QListIterator<QSerialProtocol *> i(window->robot()->connections());
     while(i.hasNext())
-        w->transmitTo(i.next());
+        _excitation_widget->transmitTo(i.next());
 
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setWidget(w);
-    _window->addDockWidget(Qt::RightDockWidgetArea, dock);
+    setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    setWidget(_excitation_widget);
+    window->addDockWidget(Qt::RightDockWidgetArea, this);
+    //restoreState();
 }

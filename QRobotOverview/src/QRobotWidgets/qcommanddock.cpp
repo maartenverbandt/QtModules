@@ -1,23 +1,15 @@
-#include "qshowcommandwidgetaction.h"
+#include "qcommanddock.h"
 
-QShowCommandWidgetAction::QShowCommandWidgetAction(QRobotWindow *window, QObject *parent) :
-    QShowDockAction("commands", window, parent)
+QCommandDock::QCommandDock(QRobotWindow *window) :
+    QRobotWindowDock("commands", window)
 {
-    // do nothing
-}
-
-void QShowCommandWidgetAction::showDock()
-{
-    QDockWidget *dock = new QDockWidget("command", _window);
-    QCommandWidget *w = _window->command(dock);
-
-    // connect all connections to the widget
-    QListIterator<QSerialProtocol *> i(_window->robot()->connections());
+    _command_widget = window->command(this);
+    _command_widget->restoreState(window->robot()->objectName());
+    QListIterator<QSerialProtocol *> i(window->robot()->connections());
     while(i.hasNext()){
-        w->transmitTo(i.next());
+        _command_widget->transmitTo(i.next());
     }
-
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    dock->setWidget(w);
-    _window->addDockWidget(Qt::RightDockWidgetArea, dock);
+    setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    setWidget(_command_widget);
+    window->addDockWidget(Qt::RightDockWidgetArea, this);
 }

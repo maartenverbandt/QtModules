@@ -5,16 +5,21 @@
 #include <QDockWidget>
 #include <qrobotwindow.h>
 
-class QShowDockAction : public QAction
-{
-public:
-    explicit QShowDockAction(const QString& text, QRobotWindow *window, QObject *parent = 0);
+//class QRobotWindow;
 
-protected:
-    QRobotWindow *_window;
+class QRobotWindowDock : public QDockWidget
+{
+    Q_OBJECT
+public:
+    explicit QRobotWindowDock(const QString& text, QRobotWindow *window);
+    QAction *showAction();
+
+private:
+    QAction *_show;
 
 protected slots:
-    virtual void showDock() = 0;
+    virtual void on_show(){}
+    virtual void on_close(){}
 
 };
 
