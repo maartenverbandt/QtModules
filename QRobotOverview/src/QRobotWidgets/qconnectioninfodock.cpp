@@ -9,3 +9,8 @@ QConnectionInfoDock::QConnectionInfoDock(QDataNode* connection, QRobotWindow *wi
     setWidget(_connection_info_datanode_widget->w());
     window->addDockWidget(Qt::RightDockWidgetArea, this);
 }
+
+void QConnectionInfoDock::showEvent(QShowEvent *)
+{
+    _connection_info_datanode_widget->connectionInfoWidget()->reset();
+}
