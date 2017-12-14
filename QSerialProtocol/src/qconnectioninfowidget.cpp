@@ -105,4 +105,5 @@ void QConnectionInfoWidget::reset()
 {
     _timer.restart();
     _msg_received = 0;
+    _msg_map.clear();
 }
