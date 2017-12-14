@@ -1,8 +1,8 @@
-#ifndef QSHOWDOCKACTION_H
-#define QSHOWDOCKACTION_H
+#ifndef QROBOTWINDOWDOCK_H
+#define QROBOTWINDOWDOCK_H
 
-#include <QAction>
 #include <QDockWidget>
+#include <QAction>
 #include <qrobotwindow.h>
 
 class QRobotWindowDock : public QDockWidget
@@ -24,4 +24,4 @@ protected slots:
 
 };
 
-#endif // QSHOWDOCKACTION_H
+#endif // QROBOTWINDOWDOCK_H
