@@ -1,5 +1,7 @@
 #include "qabstractrobot.h"
 
+#include <qrobotwindow.h>
+
 QAbstractRobot::QAbstractRobot(const int id, const QString type, QObject *parent) :
     QObject(parent),
     _id(id),

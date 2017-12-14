@@ -1,6 +1,9 @@
 #ifndef QROBOTWINDOW_H
 #define QROBOTWINDOW_H
 
+#include <qabstractrobot.h>
+class QAbstractRobot;
+
 #include <QStatusBar>
 #include <QMenuBar>
 #include <QLabel>
@@ -10,11 +13,8 @@
 #include <qrecorderwidget.h>
 #include <qthreadinfodatanodewidget.h>
 #include <qconnectioninfodatanodewidget.h>
-#include <qabstractrobot.h>
 #include <qrobotcommandwidget.h>
 
-
-class QAbstractRobot;
 
 class QRobotWindow : public QStackedWindow
 {

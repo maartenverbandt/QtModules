@@ -1,5 +1,6 @@
 #include "qrobotwindow.h"
 
+#include <qabstractrobot.h>
 #include <qthreadinginfodock.h>
 #include <qconnectioninfodock.h>
 #include <qparameterdock.h>

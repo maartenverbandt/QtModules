@@ -1,4 +1,5 @@
 #include "qrobotoverview.h"
+#include <qrobotwindow.h>
 
 QRobotOverview::QRobotOverview(QWidget *parent) : QWidget(parent)
 {
@@ -21,8 +22,9 @@ int QRobotOverview::findRobot(int id) const
 void QRobotOverview::closeEvent(QCloseEvent *)
 {
     QListIterator<QAbstractRobot *> i(_robots);
-    while(i.hasNext())
+    while(i.hasNext()) {
         i.next()->window()->close();
+    }
 }
 
 QAbstractRobot *QRobotOverview::addRobot(QAbstractRobot *robot)
