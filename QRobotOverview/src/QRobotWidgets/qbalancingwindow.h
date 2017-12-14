@@ -18,6 +18,7 @@ public:
 
 private:
     QBalancingDataNodeWidget *_balance;
+    QExcitationDock *_excitation_dock;
 
 };
 
