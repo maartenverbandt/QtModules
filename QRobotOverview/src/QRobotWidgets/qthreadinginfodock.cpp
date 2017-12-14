@@ -9,7 +9,7 @@ QThreadingInfoDock::QThreadingInfoDock(QRobotWindow *window) :
     window->addDockWidget(Qt::BottomDockWidgetArea, this);
 }
 
-QThreadInfoDataNodeWidget *QThreadingInfoDock::dataNode()
+QThreadInfoDataNodeWidget *QThreadingInfoDock::datanode()
 {
     return _thread_info_datanode_widget;
 }

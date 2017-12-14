@@ -9,7 +9,7 @@ class QParameterDock : public QRobotWindowDock
     Q_OBJECT
 public:
     explicit QParameterDock(QRobotWindow *window);
-    QParameterDataNodeWidget *dataNode();
+    QParameterDataNodeWidget *datanode();
 
 private:
     QParameterDataNodeWidget *_parameter_datanode_widget;

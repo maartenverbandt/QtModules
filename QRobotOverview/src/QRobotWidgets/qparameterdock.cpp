@@ -7,10 +7,9 @@ QParameterDock::QParameterDock(QRobotWindow *window) :
     setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     setWidget(_parameter_datanode_widget->w());
     window->addDockWidget(Qt::RightDockWidgetArea, this);
-
 }
 
-QParameterDataNodeWidget *QParameterDock::dataNode()
+QParameterDataNodeWidget *QParameterDock::datanode()
 {
     return _parameter_datanode_widget;
 }

@@ -9,6 +9,7 @@ class QExcitationDock : public QRobotWindowDock
     Q_OBJECT
 public:
     explicit QExcitationDock(QRobotWindow *window);
+    QExcitationWidget *datanode();
 
 private:
     QExcitationWidget *_excitation_widget;

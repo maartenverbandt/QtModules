@@ -9,6 +9,7 @@ class QCommandDock : public QRobotWindowDock
     Q_OBJECT
 public:
     explicit QCommandDock(QRobotWindow *window);
+    QCommandWidget *datanode();
 
 private:
     QCommandWidget *_command_widget;

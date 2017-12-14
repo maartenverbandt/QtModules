@@ -8,7 +8,7 @@ class QThreadingInfoDock : public QRobotWindowDock
 {
 public:
     explicit QThreadingInfoDock(QRobotWindow *window);
-    QThreadInfoDataNodeWidget *dataNode();
+    QThreadInfoDataNodeWidget *datanode();
 
 private:
     QThreadInfoDataNodeWidget *_thread_info_datanode_widget;
