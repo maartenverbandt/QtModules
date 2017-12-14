@@ -9,12 +9,12 @@ class QAbstractRobot;
 #include <QLabel>
 #include <qstackedwindow.h>
 #include <qgpiodatanodewidget.h>
-#include <qabstractrecorder.h>
 #include <qrecorderwidget.h>
-#include <qthreadinfodatanodewidget.h>
-#include <qconnectioninfodatanodewidget.h>
-#include <qrobotcommandwidget.h>
+#include <qcommandwidget.h>
 
+class QThreadingInfoDock;
+class QParameterDock;
+class QCommandDock;
 
 class QRobotWindow : public QStackedWindow
 {
@@ -34,6 +34,10 @@ protected:
     QAbstractRobot *_robot;
     QGPIODataNodeWidget *_gpio = new QGPIODataNodeWidget(0);
     QRecorderWidget *_recorder = new QRecorderWidget(0);
+    QThreadingInfoDock *_threading_info_dock;
+    QParameterDock *_parameter_dock;
+    QCommandDock *_command_dock;
+
 
     QMenu *_tools_menu;
     QMenu *_connection_menu;
