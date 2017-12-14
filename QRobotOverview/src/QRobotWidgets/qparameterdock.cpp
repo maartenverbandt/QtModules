@@ -14,7 +14,10 @@ QParameterDataNodeWidget *QParameterDock::datanode()
     return _parameter_datanode_widget;
 }
 
-/*void QShowParameterWidgetAction::on_show_widget()
+void QParameterDock::showEvent(QShowEvent *)
 {
-    _parameter_datanode_widget->parameterTableWidget()->load()->click();
-}*/
+    if(!_parameters_fetched) {
+        _parameters_fetched = true;
+        _parameter_datanode_widget->parameterTableWidget()->load()->click();
+    }
+}

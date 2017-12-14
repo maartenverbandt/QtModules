@@ -11,11 +11,12 @@ public:
     explicit QParameterDock(QRobotWindow *window);
     QParameterDataNodeWidget *datanode();
 
+protected:
+    virtual void showEvent(QShowEvent *);
+
 private:
     QParameterDataNodeWidget *_parameter_datanode_widget;
-
-protected slots:
-    //virtual void on_show_widget();
+    bool _parameters_fetched = false;
 
 };
 
