@@ -5,26 +5,25 @@
 #include <QGamepadManager>
 #include <QComboBox>
 #include <qtypecommandwidget.h>
-#include <qgamepadbutton.h>
-#include <qgamepadcommand.h>
+#include <qgamepadcommanddatanodewidget.h>
 
-class QCommandGamepadWidget : public QTypeCommandWidget
+/*TODO: avoid up and downcasting from QTypeCommandInterface to QGamepadCommandDataNodeWidget */
+
+class QGamepadCommandWidget : public QTypeCommandWidget
 {
 public:
-    QCommandGamepadWidget(QString name, QWidget *parent = 0);
+    QGamepadCommandWidget(QString name, QWidget *parent = 0);
 
 private:
     QComboBox *_gamepads;
+    QList<QGamepadCommandDataNodeWidget *> _commands;
+
     int currentDeviceID();
-    bool update(int deviceID, int buttonID, double value);
 
 public slots:
     void gamepadConnected(int deviceID);
     void axisEvent(int deviceID, QGamepadManager::GamepadAxis axis, double value);
     void buttonEvent(int deviceID, QGamepadManager::GamepadButton button, double value);
-
-signals:
-    void valueChanged(int button, double value);
 
 };
 

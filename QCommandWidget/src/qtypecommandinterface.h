@@ -3,11 +3,11 @@
 
 #include <qdatanodewidget.h>
 
-class QDataPortInterface : public QDataNodeWidget
+class QTypeCommandInterface : public QDataNodeWidget
 {
     Q_OBJECT
 public:
-    QDataPortInterface(QWidget *parent = 0) : QDataNodeWidget(parent){}
+    QTypeCommandInterface(QWidget *parent = 0) : QDataNodeWidget(parent){}
 
     virtual QWidget *w() = 0;
     virtual void transmit_packet() = 0;

@@ -1,7 +1,7 @@
 #include "qcsvcommanddatanodewidget.h"
 
 QCsvReaderDataNodeWidget::QCsvReaderDataNodeWidget(const QString& name, QWidget *parent) :
-    QDataPortInterface(parent), _csv_reader(new QCsvReaderWidget(name, parent))
+    QTypeCommandInterface(parent), _csv_reader(new QCsvReaderWidget(name, parent))
 {
 
 }

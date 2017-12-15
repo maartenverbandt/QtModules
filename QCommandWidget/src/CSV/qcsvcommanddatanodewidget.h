@@ -5,7 +5,7 @@
 #include <qtypecommandinterface.h>
 #include <qcsvreaderwidget.h>
 
-class QCsvReaderDataNodeWidget : public QDataPortInterface
+class QCsvReaderDataNodeWidget : public QTypeCommandInterface
 {
     Q_OBJECT
 public:

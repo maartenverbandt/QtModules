@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QCommandMapWidget</class>
- <widget class="QWidget" name="QCommandMapWidget">
+ <class>QGamepadInputWidget</class>
+ <widget class="QWidget" name="QGamepadInputWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -67,7 +67,11 @@
        </spacer>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="layout"/>
+       <layout class="QVBoxLayout" name="layout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+       </layout>
       </item>
      </layout>
     </widget>

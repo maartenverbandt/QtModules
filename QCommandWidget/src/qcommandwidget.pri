@@ -15,11 +15,7 @@
             $$PWD/CSV/qcsvreaderwidget.h \
             $$PWD/UDP/qudpreader.h \
             $$PWD/UDP/qudpreaderwidget.h \
-            $$PWD/Gamepad/qgamepadbutton.h \
-            $$PWD/Gamepad/qvelocitygamepadcommand.h \
-            $$PWD/Gamepad/qcommandmapwidget.h \
-            $$PWD/Gamepad/qgamepadcommand.h \
-            $$PWD/Gamepad/qcommand.h
+            $$PWD/Gamepad/qvelocitygamepadcommand.h
 
         SOURCES += \
             $$PWD/qcommandwidget.cpp \
@@ -27,16 +23,11 @@
             $$PWD/CSV/qcsvreaderwidget.cpp \
             $$PWD/UDP/qudpreader.cpp \
             $$PWD/UDP/qudpreaderwidget.cpp \
-            $$PWD/Gamepad/qgamepadbutton.cpp \
-            $$PWD/Gamepad/qvelocitygamepadcommand.cpp \
-            $$PWD/Gamepad/qcommandmapwidget.cpp \
-            $$PWD/Gamepad/qgamepadcommand.cpp \
-            $$PWD/Gamepad/qcommand.cpp
+            $$PWD/Gamepad/qvelocitygamepadcommand.cpp
                         
 
     FORMS += $$PWD/CSV/qcsvreaderwidget.ui\
-             $$PWD/UDP/qudpportwidget.ui \
-             $$PWD/Gamepad/qcommandmapwidget.ui
+             $$PWD/UDP/qudpportwidget.ui
 
 include(../../QSerialProtocol/src/qserialprotocol.pri)
 
@@ -45,17 +36,26 @@ include(../../QSerialProtocol/src/qserialprotocol.pri)
 }
 
 HEADERS += \
-    $$PWD/Gamepad/qcommandgamepadwidget.h \
     $$PWD/CSV/qcsvcommanddatanodewidget.h \
     $$PWD/CSV/qgpiocsvcommand.h \
     $$PWD/CSV/qpositioncmdcsvcommand.h \
     $$PWD/UDP/qtypeudpcommand.h \
     $$PWD/qtypecommandwidget.h \
-    $$PWD/qtypecommandinterface.h
+    $$PWD/qtypecommandinterface.h \
+    $$PWD/Gamepad/qgamepadentry.h \
+    $$PWD/Gamepad/qgamepadinputwidget.h \
+    $$PWD/Gamepad/qgamepadcommanddatanodewidget.h \
+    $$PWD/Gamepad/qgamepadcommandwidget.h
 
 SOURCES += \
-    $$PWD/Gamepad/qcommandgamepadwidget.cpp \
     $$PWD/CSV/qcsvcommanddatanodewidget.cpp \
     $$PWD/qtypecommandwidget.cpp \
     $$PWD/CSV/qgpiocsvcommand.cpp \
-    $$PWD/CSV/qpositioncmdcsvcommand.cpp
+    $$PWD/CSV/qpositioncmdcsvcommand.cpp \
+    $$PWD/Gamepad/qgamepadentry.cpp \
+    $$PWD/Gamepad/qgamepadinputwidget.cpp \
+    $$PWD/Gamepad/qgamepadcommanddatanodewidget.cpp \
+    $$PWD/Gamepad/qgamepadcommandwidget.cpp
+
+FORMS += \
+    $$PWD/Gamepad/qgamepadinputwidget.ui

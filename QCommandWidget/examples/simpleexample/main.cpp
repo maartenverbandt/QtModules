@@ -4,7 +4,7 @@
 #include <qgpiocsvcommand.h>
 #include <qpositioncmdcsvcommand.h>
 #include <qtypeudpcommand.h>
-#include <qcommandgamepadwidget.h>
+#include <qgamepadcommandwidget.h>
 #include <qvelocitygamepadcommand.h>
 #include <qcommandwidget.h>
 #include <listener.h>
@@ -16,20 +16,20 @@ int main(int argc, char *argv[])
     w.show();
 
     QTypeCommandWidget *csv = new QTypeCommandWidget("CSV",0);
-    csv->add(new QGpioCsvReader(csv));
-    csv->add(new QPositionCmdCsvReader(csv));
+    csv->add(new QGpioCsvCommand(csv));
+    csv->add(new QPositionCmdCsvCommand(csv));
 
     QTypeCommandWidget *udp = new QTypeCommandWidget("UDP",0);
-    udp->add(new QGpioUdpReader(udp));
-    udp->add(new QPositionCmdUdpReader(udp));
+    udp->add(new QGpioUdpCommand(udp));
+    udp->add(new QPositionCmdUdpCommand(udp));
 
-    //QCommandGamepadWidget *gamepad = new QCommandGamepadWidget("Gamepad");
-    //gamepad->add(new QVelocityGamepadCommand(gamepad));
+    QGamepadCommandWidget *gamepad = new QGamepadCommandWidget("Gamepad");
+    gamepad->add(new QVelocityGamepadCommand(gamepad));
 
     QCommandWidget *d = new QCommandWidget(0);
     d->add(csv);
     d->add(udp);
-    //d->add(gamepad);
+    d->add(gamepad);
     d->show();
 
     Listener *l = new Listener(0);

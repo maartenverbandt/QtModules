@@ -13,7 +13,8 @@ class QTypeCommandWidget : public QWidget
 public:
     explicit QTypeCommandWidget(QString name, QWidget *parent = 0);
 
-    void add(QDataPortInterface *port);
+    void add(QTypeCommandInterface *port);
+    void addWidget(QWidget *widget);
     virtual void transmitTo(QDataNode *other);
 
     virtual void transmit();
@@ -21,7 +22,7 @@ public:
 
 protected:
     QVBoxLayout *_layout = new QVBoxLayout(this);
-    QList<QDataPortInterface *> _ports;
+    QList<QTypeCommandInterface *> _ports;
 
 };
 

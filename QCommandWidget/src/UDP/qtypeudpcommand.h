@@ -4,11 +4,11 @@
 #include <qtypecommandinterface.h>
 #include <qudpreaderwidget.h>
 
-template <typename T> class QTypeUdpCommand : public QDataPortInterface
+template <typename T> class QTypeUdpCommand : public QTypeCommandInterface
 {
 public:
     QTypeUdpCommand(const QString& name, QWidget* parent = 0):
-        QDataPortInterface(parent),
+        QTypeCommandInterface(parent),
         _udp_reader(new QUdpReaderWidget(sizeof(T), name, parent))
     {
 
