@@ -3,10 +3,10 @@
 
 #include <QObject>
 #include <QIcon>
-#include <qdatanode.h>
-#include <qrobotwindow.h>
+#include <qserialprotocol.h>
 #include <qprintlog.h>
 
+#include <qrobotwindow.h>
 class QRobotWindow;
 
 class QAbstractRobot : public QObject
@@ -23,9 +23,6 @@ public:
     QString type();
     QList<QSerialProtocol *> connections();
     QPrintLog *getLog();
-
-    virtual void saveState();
-    virtual void restoreState();
 
     void connectTo(QDataNode *datanode);
 

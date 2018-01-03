@@ -11,6 +11,11 @@ QWidget *QConnectionInfoDataNodeWidget::w()
     return _widget;
 }
 
+QConnectionInfoWidget *QConnectionInfoDataNodeWidget::connectionInfoWidget()
+{
+    return _widget;
+}
+
 void QConnectionInfoDataNodeWidget::receive(heartbeat_t)
 {
     _widget->receive("heartbeat");

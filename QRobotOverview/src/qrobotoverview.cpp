@@ -1,16 +1,10 @@
 #include "qrobotoverview.h"
+#include <qrobotwindow.h>
 
 QRobotOverview::QRobotOverview(QWidget *parent) : QWidget(parent)
 {
     setLayout(new QVBoxLayout(this));
     setMinimumWidth(250);
-}
-
-QRobotOverview::~QRobotOverview()
-{
-    QListIterator<QAbstractRobot *> i(_robots);
-    while(i.hasNext())
-        i.next()->saveState();
 }
 
 int QRobotOverview::findRobot(int id) const
@@ -25,13 +19,20 @@ int QRobotOverview::findRobot(int id) const
     return -1;
 }
 
+void QRobotOverview::closeEvent(QCloseEvent *)
+{
+    QListIterator<QAbstractRobot *> i(_robots);
+    while(i.hasNext()) {
+        i.next()->window()->close();
+    }
+}
+
 QAbstractRobot *QRobotOverview::addRobot(QAbstractRobot *robot)
 {
     int index = findRobot(robot->id());
     if(index < 0) {
         _robots.append(robot);
         robot->setParent(this);
-        robot->restoreState();
         QRobotButton *b = new QRobotButton(robot, this);
         layout()->addWidget(b);
         QObject::connect(b,&QRobotButton::clicked,robot->window(), &QRobotWindow::show);

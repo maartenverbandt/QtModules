@@ -1,10 +1,12 @@
 #include "qrobotwindow.h"
 
-#include <qshowthreadinginfoaction.h>
-#include <qshowconnectioninfoaction.h>
-#include <qshowparameterwidgetaction.h>
-#include <qshowcommandwidgetaction.h>
+#include <qabstractrobot.h>
+#include <qthreadinginfodock.h>
+#include <qconnectioninfodock.h>
+#include <qparameterdock.h>
+#include <qcommanddock.h>
 #include <qgpiorecorder.h>
+#include <qrobotcommandwidget.h>
 
 QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     QStackedWindow(parent), _robot(robot)
@@ -12,15 +14,17 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     // Set object name
     setObjectName(robot->type() + QString::number(robot->id()) + "_window");
     setWindowTitle(robot->objectName());
-    setWindowIcon(robot->icon());
+    //setWindowIcon(robot->icon());
 
     addView(_gpio->w());
     menuBar()->setNativeMenuBar(false); // Set menubar not native as it causes command tab not to be displayed
 
     // Setup threading
     _tools_menu = menuBar()->addMenu("Tools");
-    _tools_menu->addAction(new QShowThreadingInfoAction(this, this));
-    _tools_menu->addAction(new QShowParameterWidgetAction(this, this));
+    _threading_info_dock = new QThreadingInfoDock(this);
+    _tools_menu->addAction(_threading_info_dock->showAction());
+    _parameter_dock = new QParameterDock(this);
+    _tools_menu->addAction(_parameter_dock->showAction());
 
     // Setup connections
     _connection_menu = menuBar()->addMenu("Connections");
@@ -34,7 +38,8 @@ QRobotWindow::QRobotWindow(QAbstractRobot *robot, QWidget *parent) :
     _recorder->setQuickRecord(rec);
 
     // Add command action
-    menuBar()->addAction(new QShowCommandWidgetAction(this, this));
+    _command_dock = new QCommandDock(this);
+    menuBar()->addAction(_command_dock->showAction());
 
     // Add activate action
     QAction *activate = new QAction("activate",this);
@@ -52,8 +57,13 @@ void QRobotWindow::handleNewConnection(QSerialProtocol *connection)
 {
     _gpio->connectTo(connection);
     _recorder->connectTo(connection);
+    _threading_info_dock->datanode()->connectTo(connection);
+    _parameter_dock->datanode()->connectTo(connection);
+    _command_dock->datanode()->transmitTo(connection);
+
     QMenu *m = _connection_menu->addMenu(connection->objectName());
-    m->addAction(new QShowConnectionInfoAction(connection, this, this));
+    QConnectionInfoDock *connection_info_dock = new QConnectionInfoDock(connection,this);
+    m->addAction(connection_info_dock->showAction());
     m->addAction(connection->getActivateAction());
 }
 
@@ -85,12 +95,33 @@ QAbstractRobot *QRobotWindow::robot()
     return _robot;
 }
 
-void QRobotWindow::saveState(QString group)
+QString QRobotWindow::group()
 {
-    _gpio->saveState(group);
+    return _robot->objectName();
 }
 
-void QRobotWindow::restoreState(QString group)
+void QRobotWindow::showEvent(QShowEvent *)
 {
-    _gpio->restoreState(group);
+    QSettings settings;
+    settings.beginGroup(group());
+    restoreGeometry(settings.value("geometry").toByteArray());
+    QMainWindow::restoreState(settings.value("windowState").toByteArray());
+    settings.endGroup();
+
+    _gpio->restoreState(group());
+}
+
+void QRobotWindow::closeEvent(QCloseEvent *)
+{
+    if(isVisible()) {
+        QSettings settings;
+        settings.beginGroup(group());
+        settings.setValue("geometry", saveGeometry());
+        settings.setValue("windowState", saveState());
+        settings.endGroup();
+
+        _gpio->saveState(group());
+
+        emit closing();
+    }
 }

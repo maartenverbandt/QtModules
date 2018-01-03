@@ -20,3 +20,13 @@ void QCsvReaderDataNodeWidget::reset()
 {
     _csv_reader->getCsvReader()->reset();
 }
+
+void QCsvReaderDataNodeWidget::saveState(QString group)
+{
+    _csv_reader->saveState(group);
+}
+
+void QCsvReaderDataNodeWidget::restoreState(QString group)
+{
+    _csv_reader->restoreState(group);
+}

@@ -1,5 +1,7 @@
 #include "qabstractrobot.h"
 
+#include <qrobotwindow.h>
+
 QAbstractRobot::QAbstractRobot(const int id, const QString type, QObject *parent) :
     QObject(parent),
     _id(id),
@@ -45,14 +47,4 @@ void QAbstractRobot::addConnection(QSerialProtocol *connection)
 QPrintLog *QAbstractRobot::getLog()
 {
     return _log;
-}
-
-void QAbstractRobot::saveState()
-{
-    window()->saveState(objectName());
-}
-
-void QAbstractRobot::restoreState()
-{
-    window()->restoreState(objectName());
 }

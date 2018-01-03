@@ -14,6 +14,9 @@ public:
     virtual bool enabled() = 0;
     virtual void reset() = 0;
 
+    virtual void saveState(QString){}
+    virtual void restoreState(QString){}
+
 };
 
 #endif // QTYPECOMMANDINTERFACE_H

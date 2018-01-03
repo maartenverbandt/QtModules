@@ -9,6 +9,7 @@ class QConnectionInfoDataNodeWidget : public QDataNodeWidget
 public:
     explicit QConnectionInfoDataNodeWidget(QWidget *parent = 0);
     virtual QWidget *w();
+    QConnectionInfoWidget *connectionInfoWidget();
 
 private:
     QConnectionInfoWidget *_widget;

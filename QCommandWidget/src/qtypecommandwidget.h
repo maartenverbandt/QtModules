@@ -17,6 +17,9 @@ public:
     void addWidget(QWidget *widget);
     virtual void transmitTo(QDataNode *other);
 
+    virtual void saveState(QString group);
+    virtual void restoreState(QString group);
+
     virtual void transmit();
     void reset();
 

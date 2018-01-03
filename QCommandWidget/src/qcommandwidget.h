@@ -20,6 +20,9 @@ public:
     QTypeCommandWidget *currentInputWidget();
     void setCurrentInputWidget(int index);
 
+    void saveState(QString group);
+    void restoreState(QString group);
+
     void transmitTo(QDataNode *other);
 
 protected:
