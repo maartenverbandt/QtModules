@@ -22,6 +22,8 @@ public:
 
     QGamepadEntry *add(QString name);
     virtual void add(QGamepadEntry *entry);
+    void saveState(QString group);
+    void restoreState(QString group);
 
 private:
     Ui::QGamepadInputWidget *ui;

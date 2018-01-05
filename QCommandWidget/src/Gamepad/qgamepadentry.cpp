@@ -1,7 +1,10 @@
 #include "qgamepadentry.h"
+#include <QSettings>
 
 QGamepadEntry::QGamepadEntry(const QString &name, QWidget *parent) : QWidget(parent)
 {
+    setObjectName(name);
+
     _name->setText(name);
     _gain->setRange(0,1e6);
     _gain->setValue(1.0);
@@ -27,6 +30,28 @@ QPushButton *QGamepadEntry::confButton()
 double QGamepadEntry::value()
 {
     return _value;
+}
+
+void QGamepadEntry::saveState(QString group)
+{
+    QSettings settings;
+
+    settings.beginGroup(group + "/" + objectName());
+    settings.setValue("axis", _axis);
+    settings.setValue("gain", _gain->value());
+    settings.setValue("reverse", _reverse->isChecked());
+    settings.endGroup();
+}
+
+void QGamepadEntry::restoreState(QString group)
+{
+    QSettings settings;
+
+    settings.beginGroup(group + "/" + objectName());
+    if(settings.contains("axis")) { _axis = settings.value("axis").toInt(); }
+    if(settings.contains("gain")) { _gain->setValue(settings.value("gain").toDouble()); }
+    if(settings.contains("reverse")) {_reverse->setChecked(settings.value("reverse").toBool()); }
+    settings.endGroup();
 }
 
 void QGamepadEntry::compute(double value)

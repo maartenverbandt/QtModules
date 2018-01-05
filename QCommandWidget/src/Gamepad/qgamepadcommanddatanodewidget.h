@@ -15,6 +15,9 @@ public:
     virtual bool enabled();
     virtual void reset();
 
+    virtual void saveState(QString group);
+    virtual void restoreState(QString group);
+
     QGamepadEntry *add(QString name);
 
 private:

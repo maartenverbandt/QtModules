@@ -17,6 +17,9 @@ public:
     QPushButton *confButton();
     double value();
 
+    void saveState(QString group);
+    void restoreState(QString group);
+
 private:
     QLabel *_name = new QLabel("");
     QLabel *_axis_label = new QLabel("");

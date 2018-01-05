@@ -6,6 +6,7 @@
 class QTypeCommandInterface : public QDataNodeWidget
 {
     Q_OBJECT
+
 public:
     QTypeCommandInterface(QWidget *parent = 0) : QDataNodeWidget(parent){}
 

@@ -34,6 +34,22 @@ void QGamepadInputWidget::add(QGamepadEntry *entry)
     _entries.append(entry);
 }
 
+void QGamepadInputWidget::saveState(QString group)
+{
+    QListIterator<QGamepadEntry *> i(_entries);
+    while(i.hasNext()) {
+        i.next()->saveState(group + "/" + objectName());
+    }
+}
+
+void QGamepadInputWidget::restoreState(QString group)
+{
+    QListIterator<QGamepadEntry *> i(_entries);
+    while(i.hasNext()) {
+        i.next()->restoreState(group + "/" + objectName());
+    }
+}
+
 void QGamepadInputWidget::on_axis_changed(int axis, double value)
 {
     QListIterator<QGamepadEntry *> i(_entries);

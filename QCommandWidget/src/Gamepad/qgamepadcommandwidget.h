@@ -14,14 +14,24 @@ class QGamepadCommandWidget : public QTypeCommandWidget
 public:
     QGamepadCommandWidget(QString name, QWidget *parent = 0);
 
+    void setSettingsGroup(QString group);
+    void saveState(QString group);
+    void restoreState(QString group);
+
 private:
     QComboBox *_gamepads;
-    QList<QGamepadCommandDataNodeWidget *> _commands;
+    int _index_copy = -1;
+    QString _settings_group = "";
 
+    int deviceID(int index);
     int currentDeviceID();
+
+    void saveState(int device_id);
+    void restoreState(int device_id);
 
 public slots:
     void gamepadConnected(int deviceID);
+    void gamepadChanged();
     void axisEvent(int deviceID, QGamepadManager::GamepadAxis axis, double value);
     void buttonEvent(int deviceID, QGamepadManager::GamepadButton button, double value);
 

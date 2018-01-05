@@ -27,6 +27,16 @@ void QGamepadCommandDataNodeWidget::reset()
     //do nothing
 }
 
+void QGamepadCommandDataNodeWidget::saveState(QString group)
+{
+    _cmd_widget->saveState(group);
+}
+
+void QGamepadCommandDataNodeWidget::restoreState(QString group)
+{
+    _cmd_widget->restoreState(group);
+}
+
 QGamepadEntry *QGamepadCommandDataNodeWidget::add(QString name)
 {
     return _cmd_widget->add(name);
