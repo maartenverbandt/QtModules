@@ -4,7 +4,7 @@
 #include <qcommandwidget.h>
 #include <qgpiocsvcommand.h>
 #include <qtypeudpcommand.h>
-#include <qcommandgamepadwidget.h>
+#include <qgamepadcommandwidget.h>
 #include <qvelocitygamepadcommand.h>
 
 class QRobotCommandWidget : public QCommandWidget
@@ -16,7 +16,7 @@ public:
 protected:
     QTypeCommandWidget *_csv;
     QTypeCommandWidget *_udp;
-    QCommandGamepadWidget *_gamepad;
+    QGamepadCommandWidget *_gamepad;
 
 };
 

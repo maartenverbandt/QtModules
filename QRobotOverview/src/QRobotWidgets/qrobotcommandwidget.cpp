@@ -4,7 +4,7 @@ QRobotCommandWidget::QRobotCommandWidget(QWidget *parent) :
     QCommandWidget(parent),
     _csv(new QTypeCommandWidget("CSV",this)),
     _udp(new QTypeCommandWidget("UDP",this)),
-    _gamepad(new QCommandGamepadWidget("Gamepad",this))
+    _gamepad(new QGamepadCommandWidget("Gamepad",this))
 {
     add(_csv);
     add(_udp);
