@@ -45,7 +45,8 @@ HEADERS += \
     $$PWD/Gamepad/qgamepadentry.h \
     $$PWD/Gamepad/qgamepadinputwidget.h \
     $$PWD/Gamepad/qgamepadcommanddatanodewidget.h \
-    $$PWD/Gamepad/qgamepadcommandwidget.h
+    $$PWD/Gamepad/qgamepadcommandwidget.h \
+    $$PWD/Gamepad/qgpiogamepadcommand.h
 
 SOURCES += \
     $$PWD/CSV/qcsvcommanddatanodewidget.cpp \
@@ -55,7 +56,8 @@ SOURCES += \
     $$PWD/Gamepad/qgamepadentry.cpp \
     $$PWD/Gamepad/qgamepadinputwidget.cpp \
     $$PWD/Gamepad/qgamepadcommanddatanodewidget.cpp \
-    $$PWD/Gamepad/qgamepadcommandwidget.cpp
+    $$PWD/Gamepad/qgamepadcommandwidget.cpp \
+    $$PWD/Gamepad/qgpiogamepadcommand.cpp
 
 FORMS += \
     $$PWD/Gamepad/qgamepadinputwidget.ui
