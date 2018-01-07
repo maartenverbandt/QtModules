@@ -85,11 +85,6 @@ QGPIODataNodeWidget *QRobotWindow::gpio()
     return _gpio;
 }
 
-QCommandWidget *QRobotWindow::command(QWidget *parent)
-{
-    return new QRobotCommandWidget(parent);
-}
-
 QAbstractRobot *QRobotWindow::robot()
 {
     return _robot;

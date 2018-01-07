@@ -2,6 +2,7 @@
 #include <qattituderecorder.h>
 #include <qvelocityrecorder.h>
 #include <qpositionrecorder.h>
+#include <qvelocitygamepadcommand.h>
 
 QBalancingWindow::QBalancingWindow(QAbstractRobot *robot, QWidget *parent) :
     QRobotWindow(robot, parent),
@@ -14,6 +15,9 @@ QBalancingWindow::QBalancingWindow(QAbstractRobot *robot, QWidget *parent) :
     _recorder->add(new QAttitudeRecorder(this));
     _recorder->add(new QVelocityRecorder(this));
     _recorder->add(new QPositionRecorder(this));
+
+    QGamepadCommandWidget *g = _command_dock->datanode()->gamepad();
+    g->add(new QVelocityGamepadCommand(g));
 }
 
 QBalancingDataNodeWidget *QBalancingWindow::balance()

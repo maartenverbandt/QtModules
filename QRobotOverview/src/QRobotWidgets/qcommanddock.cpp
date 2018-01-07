@@ -3,13 +3,13 @@
 QCommandDock::QCommandDock(QRobotWindow *window) :
     QRobotWindowDock("commands", window)
 {
-    _command_widget = window->command(this);
+    _command_widget = new QRobotCommandWidget(0);
     setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     setWidget(_command_widget);
     window->addDockWidget(Qt::RightDockWidgetArea, this);
 }
 
-QCommandWidget *QCommandDock::datanode()
+QRobotCommandWidget *QCommandDock::datanode()
 {
     return _command_widget;
 }

@@ -4,6 +4,7 @@
 #include <qrobotwindow.h>
 #include <qbalancingdatanodewidget.h>
 #include <qexcitationdock.h>
+#include <qcommanddock.h>
 
 class QBalancingWindow : public QRobotWindow
 {
@@ -13,7 +14,6 @@ public:
     explicit QBalancingWindow(QAbstractRobot *robot, QWidget *parent = 0);
 
     QBalancingDataNodeWidget *balance();
-
     virtual void handleNewConnection(QSerialProtocol *connection);
 
 private:

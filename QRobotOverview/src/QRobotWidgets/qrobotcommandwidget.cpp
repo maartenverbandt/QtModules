@@ -11,4 +11,5 @@ QRobotCommandWidget::QRobotCommandWidget(QWidget *parent) :
     add(_gamepad);
     _csv->add(new QGpioCsvCommand(_csv));
     _udp->add(new QGpioUdpCommand(_udp));
+    _gamepad->add(new QGpioGamepadCommand(_gamepad));
 }

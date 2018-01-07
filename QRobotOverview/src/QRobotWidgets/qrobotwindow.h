@@ -24,7 +24,6 @@ public:
     explicit QRobotWindow(QAbstractRobot *robot, QWidget *parent = 0);
 
     QGPIODataNodeWidget *gpio();
-    virtual QCommandWidget *command(QWidget *parent = 0);
     QAbstractRobot *robot();
     QString group();
 
@@ -37,7 +36,6 @@ protected:
     QThreadingInfoDock *_threading_info_dock;
     QParameterDock *_parameter_dock;
     QCommandDock *_command_dock;
-
 
     QMenu *_tools_menu;
     QMenu *_connection_menu;
