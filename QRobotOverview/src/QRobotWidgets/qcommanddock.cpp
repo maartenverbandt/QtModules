@@ -14,12 +14,12 @@ QRobotCommandWidget *QCommandDock::datanode()
     return _command_widget;
 }
 
-void QCommandDock::on_show()
+void QCommandDock::showEvent(QShowEvent *)
 {
     _command_widget->restoreState(_window->group());
 }
 
-void QCommandDock::on_close()
+void QCommandDock::closeEvent(QCloseEvent *)
 {
     _command_widget->saveState(_window->group());
 }

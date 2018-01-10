@@ -7,9 +7,7 @@ QRobotWindowDock::QRobotWindowDock(const QString& text, QRobotWindow *window) :
     setObjectName(text);
     close();
     QObject::connect(_show, &QAction::triggered, this, &QRobotWindowDock::show);
-    QObject::connect(_show, &QAction::triggered, this, &QRobotWindowDock::on_show);
     QObject::connect(window, &QRobotWindow::closing, this, &QRobotWindowDock::close);
-    QObject::connect(window, &QRobotWindow::closing, this, &QRobotWindowDock::on_close);
 }
 
 QAction *QRobotWindowDock::showAction()

@@ -18,10 +18,6 @@ protected:
 private:
     QAction *_show;
 
-protected slots:
-    virtual void on_show(){}
-    virtual void on_close(){}
-
 };
 
 #endif // QROBOTWINDOWDOCK_H
