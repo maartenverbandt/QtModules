@@ -7,8 +7,10 @@ void QSerialProtocol::setTransmitterType(int type)
 
 void QSerialProtocol::timerEvent(QTimerEvent *)
 {
-    _io->write(_io_buffer.left(32));
-    _io_buffer.remove(0,32);
+    if(_io->isOpen()) {
+        _io->write(_io_buffer.left(32));
+        _io_buffer.remove(0,32);
+    }
 }
 
 QSerialProtocol::QSerialProtocol(QIODevice *io, QObject *parent) :

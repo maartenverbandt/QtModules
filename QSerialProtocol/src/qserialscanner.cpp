@@ -4,8 +4,8 @@ QSerialScanner::QSerialScanner(QObject *parent) :
     QObject(parent),
     _local_device_BT(new QBluetoothLocalDevice)
 {
-    this->setupBT();
     this->setupUSB();
+    this->setupBT();
 }
 
 void QSerialScanner::query()
