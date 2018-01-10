@@ -31,6 +31,7 @@ private:
     double _value = 0;
 
     void compute(double value);
+    void configureAxis(int axis);
     void configure(int axis, double value);
 
 signals:

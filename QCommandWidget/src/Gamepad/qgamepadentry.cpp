@@ -48,7 +48,7 @@ void QGamepadEntry::restoreState(QString group)
     QSettings settings;
 
     settings.beginGroup(group + "/" + objectName());
-    if(settings.contains("axis")) { _axis = settings.value("axis").toInt(); }
+    if(settings.contains("axis")) { configureAxis(settings.value("axis").toInt()); }
     if(settings.contains("gain")) { _gain->setValue(settings.value("gain").toDouble()); }
     if(settings.contains("reverse")) {_reverse->setChecked(settings.value("reverse").toBool()); }
     settings.endGroup();
@@ -62,11 +62,9 @@ void QGamepadEntry::compute(double value)
     }
 }
 
-void QGamepadEntry::configure(int axis, double value)
+void QGamepadEntry::configureAxis(int axis)
 {
     _axis = axis;
-    if(value < 0) { _reverse->setChecked(true); }
-    else { _reverse->setChecked(false); }
     switch(axis) {
         case QGamepadManager::AxisLeftX: { _axis_label->setText("LeftX"); break; }
         case QGamepadManager::AxisLeftY: { _axis_label->setText("LeftY"); break; }
@@ -74,6 +72,13 @@ void QGamepadEntry::configure(int axis, double value)
         case QGamepadManager::AxisRightY: { _axis_label->setText("RightY"); break; }
         default: _axis_label->setText("axis " + QString::number(axis));
     }
+}
+
+void QGamepadEntry::configure(int axis, double value)
+{
+    configureAxis(axis);
+    if(value < 0) { _reverse->setChecked(true); }
+    else { _reverse->setChecked(false); }
 }
 
 void QGamepadEntry::on_axis_changed(int axis, double value)
