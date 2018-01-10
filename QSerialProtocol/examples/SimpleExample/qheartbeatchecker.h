@@ -10,6 +10,7 @@ class QHeartbeatChecker : public QDataNodeWidget
 
 public:
     explicit QHeartbeatChecker(QDataNode* datanode, QWidget *parent = 0);
+    virtual QWidget *w();
 
 private:
     QLabel *_label;

@@ -6,8 +6,12 @@ QHeartbeatChecker::QHeartbeatChecker(QDataNode *datanode, QWidget *parent) :
     _label = new QLabel("DEAD", parent);
     _label->setMinimumSize(200,40);
     _label->setAlignment(Qt::AlignCenter);
-    _w = _label;
     connectTo(datanode);
+}
+
+QWidget *QHeartbeatChecker::w()
+{
+    return _label;
 }
 
 void QHeartbeatChecker::receive(heartbeat_t heartbeat)
