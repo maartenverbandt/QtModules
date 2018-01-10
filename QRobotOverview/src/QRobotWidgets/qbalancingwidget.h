@@ -7,6 +7,7 @@
 #include <QVector2D>
 #include <QVector3D>
 #include <QtMath>
+#include <QLabel>
 #include <qmapwidget.h>
 #include <qpolarplot.h>
 

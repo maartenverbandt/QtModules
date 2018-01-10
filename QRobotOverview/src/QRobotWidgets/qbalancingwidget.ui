@@ -35,7 +35,7 @@
          <string>idle</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="../../../../QRoboticsCenter/QRoboticsCenter/icons.qrc">
           <normaloff>:/icons/balancing_control_idle.png</normaloff>:/icons/balancing_control_idle.png</iconset>
         </property>
        </widget>
@@ -52,7 +52,7 @@
          <string>attitude</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="../../../../QRoboticsCenter/QRoboticsCenter/icons.qrc">
           <normaloff>:/icons/balancing_control_attitude.png</normaloff>:/icons/balancing_control_attitude.png</iconset>
         </property>
        </widget>
@@ -69,7 +69,7 @@
          <string>velocity</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="../../../../QRoboticsCenter/QRoboticsCenter/icons.qrc">
           <normaloff>:/icons/balancing_control_velocity.png</normaloff>:/icons/balancing_control_velocity.png</iconset>
         </property>
        </widget>
@@ -86,7 +86,7 @@
          <string>position</string>
         </property>
         <property name="icon">
-         <iconset resource="icons.qrc">
+         <iconset resource="../../../../QRoboticsCenter/QRoboticsCenter/icons.qrc">
           <normaloff>:/icons/balancing_control_position.png</normaloff>:/icons/balancing_control_position.png</iconset>
         </property>
        </widget>
@@ -104,7 +104,30 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPolarPlot" name="balance_widget" native="true"/>
+       <widget class="QPolarPlot" name="balance_widget" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="balance_label">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <widget class="QMapWidget" name="map_widget" native="true"/>
@@ -129,7 +152,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="icons.qrc"/>
+  <include location="../../../../QRoboticsCenter/QRoboticsCenter/icons.qrc"/>
  </resources>
  <connections/>
 </ui>

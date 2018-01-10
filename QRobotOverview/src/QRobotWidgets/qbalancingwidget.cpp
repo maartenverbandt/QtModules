@@ -73,6 +73,7 @@ void QBalancingWidget::updatePosition(QVector3D position)
 void QBalancingWidget::updateAttitude(QVector3D attitude)
 {
     ui->balance_widget->addPoint(QPointF(qRadiansToDegrees(attitude.x()),-qRadiansToDegrees(attitude.y())));
+    ui->balance_label->setText("roll: " + QString::number(attitude.x(),'g',2) + "\npitch: " + QString::number(attitude.y(),'g',2));
     ui->map_widget->getRobot()->setOrientation(attitude.z());
 }
 
