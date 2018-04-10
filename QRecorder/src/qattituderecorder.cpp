@@ -1,7 +1,7 @@
 #include "qattituderecorder.h"
 
 QAttitudeRecorder::QAttitudeRecorder(QObject *parent) :
-    QAbstractRecorder("Attitude",parent)
+    QAbstractRecorder("Attitude", LOG_ATTITUDE, parent)
 {
     //do nothing
 }
@@ -34,6 +34,12 @@ QString QAttitudeRecorder::insertHeader()
     insert += "\t\t<value>rollcont</value>\n";
     insert += "\t\t<value>pitchcont</value>\n";
     insert += "\t\t<value>yawcont</value>\n";
+//    insert += "\t\t<value>roll_error</value>\n";
+//    insert += "\t\t<value>pitch_error</value>\n";
+//    insert += "\t\t<value>yaw_error</value>\n";
+//    insert += "\t\t<value>rollcont_disturbance</value>\n";
+//    insert += "\t\t<value>pitchcont_disturbance</value>\n";
+//    insert += "\t\t<value>yawcont_disturbance</value>\n";
     insert += "\t</labels>";
 
     return insert;
@@ -56,6 +62,12 @@ void QAttitudeRecorder::receive(attitude_t attitude)
         line += "\t" + QString::number(attitude.roll_cont);
         line += "\t" + QString::number(attitude.pitch_cont);
         line += "\t" + QString::number(attitude.yaw_cont);
+//        line += "\t" + QString::number(attitude.roll_cmd - attitude.roll);
+//        line += "\t" + QString::number(attitude.pitch_cmd - attitude.pitch);
+//        line += "\t" + QString::number(attitude.yaw_cmd - attitude.yaw);
+//        line += "\t" + QString::number(attitude.roll_act - attitude.roll_cont);
+//        line += "\t" + QString::number(attitude.pitch_act - attitude.pitch_cont);
+//        line += "\t" + QString::number(attitude.yaw_act - attitude.yaw_cont);
         line += "</row>\n";
 
         _log->write(line.toLocal8Bit());

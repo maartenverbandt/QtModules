@@ -1,7 +1,7 @@
 #include "qgpiorecorder.h"
 
 QGPIORecorder::QGPIORecorder(QGPIOWidget *gpio, QObject *parent) :
-    QAbstractRecorder("GPIO", parent),
+    QAbstractRecorder("GPIO", LOG_GPIO, parent),
     _gpio(gpio)
 {
 

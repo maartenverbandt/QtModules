@@ -12,7 +12,7 @@ class QAbstractRecorder : public QDataNode
 {
     Q_OBJECT
 public:
-    explicit QAbstractRecorder(const QString& type, QObject *parent = 0);
+    explicit QAbstractRecorder(const QString& type, const int id = -1, QObject *parent = 0);
 
     bool isRecording();
     QAction *record();
@@ -24,6 +24,7 @@ protected:
 
 private:
     const QString _type;
+    const int _id;
     QAction *_record;
 
     void createHeader();

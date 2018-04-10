@@ -1,7 +1,7 @@
 #include "qabstractrecorder.h"
 
-QAbstractRecorder::QAbstractRecorder(const QString& type, QObject *parent) :
-    QDataNode(parent), _type(type), _record(new QAction(_type, parent))
+QAbstractRecorder::QAbstractRecorder(const QString& type, const int id, QObject *parent) :
+    QDataNode(parent), _type(type), _id(id), _record(new QAction(_type, parent))
 {
     _record->setCheckable(true);
     _record->setChecked(false);
@@ -28,10 +28,23 @@ void QAbstractRecorder::start()
 
     // create header
     createHeader();
+
+    // send logging events
+    event_t event;
+    event.type = _id;
+    transmit(event);
+    event.type = LOG_START;
+    transmit(event);
 }
 
 void QAbstractRecorder::stop()
 {
+    // send logging event
+    event_t event;
+    event.type = LOG_STOP;
+    transmit(event);
+
+    // close file
     createFooter();
     _log->close();
 }
@@ -84,8 +97,9 @@ QString QAbstractRecorder::insertHeader()
 
 void QAbstractRecorder::activate(bool active)
 {
-    if(active)
+    if(active) {
         start();
-    else
+    } else {
         stop();
+    }
 }

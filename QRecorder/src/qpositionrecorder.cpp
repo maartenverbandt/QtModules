@@ -1,7 +1,7 @@
 #include "qpositionrecorder.h"
 
 QPositionRecorder::QPositionRecorder(QObject *parent) :
-    QAbstractRecorder("Position",parent)
+    QAbstractRecorder("Position", LOG_POSITION, parent)
 {
     //do nothing
 }
