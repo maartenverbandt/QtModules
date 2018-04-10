@@ -8,6 +8,7 @@
 #include <qexcitationchannelwidget.h>
 #include <qmultisineexcitationwidget.h>
 #include <qsweptsineexcitationwidget.h>
+#include <qsteppedsineexcitationwidget.h>
 
 class QExcitationWidget : public QWidget
 {

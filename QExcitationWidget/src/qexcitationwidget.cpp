@@ -4,6 +4,7 @@ QExcitationWidget::QExcitationWidget(QWidget *parent) : QWidget(parent)
 {
     addExcitation("multisine", new QMultisineDataNodeWidget(_channels));
     addExcitation("sweptsine", new QSweptsineDataNodeWidget(_channels));
+    addExcitation("steppedsine", new QSteppedsineDataNodeWidget(_channels));
 
     QVBoxLayout *l = new QVBoxLayout(0);
     l->addWidget(_selection);

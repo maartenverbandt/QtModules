@@ -38,7 +38,7 @@ void QBalancingDataNodeWidget::receive(pose_t pose)
 
 void QBalancingDataNodeWidget::receive(attitude_t attitude)
 {
-    QVector3D v = QVector3D(attitude.roll, attitude.pitch, attitude.yaw)*0.001;
+    QVector3D v = QVector3D(attitude.roll, attitude.pitch, attitude.yaw)*0.0001;
     _w->updateAttitude(v);
 }
 

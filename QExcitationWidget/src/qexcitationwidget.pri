@@ -31,3 +31,9 @@ include(../../QSerialProtocol/src/qserialprotocol.pri)
 } else {
     message( "Skipping $$PWD: already included" )
 }
+
+HEADERS += \
+    $$PWD/qsteppedsineexcitationwidget.h
+
+SOURCES += \
+    $$PWD/qsteppedsineexcitationwidget.cpp
