@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QFormLayout>
 #include <QSpinBox>
+#include <QLabel>
 #include <qexcitationdatanodewidgetinterface.h>
 #include <qexcitationchannelwidget.h>
 
@@ -26,7 +27,11 @@ private:
     QDoubleSpinBox *_fstep_spinbox = new QDoubleSpinBox(this);
     QDoubleSpinBox *_periods_spinbox = new QDoubleSpinBox(this);
     QDoubleSpinBox *_amplitude_spinbox = new QDoubleSpinBox(this);
+    QLabel *_duration_label = new QLabel(this);
     QExcitationChannelWidget *_channels;
+
+private slots:
+    void updateDurationLabel();
 
 };
 
