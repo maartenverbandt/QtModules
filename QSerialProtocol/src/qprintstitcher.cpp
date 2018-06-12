@@ -8,12 +8,14 @@ QPrintStitcher::QPrintStitcher(QObject *parent) : QObject(parent)
 bool QPrintStitcher::stitch(QString part, int size)
 {
     _stream += part.left(size).remove('\n'); //append new string without line feeds
-    _lines.append(_stream.split('\r',QString::SkipEmptyParts)); //split the string at CRs
-    if(_stream[_stream.size()-1] != '\r') {
-        _stream = _lines.last();
-        _lines.removeLast();
-    } else {
-        _stream.clear();
+    if(!_stream.isEmpty()){
+        _lines.append(_stream.split('\r',QString::SkipEmptyParts)); //split the string at CRs
+        if(_stream[_stream.size()-1] != '\r') {
+            _stream = _lines.last();
+            _lines.removeLast();
+        } else {
+            _stream.clear();
+        }
     }
 
     return hasLine();
