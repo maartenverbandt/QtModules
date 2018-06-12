@@ -1,6 +1,6 @@
 #include "qrecorderwidget.h"
 
-QRecorderWidget::QRecorderWidget(QWidget *parent) : QLabel(parent)
+QRecorderWidget::QRecorderWidget(QWidget *parent) : QLabel(parent), _is_recording(false)
 {
     setNum(0);
     setFrameShadow(Sunken);
@@ -50,21 +50,29 @@ void QRecorderWidget::timerEvent(QTimerEvent *)
 
 void QRecorderWidget::activate(bool active)
 {
-    if(active)
+    int running_count = 0;
+    QListIterator<QAbstractRecorder*> i(_recorders);
+    while(i.hasNext()) {
+        running_count += (int)(i.next()->isRecording());
+    }
+
+    if(active && (running_count == 1)) {
         start();
-    else
+    } else if (!active && (running_count==0)) {
         stop();
+    }
+
 }
 
 void QRecorderWidget::start()
 {
     setStyleSheet("QLabel { background-color : red; color : black; border-radius : 4px; border-style: outset; border-width: 1px; border-color: gray;}");
-    timerid = startTimer(1000);
+    _timerid = startTimer(1000);
     setNum(0.0);
 }
 
 void QRecorderWidget::stop()
 {
     setStyleSheet("QLabel { background-color : Forestgreen; color : black;  border-radius : 4px; border-style: outset; border-width: 1px; border-color: gray;}");
-    killTimer(timerid);
+    killTimer(_timerid);
 }

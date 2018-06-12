@@ -21,7 +21,8 @@ public:
     QAction *quickRecord();
 
 private:
-    int timerid;
+    bool _is_recording;
+    int _timerid;
     void timerEvent(QTimerEvent *);
 
     QList<QAbstractRecorder*> _recorders;
@@ -29,7 +30,7 @@ private:
     QAction *_quick_record = new QAction(this);
 
 public slots:
-    void activate(bool);
+    void activate(bool active);
     void start();
     void stop();
 };
