@@ -31,6 +31,7 @@ protected:
 
 public:
     QSerialProtocol(QIODevice *io, QObject *parent = 0);
+    virtual ~QSerialProtocol();
 
     int packetCount();
     int packetDrops();

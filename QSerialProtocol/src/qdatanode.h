@@ -10,6 +10,7 @@ class QDataNode : public QObject
 
 public:
     QDataNode(QObject *parent = 0);
+    virtual ~QDataNode();
 
     virtual void transmitTo(QDataNode* other);
     virtual void receiveFrom(QDataNode* other);

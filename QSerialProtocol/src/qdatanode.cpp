@@ -5,6 +5,10 @@ QDataNode::QDataNode(QObject *parent) : QObject(parent)
 
 }
 
+QDataNode::~QDataNode(){
+    //do nothing here
+}
+
 void QDataNode::transmitTo(QDataNode *other)
 {
 

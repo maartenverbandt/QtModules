@@ -21,8 +21,12 @@ QSerialProtocol::QSerialProtocol(QIODevice *io, QObject *parent) :
     _activate->setCheckable(true);
     _activate->setChecked(true);
     QObject::connect(_activate, &QAction::toggled, this, &QSerialProtocol::on_activate_toggled);
-
     startTimer(10);
+}
+
+QSerialProtocol::~QSerialProtocol()
+{
+    _io->close();
 }
 
 void QSerialProtocol::decode()
